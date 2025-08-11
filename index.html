@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gilson Lacerda – Software Engineer & Web Developer</title>
+    <title>Gilson Lacerda – Web Developer & Web Designer</title>
     <meta name="description" content="Portfolio of Gilson Lacerda – Laravel/PHP, JavaScript (Vue, Alpine), Tailwind, SQL. Projects in event registration, payment integrations, and automation." />
     <meta property="og:title" content="Gilson Lacerda – Software Engineer & Web Developer" />
     <meta property="og:description" content="Laravel/PHP • JavaScript • Vue • Tailwind • SQL • Python automation" />
@@ -58,6 +58,22 @@
         @media (max-width:860px){.projects-grid > article{grid-column:1/-1}}
         .hidden{display:none !important}
 
+        .avatar{
+            width:300px;              /* same width & height */
+            height:300px;
+            border-radius:50%;
+            object-fit:cover;         /* fills without distortion */
+            display:block;            /* removes inline gap */
+        }
+
+        .avatar img{
+            position:relative; z-index:1;
+            width:100%; height:100%;
+            border-radius:50%;
+            object-fit:cover;
+            display:block;
+        }
+
         body {
             margin: 0;
             font-family: sans-serif;
@@ -74,7 +90,7 @@
             <a href="index.html"  aria-label="Go home"><img  src="Logo.svg" height="50"></a>
             <div>
                 <strong>Gilson Lacerda</strong><br>
-                <span class="muted">Software Engineer • Web Developer</span>
+                <span class="muted">Web Developer • Web Designer</span>
             </div>
         </div>
         <nav>
@@ -104,14 +120,8 @@
                 <a class="btn secondary" href="#contact">Contact</a>
             </div>
         </div>
-        <div class="card">
-            <strong>Currently</strong>
-            <ul class="list-compact">
-                <li>Laravel-based event registration platform with PayConex integration.</li>
-                <li>Internal forms system with dynamic pricing & email templates.</li>
-                <li>WordPress + Python automation for weekly content publishing.</li>
-            </ul>
-            <div style="margin-top:14px" class="muted">Open to remote web developer roles (US time zones).</div>
+        <div class="avatar">
+            <img src="GilsonLacerdapic.jpg" alt="Gilson Lacerda" />
         </div>
     </section>
 
