@@ -1,197 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gilson Lacerda – Software Engineer & Web Developer</title>
-  <meta name="description" content="Portfolio of Gilson Lacerda – Laravel/PHP, JavaScript (Vue, Alpine), Tailwind, SQL. Projects in event registration, payment integrations, and automation." />
-  <meta property="og:title" content="Gilson Lacerda – Software Engineer & Web Developer" />
-  <meta property="og:description" content="Laravel/PHP • JavaScript • Vue • Tailwind • SQL • Python automation" />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#0f172a" />
-  <style>
-    :root{
-      --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8; --chip:#1e293b; --border:#1f2937;
-    }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1050px;margin:0 auto;padding:24px}
-    header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#0ea5e9,#22d3ee);display:grid;place-items:center;color:#0b1220;font-weight:800}
-    nav a{margin-left:18px;font-weight:600;color:#cbd5e1}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin:40px 0}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border:1px solid var(--border);border-radius:16px;padding:22px}
-    h1{font-size:clamp(28px,3.2vw,44px);line-height:1.1;margin:0 0 10px}
-    .muted{color:var(--muted)}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-    .chip{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:14px;color:#cbd5e1}
-    .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:#0891b2;border:1px solid #0ea5e9;color:#03131a;padding:10px 14px;border-radius:10px;font-weight:700}
-    .btn.secondary{background:transparent;border-color:#334155;color:#cbd5e1}
-    section{margin:36px 0}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-    .col-4{grid-column:span 4}
-    .col-6{grid-column:span 6}
-    .col-12{grid-column:span 12}
-    @media (max-width: 860px){
-      .hero{grid-template-columns:1fr}
-      .col-4,.col-6,.col-12{grid-column:1/-1}
-    }
-    .project{display:flex;flex-direction:column;gap:10px}
-    .project h3{margin:4px 0 0}
-    .project small{color:#94a3b8}
-    ul{margin:8px 0 0 18px}
-    footer{margin:56px 0 22px;color:#64748b;text-align:center}
-    .kicker{letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc;font-weight:800;font-size:12px}
-    .list-compact li{margin:6px 0}
-    .two-col{columns:2;column-gap:28px}
-    @media (max-width: 760px){.two-col{columns:1}}
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gilson Lacerda – Software Engineer & Web Developer</title>
+    <meta name="description" content="Portfolio of Gilson Lacerda – Laravel/PHP, JavaScript (Vue, Alpine), Tailwind, SQL. Projects in event registration, payment integrations, and automation." />
+    <meta property="og:title" content="Gilson Lacerda – Software Engineer & Web Developer" />
+    <meta property="og:description" content="Laravel/PHP • JavaScript • Vue • Tailwind • SQL • Python automation" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f172a" />
+    <style>
+        :root{
+            --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8; --chip:#1e293b; --border:#1f2937;
+        }
+        html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
+        a{color:var(--accent);text-decoration:none}
+        a:hover{text-decoration:underline}
+        .wrap{max-width:1050px;margin:0 auto;padding:24px}
+        header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+        .brand{display:flex;align-items:center;gap:14px}
+        .avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#0ea5e9,#22d3ee);display:grid;place-items:center;color:#0b1220;font-weight:800}
+        nav a{margin-left:18px;font-weight:600;color:#cbd5e1}
+        .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin:40px 0}
+        .card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border:1px solid var(--border);border-radius:16px;padding:22px}
+        h1{font-size:clamp(28px,3.2vw,44px);line-height:1.1;margin:0 0 10px}
+        .muted{color:var(--muted)}
+        .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+        .chip{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:14px;color:#cbd5e1}
+        .cta{display:flex;gap:12px;margin-top:18px}
+        .btn{display:inline-flex;align-items:center;gap:8px;background:#0891b2;border:1px solid #0ea5e9;color:#03131a;padding:10px 14px;border-radius:10px;font-weight:700}
+        .btn.secondary{background:transparent;border-color:#334155;color:#cbd5e1}
+        section{margin:36px 0}
+        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+        .col-4{grid-column:span 4}
+        .col-6{grid-column:span 6}
+        .col-12{grid-column:span 12}
+        @media (max-width: 860px){
+            .hero{grid-template-columns:1fr}
+            .col-4,.col-6,.col-12{grid-column:1/-1}
+        }
+        .project{display:flex;flex-direction:column;gap:10px}
+        .project h3{margin:4px 0 0}
+        .project small{color:#94a3b8}
+        ul{margin:8px 0 0 18px}
+        footer{margin:56px 0 22px;color:#64748b;text-align:center}
+        .kicker{letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc;font-weight:800;font-size:12px}
+        .list-compact li{margin:6px 0}
+        .two-col{columns:2;column-gap:28px}
+        @media (max-width: 760px){.two-col{columns:1}}
+
+        /* Category filter bar */
+        .filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+        .filter-btn{background:var(--chip);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-weight:600;color:#cbd5e1;cursor:pointer}
+        .filter-btn[aria-pressed="true"]{outline:2px solid #22d3ee; color:#e2e8f0}
+        .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+        .projects-grid > article{grid-column:span 4}
+        @media (max-width:860px){.projects-grid > article{grid-column:1/-1}}
+        .hidden{display:none !important}
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e2e8f0;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
+<div class="wrap">
     <header>
-      <div class="brand">
-        <div class="avatar">GL</div>
-        <div>
-          <strong>Gilson Lacerda</strong><br>
-          <span class="muted">Software Engineer • Web Developer</span>
+        <div class="brand">
+            <a href="index.html"  aria-label="Go home"><img  src="Logo.svg" height="50"></a>
+            <div>
+                <strong>Gilson Lacerda</strong><br>
+                <span class="muted">Software Engineer • Web Developer</span>
+            </div>
         </div>
-      </div>
-      <nav>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <nav>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
     <section class="hero">
-      <div class="card">
-        <p class="kicker">Hello</p>
-        <h1>Building clean, pragmatic web apps—from Laravel backends to polished front‑ends.</h1>
-        <p class="muted">Bilingual (EN/PT). Recently completed B.S. in Software Engineering (WGU, 2025). I build event registration systems, payment integrations, and internal tools that make life easier for non‑technical teams.</p>
-        <div class="chips">
-          <span class="chip">Laravel / PHP</span>
-          <span class="chip">JavaScript</span>
-          <span class="chip">Vue & Alpine</span>
-          <span class="chip">Blade & Tailwind</span>
-          <span class="chip">MySQL / SQL Server</span>
-          <span class="chip">Python Automation</span>
-          <span class="chip">Git / GitLab / GitHub</span>
+        <div class="card">
+            <p class="kicker">Hi, I'm Gilson Lacerda</p>
+            <h1>I believe there is a divine element in creation; my focus is to reflect that in clear, useful design.</h1>
+            <p class="muted">Building clean, pragmatic web apps—from Laravel backends to polished front‑ends. Recently completed B.S. in Software Engineering (WGU, 2025). I build event registration systems, payment integrations, and internal tools that make life easier for non‑technical teams.</p>
+            <div class="chips">
+                <span class="chip">Laravel / PHP</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip">Vue & Alpine</span>
+                <span class="chip">Blade & Tailwind</span>
+                <span class="chip">MySQL / SQL Server</span>
+                <span class="chip">Python Automation</span>
+                <span class="chip">Git / GitLab / GitHub</span>
+            </div>
+            <div class="cta">
+                <a class="btn" href="#projects">View Projects</a>
+                <a class="btn secondary" href="#contact">Contact</a>
+            </div>
         </div>
-        <div class="cta">
-          <a class="btn" href="#projects">View Projects</a>
-          <a class="btn secondary" href="#contact">Contact</a>
+        <div class="card">
+            <strong>Currently</strong>
+            <ul class="list-compact">
+                <li>Laravel-based event registration platform with PayConex integration.</li>
+                <li>Internal forms system with dynamic pricing & email templates.</li>
+                <li>WordPress + Python automation for weekly content publishing.</li>
+            </ul>
+            <div style="margin-top:14px" class="muted">Open to remote web developer roles (US time zones).</div>
         </div>
-      </div>
-      <div class="card">
-        <strong>Currently</strong>
-        <ul class="list-compact">
-          <li>Laravel-based event registration platform with PayConex integration.</li>
-          <li>Internal forms system with dynamic pricing & email templates.</li>
-          <li>WordPress + Python automation for weekly content publishing.</li>
-        </ul>
-        <div style="margin-top:14px" class="muted">Open to remote web developer roles (US time zones).</div>
-      </div>
     </section>
 
     <section id="projects">
-      <p class="kicker">Selected Work</p>
-      <h2>Projects</h2>
-      <div class="grid">
-        <article class="card col-4 project">
-          <div>
-            <h3>Event Registration (KTF / CTA / WBS)</h3>
-            <small>Laravel • Blade • MySQL • PayConex (Bluefin)</small>
-          </div>
-          <p class="muted">Multi‑form registration with dynamic pricing, hosted payment redirect, and per‑form confirmation emails. Includes admin workflows and daily sync jobs.</p>
-          <ul>
-            <li>Config‑driven pricing + early‑bird windows.</li>
-            <li>Hosted Payment Page (HPP) integration.</li>
-            <li>Reusable Mailable + Blade templates.</li>
-          </ul>
-          <p><a href="#" aria-label="KTF project link">View repo</a> · <a href="#" aria-label="Demo link">Live demo</a></p>
-        </article>
+        <p class="kicker">Selected Work</p>
+        <h2>Projects</h2>
+        <p class="muted">Filter by category:</p>
+        <div class="filters" role="tablist" aria-label="Project categories">
+            <button class="filter-btn" data-filter="all" aria-pressed="true" role="tab">All</button>
+            <button class="filter-btn" data-filter="websites" role="tab">Websites</button>
+            <button class="filter-btn" data-filter="development" role="tab">Development</button>
+            <button class="filter-btn" data-filter="architecture" role="tab">Architecture Design</button>
+        </div>
 
-        <article class="card col-4 project">
-          <div>
-            <h3>Weekly Bulletin Auto‑Publisher</h3>
-            <small>Python • WordPress REST • SMB</small>
-          </div>
-          <p class="muted">Automation that fetches the latest bulletin from a network share and publishes to WordPress with error handling and retryable cron.</p>
-          <ul>
-            <li>Robust file validation + metadata.</li>
-            <li>Graceful failure + Slack/Email alerts.</li>
-          </ul>
-          <p><a href="#">View repo</a></p>
-        </article>
+        <div class="projects-grid">
+            <!-- WEBSITES -->
+            <article class="card project" data-cat="websites">
+                <div>
+                    <h3>Events Calendar UX</h3>
+                    <small>Websites • WordPress • a11y</small>
+                </div>
+                <p class="muted">Improved discoverability and scannability for church events using EventOn with custom theming and accessibility tweaks.</p>
+                <ul>
+                    <li>Clear filters, readable list/grid toggles.</li>
+                    <li>Keyboard and screen‑reader improvements.</li>
+                </ul>
+                <p><a href="#" aria-label="Calendar Live">Live</a> · <a href="#" aria-label="Calendar Case Study">Case study</a></p>
+            </article>
 
-        <article class="card col-4 project">
-          <div>
-            <h3>Vacation Planner (D308)</h3>
-            <small>Android (Java) • Room • SQLite</small>
-          </div>
-          <p class="muted">Academic app with vacations/excursions, alerts, sharing, and validation. Built to meet rubric criteria with clean architecture.</p>
-          <ul>
-            <li>Room DB, date validation, notifications.</li>
-            <li>Share intents + clean UI components.</li>
-          </ul>
-          <p><a href="#">View repo</a></p>
-        </article>
-      </div>
+            <!-- DEVELOPMENT -->
+            <article class="card project" data-cat="development">
+                <div>
+                    <h3>Event Registration (KTF / CTA / WBS)</h3>
+                    <small>Development • Laravel • PayConex</small>
+                </div>
+                <p class="muted">Multi‑form registration with dynamic pricing, hosted payment redirect, and per‑form confirmation emails. Includes admin workflows and daily sync jobs.</p>
+                <ul>
+                    <li>Config‑driven pricing + early‑bird windows.</li>
+                    <li>Hosted Payment Page (HPP) integration.</li>
+                    <li>Reusable Mailable + Blade templates.</li>
+                </ul>
+                <p><a href="#">View repo</a> · <a href="#">Live demo</a></p>
+            </article>
+
+            <article class="card project" data-cat="development">
+                <div>
+                    <h3>Weekly Bulletin Auto‑Publisher</h3>
+                    <small>Development • Python • WordPress REST</small>
+                </div>
+                <p class="muted">Automation that fetches the latest bulletin from a network share and publishes to WordPress with error handling and retryable cron.</p>
+                <ul>
+                    <li>Robust file validation + metadata.</li>
+                    <li>Graceful failure + Slack/Email alerts.</li>
+                </ul>
+                <p><a href="#">View repo</a></p>
+            </article>
+
+            <article class="card project" data-cat="development">
+                <div>
+                    <h3>Vacation Planner (D308)</h3>
+                    <small>Development • Android (Java)</small>
+                </div>
+                <p class="muted">Academic app with vacations/excursions, alerts, sharing, and validation. Built to meet rubric criteria with clean architecture.</p>
+                <ul>
+                    <li>Room DB, date validation, notifications.</li>
+                    <li>Share intents + clean UI components.</li>
+                </ul>
+                <p><a href="#">View repo</a></p>
+            </article>
+
+            <!-- ARCHITECTURE DESIGN -->
+            <article class="card project" data-cat="architecture">
+                <div>
+                    <h3>House Facade Concepts</h3>
+                    <small>Architecture • Concept • 3D</small>
+                </div>
+                <p class="muted">Explorations of Georgian‑inspired facades adapted for Oklahoma climate, with shade studies and material palettes.</p>
+                <ul>
+                    <li>Sun path + energy‑aware choices.</li>
+                    <li>Proportions, rhythm, and curb‑appeal iterations.</li>
+                </ul>
+                <p><a href="#">Gallery</a> · <a href="#">Process notes</a></p>
+            </article>
+
+            <article class="card project" data-cat="architecture">
+                <div>
+                    <h3>Pergola + Greenhouse</h3>
+                    <small>Architecture • DIY • Plans</small>
+                </div>
+                <p class="muted">Design/build notes for a backyard pergola and modular greenhouse using repurposed materials and standard lumber sizes.</p>
+                <ul>
+                    <li>Cut lists + BOM.</li>
+                    <li>Assembly sequence + safety.</li>
+                </ul>
+                <p><a href="#">Plans</a> · <a href="#">Photo set</a></p>
+            </article>
+        </div>
     </section>
 
     <section id="experience">
-      <p class="kicker">Experience</p>
-      <h2>Impact Highlights</h2>
-      <div class="grid">
-        <div class="card col-6">
-          <ul class="list-compact">
-            <li>Built and maintained Laravel forms used by thousands of registrants; reduced manual admin work with config‑driven pricing.</li>
-            <li>Integrated Bluefin PayConex HPP to keep payments PCI‑safe while preserving UX.</li>
-            <li>Standardized branded email templates across multiple forms for consistent comms.</li>
-            <li>Automated weekly WordPress publishing, cutting repetitive work by 90%+.</li>
-          </ul>
+        <p class="kicker">Experience</p>
+        <h2>Impact Highlights</h2>
+        <div class="grid">
+            <div class="card col-6">
+                <ul class="list-compact">
+                    <li>Built and maintained Laravel forms used by thousands of registrants; reduced manual admin work with config‑driven pricing.</li>
+                    <li>Integrated Bluefin PayConex HPP to keep payments PCI‑safe while preserving UX.</li>
+                    <li>Standardized branded email templates across multiple forms for consistent comms.</li>
+                    <li>Automated weekly WordPress publishing, cutting repetitive work by 90%+.</li>
+                </ul>
+            </div>
+            <div class="card col-6">
+                <ul class="list-compact">
+                    <li>Collaborated with non‑technical stakeholders; translated requirements into simple UIs.</li>
+                    <li>Shipped quickly with Git workflows (feature branches, PRs, environments).</li>
+                    <li>Bilingual comms (EN/PT) for international coordination.</li>
+                </ul>
+            </div>
         </div>
-        <div class="card col-6">
-          <ul class="list-compact">
-            <li>Collaborated with non‑technical stakeholders; translated requirements into simple UIs.</li>
-            <li>Shipped quickly with Git workflows (feature branches, PRs, environments).</li>
-            <li>Bilingual comms (EN/PT) for international coordination.</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
     <section id="skills">
-      <p class="kicker">Skills</p>
-      <h2>Tech Stack</h2>
-      <div class="card">
-        <div class="two-col muted">
-          <p><strong>Backend:</strong> PHP (Laravel), REST APIs, T‑SQL/MySQL, SQL Server</p>
-          <p><strong>Frontend:</strong> JavaScript, Vue.js, Alpine.js, Blade, Tailwind CSS</p>
-          <p><strong>Dev Tools:</strong> Git, GitHub, GitLab, VS Code, Valet/Herd</p>
-          <p><strong>Other:</strong> Python scripts, WordPress REST, Docker basics</p>
+        <p class="kicker">Skills</p>
+        <h2>Tech Stack</h2>
+        <div class="card">
+            <div class="two-col muted">
+                <p><strong>Backend:</strong> PHP (Laravel), REST APIs, T‑SQL/MySQL, SQL Server</p>
+                <p><strong>Frontend:</strong> JavaScript, Vue.js, Alpine.js, Blade, Tailwind CSS</p>
+                <p><strong>Dev Tools:</strong> Git, GitHub, GitLab, VS Code, Valet/Herd</p>
+                <p><strong>Other:</strong> Python scripts, WordPress REST, Docker basics</p>
+            </div>
         </div>
-      </div>
     </section>
 
     <section id="contact">
-      <p class="kicker">Contact</p>
-      <h2>Let’s connect</h2>
-      <div class="card">
-        <p class="muted">Email: <a href="mailto:you@example.com">you@example.com</a> · GitHub: <a href="https://github.com/yourhandle" target="_blank" rel="noreferrer">@yourhandle</a> · LinkedIn: <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noreferrer">/in/yourprofile</a></p>
-        <p class="muted">Download résumé (PDF): <a href="#">Resume.pdf</a></p>
-      </div>
+        <p class="kicker">Contact</p>
+        <h2>Let’s connect</h2>
+        <div class="card">
+            <p class="muted">Email: <a href="mailto:you@example.com">you@example.com</a> · GitHub: <a href="https://github.com/yourhandle" target="_blank" rel="noreferrer">@yourhandle</a> · LinkedIn: <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noreferrer">/in/yourprofile</a></p>
+            <p class="muted">Download résumé (PDF): <a href="#">Resume.pdf</a></p>
+        </div>
     </section>
 
     <footer>
-      © <span id="year"></span> Gilson Lacerda — Built with plain HTML/CSS. Hosted on GitHub Pages.
+        © <span id="year"></span> Gilson Lacerda — Built with plain HTML/CSS. Hosted on GitHub Pages.
     </footer>
-  </div>
-  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+</div>
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple category filtering
+    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+    const cards = Array.from(document.querySelectorAll('[data-cat]'));
+
+    function setActive(btn){
+        buttons.forEach(b=>b.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+    }
+
+    function applyFilter(cat){
+        cards.forEach(card=>{
+            const match = cat==='all' || card.dataset.cat===cat;
+            card.classList.toggle('hidden', !match);
+        });
+    }
+
+    buttons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            setActive(btn);
+            applyFilter(btn.dataset.filter);
+        })
+    });
+</script>
 </body>
 </html>

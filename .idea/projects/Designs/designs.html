@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects – Gilson Lacerda</title>
+    <meta name="description" content="Projects by Gilson Lacerda across Websites, Development, and Architecture Design." />
+    <meta property="og:title" content="Projects – Gilson Lacerda" />
+    <meta property="og:description" content="Laravel/PHP • JavaScript • Vue • Tailwind • SQL • Python automation • UX/UI" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f172a" />
+    <style>
+        :root{
+            --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8; --chip:#1e293b; --border:#1f2937;
+        }
+        html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
+        a{color:var(--accent);text-decoration:none}
+        a:hover{text-decoration:underline}
+        .wrap{max-width:1050px;margin:0 auto;padding:24px}
+        header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+        .brand{display:flex;align-items:center;gap:14px}
+        .avatar, .brand img{width:54px;height:54px;border-radius:50%;display:grid;place-items:center}
+        nav a{margin-left:18px;font-weight:600;color:#cbd5e1}
+        .hero{margin:40px 0}
+        .card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border:1px solid var(--border);border-radius:16px;padding:22px}
+        h1{font-size:clamp(28px,3.2vw,44px);line-height:1.1;margin:0 0 10px}
+        h2{margin:0 0 6px}
+        .muted{color:var(--muted)}
+        .kicker{letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc;font-weight:800;font-size:12px}
+        section{margin:36px 0}
+
+        /* Category filter bar */
+        .filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+        .filter-btn{background:var(--chip);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-weight:600;color:#cbd5e1;cursor:pointer}
+        .filter-btn[aria-pressed="true"]{outline:2px solid #22d3ee; color:#e2e8f0}
+
+        /* Horizontal scroll rows */
+        .scroll-wrap{position:relative}
+        .scroll-row{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+        .scroll-row::-webkit-scrollbar{height:10px}
+        .scroll-row::-webkit-scrollbar-track{background:#0b1322}
+        .scroll-row::-webkit-scrollbar-thumb{background:#1f2937;border-radius:10px}
+        .project{flex:0 0 320px;scroll-snap-align:start;display:flex;flex-direction:column;gap:10px}
+        .project h3{margin:4px 0 0}
+        .project small{color:#94a3b8}
+        .hidden{display:none !important}
+
+        /* Arrow buttons */
+        .scroll-btn{position:absolute;top:50%;transform:translateY(-50%);border:1px solid var(--border);background:rgba(15,23,42,.75);backdrop-filter:blur(4px);color:#e2e8f0;border-radius:12px;padding:10px;cursor:pointer}
+        .scroll-btn:hover{background:rgba(15,23,42,.95)}
+        .scroll-left{left:-6px}
+        .scroll-right{right:-6px}
+
+        /* Category summary cards */
+        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+        .col-4{grid-column:span 4}
+        @media (max-width:860px){.col-4{grid-column:1/-1}}
+        .category-card{display:flex;flex-direction:column;gap:8px}
+
+        footer{margin:56px 0 22px;color:#64748b;text-align:center}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <div class="brand">
+            <a href="index.html" aria-label="Go home"><img src="Logo.svg" alt="GL" /></a>
+            <div>
+                <strong>Gilson Lacerda</strong><br>
+                <span class="muted">Software Engineer • Web Developer</span>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Projects Hero -->
+    <section class="hero">
+        <div class="card">
+            <p class="kicker">Work</p>
+            <h1>Projects</h1>
+            <p class="muted">Browse my work by category. Use the filters to quickly switch between <strong>Websites</strong>, <strong>Development</strong>, and <strong>Architecture Design</strong>. Scroll horizontally to explore cards.</p>
+        </div>
+    </section>
+
+    <!-- Category overview -->
+    <section aria-label="Categories overview">
+        <div class="grid">
+            <article class="card col-4 category-card">
+                <h2><a href="#projects" onclick="selectCat('websites');return false;">Websites</a></h2>
+                <p class="muted">Public-facing sites, UX improvements, accessibility & performance.</p>
+            </article>
+            <article class="card col-4 category-card">
+                <h2><a href="#projects" onclick="selectCat('development');return false;">Software Engineering</a></h2>
+                <p class="muted">Applications, automations, and backend integrations.</p>
+            </article>
+            <article class="card col-4 category-card">
+                <h2><a href="#projects" onclick="selectCat('architecture');return false;">Design & Architecture</a></h2>
+                <p class="muted">UX case studies & built‑environment explorations.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section id="projects">
+        <p class="kicker">Selected Work</p>
+        <h2>All Projects</h2>
+        <p class="muted">Filter by category:</p>
+        <div class="filters" role="tablist" aria-label="Project categories">
+            <button class="filter-btn" data-filter="all" aria-pressed="true" role="tab">All</button>
+            <button class="filter-btn" data-filter="websites" role="tab">Websites</button>
+            <button class="filter-btn" data-filter="development" role="tab">Development</button>
+            <button class="filter-btn" data-filter="architecture" role="tab">Architecture Design</button>
+        </div>
+
+        <!-- Horizontal scroller with arrows -->
+        <div class="scroll-wrap">
+            <button class="scroll-btn scroll-left" aria-label="Scroll left" data-dir="-1">◄</button>
+            <div class="scroll-row" id="cardsRow">
+                <!-- WEBSITES -->
+                <article class="card project" data-cat="websites">
+                    <div>
+                        <h3>Events Calendar UX</h3>
+                        <small>Websites • WordPress • a11y</small>
+                    </div>
+                    <p class="muted">Improved discoverability and scannability for church events using EventOn with custom theming and accessibility tweaks.</p>
+                    <ul>
+                        <li>Clear filters, readable list/grid toggles.</li>
+                        <li>Keyboard and screen‑reader improvements.</li>
+                    </ul>
+                    <p><a href="#" aria-label="Calendar Live">Live</a> · <a href="#" aria-label="Calendar Case Study">Case study</a></p>
+                </article>
+
+                <!-- DEVELOPMENT -->
+                <article class="card project" data-cat="development">
+                    <div>
+                        <h3>Event Registration (KTF / CTA / WBS)</h3>
+                        <small>Development • Laravel • PayConex</small>
+                    </div>
+                    <p class="muted">Multi‑form registration with dynamic pricing, hosted payment redirect, and per‑form confirmation emails. Includes admin workflows and daily sync jobs.</p>
+                    <ul>
+                        <li>Config‑driven pricing + early‑bird windows.</li>
+                        <li>Hosted Payment Page (HPP) integration.</li>
+                        <li>Reusable Mailable + Blade templates.</li>
+                    </ul>
+                    <p><a href="#">View repo</a> · <a href="#">Live demo</a></p>
+                </article>
+
+                <article class="card project" data-cat="development">
+                    <div>
+                        <h3>Weekly Bulletin Auto‑Publisher</h3>
+                        <small>Development • Python • WordPress REST</small>
+                    </div>
+                    <p class="muted">Automation that fetches the latest bulletin from a network share and publishes to WordPress with error handling and retryable cron.</p>
+                    <ul>
+                        <li>Robust file validation + metadata.</li>
+                        <li>Graceful failure + Slack/Email alerts.</li>
+                    </ul>
+                    <p><a href="#">View repo</a></p>
+                </article>
+
+                <article class="card project" data-cat="development">
+                    <div>
+                        <h3>Vacation Planner (D308)</h3>
+                        <small>Development • Android (Java)</small>
+                    </div>
+                    <p class="muted">Academic app with vacations/excursions, alerts, sharing, and validation. Built to meet rubric criteria with clean architecture.</p>
+                    <ul>
+                        <li>Room DB, date validation, notifications.</li>
+                        <li>Share intents + clean UI components.</li>
+                    </ul>
+                    <p><a href="#">View repo</a></p>
+                </article>
+
+                <!-- ARCHITECTURE DESIGN -->
+                <article class="card project" data-cat="architecture">
+                    <div>
+                        <h3>House Facade Concepts</h3>
+                        <small>Architecture • Concept • 3D</small>
+                    </div>
+                    <p class="muted">Explorations of Georgian‑inspired facades adapted for Oklahoma climate, with shade studies and material palettes.</p>
+                    <ul>
+                        <li>Sun path + energy‑aware choices.</li>
+                        <li>Proportions, rhythm, and curb‑appeal iterations.</li>
+                    </ul>
+                    <p><a href="#">Gallery</a> · <a href="#">Process notes</a></p>
+                </article>
+
+                <article class="card project" data-cat="architecture">
+                    <div>
+                        <h3>Pergola + Greenhouse</h3>
+                        <small>Architecture • DIY • Plans</small>
+                    </div>
+                    <p class="muted">Design/build notes for a backyard pergola and modular greenhouse using repurposed materials and standard lumber sizes.</p>
+                    <ul>
+                        <li>Cut lists + BOM.</li>
+                        <li>Assembly sequence + safety.</li>
+                    </ul>
+                    <p><a href="#">Plans</a> · <a href="#">Photo set</a></p>
+                </article>
+            </div>
+            <button class="scroll-btn scroll-right" aria-label="Scroll right" data-dir="1">►</button>
+        </div>
+    </section>
+
+    <footer>
+        © <span id="year"></span> Gilson Lacerda — Projects.
+    </footer>
+</div>
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Filtering (works with horizontal row)
+    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+    const cards = Array.from(document.querySelectorAll('[data-cat]'));
+    const row = document.getElementById('cardsRow');
+
+    function setActive(btn){
+        buttons.forEach(b=>b.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+    }
+    function applyFilter(cat){
+        cards.forEach(card=>{
+            const match = cat==='all' || card.dataset.cat===cat;
+            card.classList.toggle('hidden', !match);
+        });
+        // After filtering, nudge scroll to first visible card
+        const firstVisible = Array.from(row.children).find(el=>!el.classList.contains('hidden'));
+        if(firstVisible){ firstVisible.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'}); }
+    }
+    function selectCat(cat){
+        const btn = buttons.find(b=>b.dataset.filter===cat) || buttons[0];
+        setActive(btn); applyFilter(cat);
+    }
+    buttons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{ setActive(btn); applyFilter(btn.dataset.filter); })
+    });
+
+    // Arrow scrolling
+    document.querySelectorAll('.scroll-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            const dir = parseInt(btn.dataset.dir,10);
+            const delta = Math.max(row.clientWidth * 0.9, 300) * dir;
+            row.scrollBy({left: delta, behavior: 'smooth'});
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 275.34 208.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        opacity: .47;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="145.37" y1="136.04" x2="167.15" y2="157.82" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d4af37"/>
+      <stop offset=".43" stop-color="#d3b137"/>
+      <stop offset="1" stop-color="#c9c837"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="74.11" y1="87.03" x2="201.96" y2="214.88" xlink:href="#linear-gradient"/>
+  </defs>
+  <g class="cls-3">
+    <polygon class="cls-2" points="172.2 152.77 169.29 147.72 167.11 143.96 163.86 138.32 156.26 125.16 148.66 138.32 145.41 143.96 140.32 152.77 158.89 152.77 172.2 152.77"/>
+    <path class="cls-1" d="M176.19,138.24l13.72,23.76,13.72,23.76h27.44l-13.72-23.76-13.72-23.76-13.72-23.76-9.8-16.97-3.92-6.79-5.88-10.18-13.72-23.76-13.72,23.76-5.88,10.18-7.84,13.58-5.88,10.18-22.11,38.29h27.44l14.27-24.71,7.84-13.58,5.88-10.18,5.88,10.18,13.72,23.76ZM146.19,56.76l4.56-7.89-12.35-26.13-5.93,10.26-13.72,23.76-19.6,33.95-3.92,6.79-9.8,16.97-13.72,23.76-13.72,23.76-13.72,23.76h148.96l-13.72-23.76h-94.08l13.72-23.76,13.72-23.76,13.72-23.76,5.88-10.18,13.72-23.76Z"/>
+  </g>
+</svg>
