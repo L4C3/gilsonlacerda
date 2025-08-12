@@ -43,16 +43,36 @@
         footer{margin:56px 0 22px;color:#64748b;text-align:center}
         .back a{color:#94a3b8}
 
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            background: url('bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #e2e8f0;
+        /* Aurora: dark navy with diagonal sweep + bottom "floor" shadow */
+        .bg-aurora{
+            background:
+                /* optional vignette for extra depth (comment out if you don't want) */
+                /* radial-gradient(120vmax 90vmax at 50% 55%, transparent 55%, rgba(0,0,0,.35) 100%), */
+
+                /* 1) Bottom floor shadow */
+                    linear-gradient(to top,
+                    rgba(0,0,0,.60) 0%,
+                    rgba(0,0,0,.28) 14%,
+                    rgba(0,0,0,0) 34%),
+
+                        /* 2) Main diagonal dark sweep */
+                    linear-gradient(140deg,
+                    rgba(0,0,0,0) 30%,
+                    rgba(0,0,0,.55) 50%,
+                    rgba(0,0,0,0) 70%),
+
+                        /* 3) Brand tints along diagonals (subtle) */
+                    linear-gradient(135deg, rgba(14,165,233,.12), transparent 60%),
+                    linear-gradient(315deg, rgba(34,211,238,.10), transparent 65%),
+
+                        /* 4) Base */
+                    var(--bg);
+            background-attachment: fixed;
         }
     </style>
 </head>
-<body>
+
+<body class="bg-aurora">
 <div class="wrap">
     <header>
         <div class="brand">
