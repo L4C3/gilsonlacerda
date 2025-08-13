@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MYM – Website Redesign – Gilson Lacerda</title>
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body class="bg-aurora">
+<div class="wrap">
+    <header>
+        <div class="brand">
+            <a href="/" aria-label="Go home"><img src="/assets/img/logo.svg" height="50" alt="GL logo"></a>
+            <div>
+                <strong>Gilson Lacerda</strong><br>
+                <span class="muted">Web Developer • Web Designer</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <nav id="site-nav">
+            <a href="/projects.html">Projects</a>
+            <a href="/#experience">Experience</a>
+            <a href="/#skills">Skills</a>
+            <a href="/#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO / TITLE -->
+    <section class="hero-proj">
+        <p class="kicker">Case Study</p>
+        <h1>MYM – Website Redesign</h1>
+        <div class="meta">
+            <span class="pill">2025</span>
+            <span class="pill">Role: Lead UX / UI</span>
+            <span class="pill">Branding</span>
+            <span class="pill">Web Design</span>
+        </div>
+        <div class="chips">
+            <span class="chip">Websites</span>
+            <span class="chip">UX</span>
+            <span class="chip">Branding</span>
+        </div>
+        <div class="cover" style="margin-top:10px">
+            <img src="assets/img/projects/mym-site/live-site.png" alt="MYM Website redesign">
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="grid">
+        <article class="card col-7">
+            <h2>Overview</h2>
+            <p class="muted">
+                Marvin Yoder Ministries needed a refreshed brand identity and website that better served their audience—Christians in the Word of Faith circle—many of whom are older and less familiar with technology. I led the UX research, branding, and UI design, ensuring the site was accessible, visually aligned with the new brand, and easy to navigate.
+            </p>
+
+            <h3>Problem → Solution → Impact</h3>
+            <ul class="muted">
+                <li><strong>Problem:</strong> The old website lacked brand cohesion, clear navigation, and accessibility for older users.</li>
+                <li><strong>Solution:</strong> A complete brand refresh with new color palette, typography, and logo, paired with a layer-cake pattern layout to simplify scanning and navigation.</li>
+                <li><strong>Impact:</strong> Improved communication with followers, streamlined donation process, and a site that visually reflects the ministry’s mission and identity.</li>
+            </ul>
+
+            <h3>Pain points (from user research)</h3>
+            <ul class="muted">
+                <li>Audience needs quick, easy access to the author’s materials.</li>
+                <li>Predominantly elderly users less comfortable with technology.</li>
+                <li>Website colors made navigation difficult for some users.</li>
+                <li>Feedback called for clearer, more intuitive navigation.</li>
+            </ul>
+
+            <h3>Highlights</h3>
+            <ul class="muted">
+                <li>Layer-cake pattern layout for scannability.</li>
+                <li>Brand color palette in deep blue and gold for clarity and recognition.</li>
+                <li>Logo redesign to modernize and strengthen brand presence.</li>
+                <li>Improved content hierarchy and better calls to action.</li>
+                <li>Donation flow simplified for a non-profit audience.</li>
+            </ul>
+
+            <p class="muted">
+                Visit: <a href="https://marvinyoder.org" target="_blank" rel="noreferrer">marvinyoder.org</a>
+            </p>
+        </article>
+
+        <aside class="card col-5">
+            <h2>My role</h2>
+            <ul class="muted">
+                <li>Lead UX Designer & Researcher</li>
+                <li>Brand identity development</li>
+                <li>Wireframing & prototyping</li>
+                <li>UI design & usability testing</li>
+            </ul>
+
+            <h2 style="margin-top:12px">Audience</h2>
+            <p class="muted">Christians in the Word of Faith community, many of whom are elderly and less tech-savvy.</p>
+
+            <h2 style="margin-top:12px">Goals</h2>
+            <p class="muted">Create a brand-aligned, easy-to-use website that gives followers access to materials, itinerary, and resources while improving donations and communication.</p>
+
+            <h2 style="margin-top:12px">Constraints & notes</h2>
+            <p class="muted">Coordinating with a traveling client limited real-time feedback; branding and usability adjustments were guided heavily by remote feedback and user testing.</p>
+        </aside>
+    </section>
+
+    <!-- BEFORE / AFTER CALLOUT -->
+    <section class="card">
+        <h2>Iteration after Usability Study 1</h2>
+        <p class="muted">
+            Usability testing revealed issues with navigation clarity and contrast. The updated design uses more defined brand colors, improved hierarchy, and simplified pathways to content and donations.
+        </p>
+        <div class="grid">
+            <figure class="col-6">
+                <img style="max-width:200px; height:auto;" src="assets/img/projects/mym-site/old-logo.png" alt="Before redesign mockup">
+                <figcaption class="muted">Before: neutral colors, lower contrast, unclear structure</figcaption>
+            </figure>
+            <figure class="col-6">
+                <img style="max-width:275px; height:auto;" src="assets/img/projects/mym-site/new-logo.png" alt="After redesign mockup">
+                <figcaption class="muted">After: brand colors, structured layout, improved clarity</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- PROJECT GALLERY (Carousel) -->
+    <section class="proj-gallery" aria-roledescription="carousel">
+        <h2 class="sr-only">Screen gallery</h2>
+        <div class="carousel">
+            <button class="car-btn car-prev" aria-label="Previous image">‹</button>
+
+            <div id="proj-car" class="car-viewport" aria-live="polite">
+                <figure class="slide">
+                    <a class="thumb" href="assets/img/projects/mym-site/user-research.png">
+                        <img src="assets/img/projects/mym-site/user-research.png" alt="User research pain points slide" loading="lazy">
+                    </a>
+                </figure>
+                <figure class="slide">
+                    <a class="thumb" href="/assets/img/projects/mym-site/wireframe.png">
+                        <img src="/assets/img/projects/mym-site/wireframe.png" alt="Paper wireframe with layer-cake pattern" loading="lazy">
+                    </a>
+                </figure>
+                <figure class="slide">
+                    <a class="thumb" href="assets/img/projects/mym-site/mockups.png">
+                        <img src="/assets/img/projects/mym-site/mockups.png" alt="Before usability study mockup" loading="lazy">
+                    </a>
+                </figure>
+                <figure class="slide">
+                    <a class="thumb" href="assets/img/projects/mym-site/key-mockups.png">
+                        <img src="assets/img/projects/mym-site/key-mockups.png" alt="Final key mockups" loading="lazy">
+                    </a>
+                </figure>
+                <figure class="slide">
+                    <a class="thumb" href="assets/img/projects/mym-site/branding.png">
+                        <img src="assets/img/projects/mym-site/branding.png" alt="Branding" loading="lazy">
+                    </a>
+                </figure>
+            </div>
+
+            <button class="car-btn car-next" aria-label="Next image">›</button>
+        </div>
+
+        <div id="proj-dots" class="car-dots" role="tablist" aria-label="Gallery slides"></div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section class="card">
+        <h2>What I learned</h2>
+        <p class="muted">
+            Brand identity and accessibility go hand-in-hand—color choices, contrast, and layout patterns directly impact usability, especially for older audiences. Iteration based on real feedback made the navigation clearer and the site more engaging for its community.
+        </p>
+    </section>
+
+    <!-- PAGER -->
+    <section class="pager">
+        <a class="btn secondary" href="/projects/mym-app/">‹ Previous</a>
+        <a class="btn" href="/projects.html">Back to Projects</a>
+        <a class="btn secondary" href="/projects/events-calendar-ux/">Next ›</a>
+    </section>
+
+    <footer>© <span id="year"></span> Gilson Lacerda</footer>
+</div>
+
+<!-- Single Lightbox (keep exactly one on the page) -->
+<div id="lightbox" class="lb" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" aria-label="Close (Esc)">×</button>
+    <button class="lb-prev" aria-label="Previous image">‹</button>
+    <img id="lb-img" alt="">
+    <button class="lb-next" aria-label="Next image">›</button>
+</div>
+
+<script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    (function(){
+        const header = document.querySelector('header');
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('site-nav');
+        if(!header || !btn || !nav) return;
+        function toggle(open){
+            header.classList.toggle('nav-open', open);
+            btn.setAttribute('aria-expanded', String(open));
+            btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+        btn.addEventListener('click', ()=>{
+            const isOpen = header.classList.contains('nav-open');
+            toggle(!isOpen);
+        });
+        document.addEventListener('click', (e)=>{
+            if(!header.classList.contains('nav-open')) return;
+            if(header.contains(e.target)) return;
+            toggle(false);
+        });
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') toggle(false); });
+    })();
+
+    // Spotlight
+    window.addEventListener('pointermove', e=>{
+        const x=(e.clientX/window.innerWidth)*100, y=(e.clientY/window.innerHeight)*100;
+        document.documentElement.style.setProperty('--mx', x+'%');
+        document.documentElement.style.setProperty('--my', y+'%');
+    }, {passive:true});
+
+    // ===== Carousel (project gallery) =====
+    const car = document.getElementById('proj-car');
+    const prevBtn = document.querySelector('.proj-gallery .car-prev');
+    const nextBtn = document.querySelector('.proj-gallery .car-next');
+    const dotsWrap = document.getElementById('proj-dots');
+
+    const slides = () => [...car.querySelectorAll('.slide')];
+
+    function stepSize(){
+        const first = slides()[0];
+        if(!first) return 0;
+        const rect = first.getBoundingClientRect();
+        const styles = getComputedStyle(car);
+        const gap = parseFloat((styles.gap && styles.gap !== 'normal') ? styles.gap : (styles.columnGap || '16px'));
+        return rect.width + gap;
+    }
+
+    function buildDots(){
+        dotsWrap.innerHTML = '';
+        slides().forEach((_,i)=>{
+            const d = document.createElement('button');
+            d.className = 'car-dot';
+            d.type = 'button';
+            d.setAttribute('role','tab');
+            d.setAttribute('aria-label', `Go to slide ${i+1}`);
+            d.addEventListener('click', ()=> goto(i));
+            dotsWrap.appendChild(d);
+        });
+    }
+    buildDots();
+
+    let activeIndex = 0;
+    function updateUI(){
+        const dots = [...dotsWrap.children];
+        dots.forEach((d,i)=> d.setAttribute('aria-current', i===activeIndex ? 'true' : 'false'));
+        prevBtn.disabled = (activeIndex === 0);
+        nextBtn.disabled = (activeIndex === slides().length - 1);
+    }
+    function goto(i){
+        const max = Math.max(0, slides().length - 1);
+        activeIndex = Math.min(Math.max(i, 0), max);
+        car.scrollTo({ left: activeIndex * stepSize(), behavior:'smooth' });
+        updateUI();
+    }
+    prevBtn.addEventListener('click', ()=> car.scrollBy({ left: -stepSize(), behavior:'smooth' }));
+    nextBtn.addEventListener('click', ()=> car.scrollBy({ left: +stepSize(), behavior:'smooth' }));
+    let ticking = false;
+    car.addEventListener('scroll', ()=>{
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(()=>{
+            const idx = Math.round(car.scrollLeft / stepSize());
+            if (idx !== activeIndex){ activeIndex = idx; updateUI(); }
+            ticking = false;
+        });
+    });
+    car.setAttribute('tabindex','0');
+    car.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight') nextBtn.click();
+        if(e.key === 'ArrowLeft')  prevBtn.click();
+    });
+    updateUI();
+
+    // ===== Lightbox (works with carousel thumbs) =====
+    (function(){
+        const lb      = document.getElementById('lightbox');
+        const lbImg   = document.getElementById('lb-img');
+        const btnPrev = lb.querySelector('.lb-prev');
+        const btnNext = lb.querySelector('.lb-next');
+        const btnClose= lb.querySelector('.lb-close');
+
+        const anchors = [...document.querySelectorAll('#proj-car .thumb')];
+        const sources = anchors.map(a => a.getAttribute('href'));
+        let idx = 0;
+
+        function openAt(i){
+            if (!sources.length) return;
+            idx = Math.min(Math.max(i,0), sources.length-1);
+            lbImg.src = sources[idx];
+            lb.setAttribute('aria-hidden','false');
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLB(){
+            lb.classList.remove('open');
+            lb.setAttribute('aria-hidden','true');
+            lbImg.src = '';
+            document.body.style.overflow = '';
+        }
+        function prev(){ if (idx>0) openAt(idx-1); }
+        function next(){ if (idx<sources.length-1) openAt(idx+1); }
+
+        anchors.forEach((a, i)=>{
+            a.addEventListener('click', (e)=>{
+                e.preventDefault();
+                openAt(i);
+            });
+            a.style.cursor = 'zoom-in';
+        });
+
+        btnClose.addEventListener('click', closeLB);
+        btnPrev.addEventListener('click', prev);
+        btnNext.addEventListener('click', next);
+
+        lb.addEventListener('click', (e)=>{
+            const inside = e.target === lbImg || e.target.closest('.lb-close,.lb-prev,.lb-next');
+            if (!inside) closeLB();
+        });
+
+        document.addEventListener('keydown', (e)=>{
+            if (!lb.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLB();
+            if (e.key === 'ArrowLeft')  prev();
+            if (e.key === 'ArrowRight') next();
+        });
+    })();
+</script>
+</body>
+</html>
