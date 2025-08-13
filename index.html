@@ -9,164 +9,32 @@
     <meta property="og:description" content="Laravel/PHP • JavaScript • Vue • Tailwind • SQL • Python automation" />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f172a" />
-    <style>
-        :root{
-            --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8; --chip:#1e293b; --border:#1f2937;
-            --mx:50%; --my:50%;            /* spotlight position (updated by JS) */
-        }
-
-        /* keep as requested */
-        html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;}
-
-        a{color:var(--accent);text-decoration:none}
-        a:hover{text-decoration:underline}
-        .wrap{max-width:1050px;margin:0 auto;padding:24px}
-        header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
-        .brand{display:flex;align-items:center;gap:14px}
-        nav a{position:relative;margin-left:18px;font-weight:600;color:#cbd5e1}
-        /* modern underline */
-        nav a::after{
-            content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
-            background:linear-gradient(90deg,var(--accent),transparent);
-            transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
-        }
-        nav a:hover::after, nav a:focus-visible::after{ transform:scaleX(1); }
-
-        /* grid so your template columns work, plus alignment fix */
-        .hero{
-            display:grid; align-items:center;
-            grid-template-columns:1.2fr .8fr; gap:28px; margin:40px 0;
-        }
-
-        .card{
-            background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-            border:1px solid var(--border); border-radius:16px; padding:22px;
-            transition:border-color .25s, transform .25s, box-shadow .25s;
-        }
-        .card:hover{
-            border-color:#334155; transform:translateY(-2px);
-            box-shadow:0 10px 28px rgba(2,132,199,.14);
-        }
-
-        h1{font-size:clamp(28px,3.2vw,44px);line-height:1.1;margin:0 0 10px}
-        .muted{color:var(--muted)}
-        .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-        .chip{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:14px;color:#cbd5e1}
-        .cta{display:flex;gap:12px;margin-top:18px}
-
-        .btn{
-            position:relative; overflow:hidden;
-            display:inline-flex;align-items:center;gap:8px;
-            background:#0891b2;border:1px solid #0ea5e9;color:#03131a;
-            padding:10px 14px;border-radius:10px;font-weight:700;
-            transition:transform .2s ease;
-        }
-        .btn:hover{ transform:translateY(-1px); }
-        /* shine sweep */
-        .btn::after{
-            content:""; position:absolute; inset:0; transform:translateX(-120%) skewX(-20deg);
-            background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.25) 35%, rgba(255,255,255,0) 60%);
-            transition:transform .6s ease;
-        }
-        .btn:hover::after{ transform:translateX(120%) skewX(-20deg); }
-        .btn.secondary{background:transparent;border-color:#334155;color:#cbd5e1}
-
-        section{margin:36px 0}
-        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-        .col-4{grid-column:span 4}
-        .col-6{grid-column:span 6}
-        .col-12{grid-column:span 12}
-        @media (max-width: 860px){
-            .hero{grid-template-columns:1fr}
-            .col-4,.col-6,.col-12{grid-column:1/-1}
-        }
-        .project{display:flex;flex-direction:column;gap:10px}
-        .project h3{margin:4px 0 0}
-        .project small{color:#94a3b8}
-        ul{margin:8px 0 0 18px}
-        footer{margin:56px 0 22px;color:#64748b;text-align:center}
-        .kicker{letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc;font-weight:800;font-size:12px}
-        .list-compact li{margin:6px 0}
-        .two-col{columns:2;column-gap:28px}
-        @media (max-width: 760px){.two-col{columns:1}}
-        .filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
-        .filter-btn{background:var(--chip);border:1px solid var(--border);padding:8px 12px;border-radius:999px;font-weight:600;color:#cbd5e1;cursor:pointer}
-        .filter-btn[aria-pressed="true"]{outline:2px solid #22d3ee; color:#e2e8f0}
-        .projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-        .projects-grid > article{grid-column:span 4}
-        @media (max-width:860px){.projects-grid > article{grid-column:1/-1}}
-        .hidden{display:none !important}
-
-        /* Avatar + animated gold ring */
-        .avatar{
-            position:relative; width:300px; height:300px; flex-shrink:0; margin-left:2rem;
-            border-radius:50%; display:block;
-        }
-        .avatar::before{
-            content:""; position:absolute; inset:-8px; border-radius:50%;
-            background:conic-gradient(#d4af37, #f7e7a1, #d4af37);
-            filter:saturate(105%);
-            animation:ring-spin 24s linear infinite;
-            z-index:0;
-        }
-        .avatar::after{
-            content:""; position:absolute; inset:-18px; border-radius:50%;
-            background:radial-gradient(closest-side, rgba(212,175,55,.22), transparent 70%);
-            filter:blur(6px); z-index:0;
-        }
-        @keyframes ring-spin{to{transform:rotate(360deg)}}
-        .avatar img{
-            position:relative; z-index:1; width:100%; height:100%;
-            object-fit:cover; border-radius:50%; display:block;
-            box-shadow:0 8px 24px rgba(0,0,0,.35);
-            transition:transform .15s ease;
-        }
-
-        /* Background: diagonal sweep + floor shadow + interactive spotlight */
-        .bg-aurora{
-            background:
-                    linear-gradient(to top, rgba(0,0,0,.60) 0%, rgba(0,0,0,.28) 14%, rgba(0,0,0,0) 34%),
-                    linear-gradient(140deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.55) 50%, rgba(0,0,0,0) 70%),
-                    linear-gradient(135deg, rgba(14,165,233,.12), transparent 60%),
-                    linear-gradient(315deg, rgba(34,211,238,.10), transparent 65%),
-                    var(--bg);
-            background-attachment: fixed;
-        }
-        /* spotlight layer (follows cursor via --mx/--my) */
-        body.bg-aurora::after{
-            content:""; position:fixed; inset:-12vmax; pointer-events:none;
-            background:radial-gradient(40vmax 28vmax at var(--mx) var(--my), rgba(56,189,248,.11), transparent 60%);
-            mix-blend-mode:screen; opacity:.6;
-            transition:opacity .25s ease;
-        }
-
-        /* Scroll reveal */
-        .reveal{opacity:0; transform:translateY(12px); transition:opacity .6s cubic-bezier(.2,.65,.3,1), transform .6s cubic-bezier(.2,.65,.3,1);}
-        .reveal.visible{opacity:1; transform:none;}
-
-        /* Respect reduced motion */
-        @media (prefers-reduced-motion: reduce){
-            .btn::after, .avatar::before{animation:none}
-            .reveal{opacity:1; transform:none}
-            body.bg-aurora::after{display:none}
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body class="bg-aurora">
 <div class="wrap">
     <header>
         <div class="brand">
-            <a href="index.html"  aria-label="Go home"><img  src="Logo.svg" height="50" alt="GL logo"></a>
+            <a href="index.html" aria-label="Go home"><img src="Logo.svg" height="50" alt="GL logo"></a>
             <div>
                 <strong>Gilson Lacerda</strong><br>
                 <span class="muted">Web Developer • Web Designer</span>
             </div>
         </div>
-        <nav>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
+
+        <!-- NEW: mobile toggle button -->
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+            <!-- simple hamburger icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <nav id="site-nav">
+            <a href="projects.html">Projects</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="index.html#contact">Contact</a>
         </nav>
     </header>
 
@@ -176,106 +44,30 @@
             <h1 style="font-size:x-large">I believe there’s a divine element in creation, and I aim to reflect that in designs that are clear, purposeful, and easy to use.</h1>
             <p class="muted">I build clean, pragmatic web apps — from solid Laravel backends to polished, user-friendly interfaces. My work blends functionality with visual appeal, making tools that work beautifully for the people who use them.</p>
             <div class="cta">
-                <a class="btn" href="#projects">View Projects</a>
+                <a class="btn" href="projects.html">View Projects</a>
                 <a class="btn secondary" href="#contact">Contact</a>
             </div>
         </div>
         <div class="avatar reveal">
-            <img src="GilsonLacerdapic.jpg" alt="Gilson Lacerda" />
+            <img src="assets/GilsonLacerdapic.jpg" alt="Gilson Lacerda" />
         </div>
     </section>
 
-    <section id="projects">
-        <p class="kicker">Selected Work</p>
-        <h2>Projects</h2>
-        <p class="muted">Filter by category:</p>
-        <div class="filters" role="tablist" aria-label="Project categories">
-            <button class="filter-btn" data-filter="all" aria-pressed="true" role="tab">All</button>
-            <button class="filter-btn" data-filter="websites" role="tab">Websites</button>
-            <button class="filter-btn" data-filter="development" role="tab">Development</button>
-            <button class="filter-btn" data-filter="architecture" role="tab">Architecture Design</button>
+    <!-- FEATURED PROJECTS (carousel) -->
+    <section id="projects" aria-roledescription="carousel">
+        <div class="featured-head">
+            <div>
+                <p class="kicker">Featured</p>
+                <h2>Projects</h2>
+            </div>
         </div>
 
-        <div class="projects-grid">
-            <article class="card project reveal" data-cat="websites">
-                <div>
-                    <h3>Events Calendar UX</h3>
-                    <small>Websites • WordPress • a11y</small>
-                </div>
-                <p class="muted">Improved discoverability and scannability for church events using EventOn with custom theming and accessibility tweaks.</p>
-                <ul>
-                    <li>Clear filters, readable list/grid toggles.</li>
-                    <li>Keyboard and screen-reader improvements.</li>
-                </ul>
-                <p><a href="#" aria-label="Calendar Live">Live</a> · <a href="#" aria-label="Calendar Case Study">Case study</a></p>
-            </article>
-
-            <article class="card project reveal" data-cat="development">
-                <div>
-                    <h3>Event Registration (KTF / CTA / WBS)</h3>
-                    <small>Development • Laravel • PayConex</small>
-                </div>
-                <p class="muted">Multi-form registration with dynamic pricing, hosted payment redirect, and per-form confirmation emails. Includes admin workflows and daily sync jobs.</p>
-                <ul>
-                    <li>Config-driven pricing + early-bird windows.</li>
-                    <li>Hosted Payment Page (HPP) integration.</li>
-                    <li>Reusable Mailable + Blade templates.</li>
-                </ul>
-                <p><a href="#">View repo</a> · <a href="#">Live demo</a></p>
-            </article>
-
-            <article class="card project reveal" data-cat="development">
-                <div>
-                    <h3>Weekly Bulletin Auto-Publisher</h3>
-                    <small>Development • Python • WordPress REST</small>
-                </div>
-                <p class="muted">Automation that fetches the latest bulletin from a network share and publishes to WordPress with error handling and retryable cron.</p>
-                <ul>
-                    <li>Robust file validation + metadata.</li>
-                    <li>Graceful failure + Slack/Email alerts.</li>
-                </ul>
-                <p><a href="#">View repo</a></p>
-            </article>
-
-            <article class="card project reveal" data-cat="development">
-                <div>
-                    <h3>Vacation Planner (D308)</h3>
-                    <small>Development • Android (Java)</small>
-                </div>
-                <p class="muted">Academic app with vacations/excursions, alerts, sharing, and validation. Built to meet rubric criteria with clean architecture.</p>
-                <ul>
-                    <li>Room DB, date validation, notifications.</li>
-                    <li>Share intents + clean UI components.</li>
-                </ul>
-                <p><a href="#">View repo</a></p>
-            </article>
-
-            <article class="card project reveal" data-cat="architecture">
-                <div>
-                    <h3>House Facade Concepts</h3>
-                    <small>Architecture • Concept • 3D</small>
-                </div>
-                <p class="muted">Explorations of Georgian-inspired facades adapted for Oklahoma climate, with shade studies and material palettes.</p>
-                <ul>
-                    <li>Sun path + energy-aware choices.</li>
-                    <li>Proportions, rhythm, and curb-appeal iterations.</li>
-                </ul>
-                <p><a href="#">Gallery</a> · <a href="#">Process notes</a></p>
-            </article>
-
-            <article class="card project reveal" data-cat="architecture">
-                <div>
-                    <h3>Pergola + Greenhouse</h3>
-                    <small>Architecture • DIY • Plans</small>
-                </div>
-                <p class="muted">Design/build notes for a backyard pergola and modular greenhouse using repurposed materials and standard lumber sizes.</p>
-                <ul>
-                    <li>Cut lists + BOM.</li>
-                    <li>Assembly sequence + safety.</li>
-                </ul>
-                <p><a href="#">Plans</a> · <a href="#">Photo set</a></p>
-            </article>
+        <div class="carousel">
+            <button class="car-btn car-prev" aria-label="Previous slide" title="Previous">‹</button>
+            <div id="car" class="car-viewport" aria-live="polite"></div>
+            <button class="car-btn car-next" aria-label="Next slide" title="Next">›</button>
         </div>
+        <div id="dots" class="car-dots" role="tablist" aria-label="Featured project slides"></div>
     </section>
 
     <section id="experience">
@@ -315,7 +107,7 @@
         </div>
 
         <div class="card reveal" style="margin-top:1rem">
-            <p class="muted"><strong>Certifications:</strong> AWS Certified Cloud Practitioner; ITIL v4 Foundation</p>
+            <p class="muted"><strong>Certifications:</strong> AWS Certified Cloud Practitioner; ITIL v4 Foundation; Google UX Design Specialization; Google IT Support Specialization;</p>
             <p class="muted"><strong>Languages:</strong> English (fluent), Portuguese (native), Spanish (conversational)</p>
         </div>
     </section>
@@ -325,26 +117,47 @@
         <h2>Let’s connect</h2>
         <div class="card reveal">
             <p class="muted">Email: <a href="mailto:lacerda4e@gmail.com">lacerda4e@gmail.com</a> · GitHub: <a href="https://github.com/L4C3" target="_blank" rel="noreferrer">@L4C3</a> · LinkedIn: <a href="https://www.linkedin.com/in/gilson-lacerda-63563621a/" target="_blank" rel="noreferrer">Gilson Lacerda</a></p>
-            <p class="muted">Download résumé (PDF): <a href="Gilson_Lacerda_Resume.pdf">Resume.pdf</a></p>
+            <p class="muted">Download résumé (PDF): <a href="assets/Gilson_Lacerda_Resume.pdf">Resume.pdf</a></p>
         </div>
     </section>
 
-    <footer>
-        © <span id="year"></span> Gilson Lacerda — Built with plain HTML/CSS. Hosted on GitHub Pages.
-    </footer>
+    <footer>© <span id="year"></span> Gilson Lacerda.</footer>
 </div>
 
 <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Simple category filtering
-    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
-    const cards = Array.from(document.querySelectorAll('[data-cat]'));
-    function setActive(btn){ buttons.forEach(b=>b.setAttribute('aria-pressed','false')); btn.setAttribute('aria-pressed','true'); }
-    function applyFilter(cat){ cards.forEach(card=>{ const match = cat==='all' || card.dataset.cat===cat; card.classList.toggle('hidden', !match); }); }
-    buttons.forEach(btn=> btn.addEventListener('click', ()=>{ setActive(btn); applyFilter(btn.dataset.filter); }));
+    (function(){
+        const header = document.querySelector('header');
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('site-nav');
+        if(!header || !btn || !nav) return;
 
-    // 1) Spotlight follows cursor (updates --mx/--my)
+        function toggle(open){
+            header.classList.toggle('nav-open', open);
+            btn.setAttribute('aria-expanded', String(open));
+            btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+
+        btn.addEventListener('click', ()=>{
+            const isOpen = header.classList.contains('nav-open');
+            toggle(!isOpen);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e)=>{
+            if(!header.classList.contains('nav-open')) return;
+            if(header.contains(e.target)) return;
+            toggle(false);
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e)=>{
+            if(e.key === 'Escape') toggle(false);
+        });
+    })();
+
+    // Spotlight follows cursor
     window.addEventListener('pointermove', e=>{
         const x = (e.clientX / window.innerWidth)*100;
         const y = (e.clientY / window.innerHeight)*100;
@@ -352,7 +165,7 @@
         document.documentElement.style.setProperty('--my', y + '%');
     }, {passive:true});
 
-    // 2) Scroll reveal
+    // Scroll reveal
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
@@ -364,7 +177,7 @@
     }, {threshold: 0.15});
     revealEls.forEach(el=> io.observe(el));
 
-    // 3) Tiny 3D tilt on avatar
+    // Tiny 3D tilt on avatar
     const avatar = document.querySelector('.avatar img');
     if(avatar){
         const wrap = document.querySelector('.avatar');
@@ -376,6 +189,124 @@
         });
         wrap.addEventListener('pointerleave', ()=>{ avatar.style.transform = 'none'; });
     }
+
+        // --- data (inline FEATURED) ---
+        window.FEATURED = [
+        {
+            id:"events-calendar-ux",
+            title:"Events Calendar UX",
+            subtitle:"Website • WordPress • a11y",
+            tags:["websites","wordpress","a11y"],
+            thumb:"img/featured-calendar.jpg",
+            excerpt:"Improved discoverability and scannability for church events.",
+            links:{ live:"#", case:"#"}
+        },
+        {
+            id:"event-registration",
+            title:"Event Registration (KTF / CTA / WBS)",
+            subtitle:"App • Laravel • PayConex",
+            tags:["apps","laravel","payments"],
+            thumb:"img/featured-registration.jpg",
+            excerpt:"Dynamic pricing, HPP redirect, confirmations, admin workflows.",
+            links:{ repo:"#", case:"#"}
+        },
+        {
+            id:"bulletin-bot",
+            title:"Weekly Bulletin Auto-Publisher",
+            subtitle:"Automation • Python • WP REST",
+            tags:["apps","python","automation"],
+            thumb:"img/featured-bulletin.jpg",
+            excerpt:"Publishes latest bulletin with validation + retryable cron.",
+            links:{ repo:"#"}
+        }
+        ];
+
+        // --- render cards into the viewport ---
+        const car = document.getElementById('car');
+        const dotsWrap = document.getElementById('dots');
+
+        function slideCard(p){
+        const wrap = document.createElement('article');
+        wrap.className = 'slide';
+        wrap.innerHTML = `
+      <div class="card">
+        <a class="thumb" href="${p.links?.case || p.links?.live || '#'}" aria-label="${p.title}">
+          ${p.thumb ? `<img src="${p.thumb}" alt="${p.title}" loading="lazy">` : ''}
+        </a>
+        <h3>${p.title}</h3>
+        <small>${p.subtitle||''}</small>
+        <p class="muted">${p.excerpt||''}</p>
+        <p class="links">
+          ${p.links?.live ? `<a href="${p.links.live}" target="_blank" rel="noreferrer">Live</a>` : ''}
+          ${p.links?.case ? `${p.links?.live ? '· ' : ''}<a href="${p.links.case}">Case study</a>` : ''}
+          ${p.links?.repo ? `${(p.links?.live||p.links?.case)?' · ':''}<a href="${p.links.repo}" target="_blank" rel="noreferrer">Repo</a>` : ''}
+        </p>
+      </div>`;
+        return wrap;
+    }
+        window.FEATURED.forEach(p => car.appendChild(slideCard(p)));
+
+        const prevBtn = document.querySelector('.car-prev');
+        const nextBtn = document.querySelector('.car-next');
+
+        const slides = () => [...car.querySelectorAll('.slide')];
+
+        function buildDots(){
+        dotsWrap.innerHTML = '';
+        slides().forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'car-dot';
+        d.type = 'button';
+        d.setAttribute('role','tab');
+        d.setAttribute('aria-label', `Go to slide ${i+1}`);
+        d.addEventListener('click', () => goto(i));
+        dotsWrap.appendChild(d);
+    });
+    }
+        buildDots();
+
+        function stepSize(){
+        const first = car.querySelector('.slide');
+        if(!first) return car.clientWidth; // fallback
+        const rect = first.getBoundingClientRect();
+        const styles = getComputedStyle(car);
+        const gap = parseFloat(styles.columnGap || styles.gap || '16');
+        return rect.width + gap;
+    }
+
+        let activeIndex = 0;
+
+        function updateUI(){
+        const dots = [...dotsWrap.children];
+        dots.forEach((d,i)=> d.setAttribute('aria-current', i===activeIndex ? 'true' : 'false'));
+        prevBtn.disabled = (activeIndex === 0);
+        nextBtn.disabled = (activeIndex === slides().length - 1);
+    }
+
+        function goto(i){
+        const max = Math.max(0, slides().length - 1);
+        activeIndex = Math.min(Math.max(i, 0), max);
+        car.scrollTo({ left: activeIndex * stepSize(), behavior: 'smooth' });
+        updateUI();
+    }
+
+        prevBtn.addEventListener('click', () => goto(activeIndex - 1));
+        nextBtn.addEventListener('click', () => goto(activeIndex + 1));
+
+        // Keep UI in sync on manual scroll
+        let raf;
+        car.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+        const idx = Math.round(car.scrollLeft / stepSize());
+        if (idx !== activeIndex){ activeIndex = idx; updateUI(); }
+    });
+    });
+
+        // init
+        updateUI();
+
+
 </script>
 </body>
 </html>

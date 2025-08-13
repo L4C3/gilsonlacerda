@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><!-- Project Title --> – Gilson Lacerda</title>
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="bg-aurora">
+<div class="wrap">
+    <header>
+        <div class="brand">
+            <a href="../../index.html" aria-label="Go home"><img src="../../Logo.svg" height="50" alt="GL logo"></a>
+            <div><strong>Gilson Lacerda</strong><br><span class="muted">Web Developer • Web Designer</span></div>
+        </div>
+        <nav>
+            <a href="../../projects.html">Projects</a>
+            <a href="../../index.html#experience">Experience</a>
+            <a href="../../index.html#skills">Skills</a>
+            <a href="../../index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO / TITLE -->
+    <section class="hero-proj">
+        <p class="kicker">Case Study</p>
+        <h1><!-- Project Title -->Template</h1>
+        <div class="meta">
+            <span class="pill">2025</span>
+            <span class="pill">Role: Full-stack</span>
+            <span class="pill">L</span>
+            <span class="pill">Payments</span>
+            <span class="pill">MySQL</span>
+        </div>
+        <div class="chips">
+            <span class="chip">Apps</span>
+            <span class="chip">Laravel</span>
+            <span class="chip">PayConex</span>
+        </div>
+        <div class="cover" style="margin-top:10px">
+            <img src="../../assets/img/projects/event-registration/cover.jpg" alt="Event registration admin and checkout screens">
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="grid">
+        <article class="card col-7">
+            <h2>Overview</h2>
+            <p class="muted">
+                Multi-form registration with dynamic pricing, hosted payments (HPP), per-form confirmations, and admin workflows.
+                Built to reduce manual steps and keep PCI scope minimal while preserving UX.
+            </p>
+            <h3>Problem → Solution → Impact</h3>
+            <ul class="muted">
+                <li><strong>Problem:</strong> Fragmented registration flows and time-consuming payment handling.</li>
+                <li><strong>Solution:</strong> Config-driven pricing windows, HPP integration, and standardized mail templates.</li>
+                <li><strong>Impact:</strong> Fewer support emails, faster setup for new events, happier admins.</li>
+            </ul>
+            <p class="muted"><strong>Live:</strong> <a href="#" target="_blank" rel="noreferrer">#</a> ·
+                <strong>Repo:</strong> <a href="#" target="_blank" rel="noreferrer">#</a></p>
+        </article>
+
+        <aside class="card col-5">
+            <h2>My role</h2>
+            <ul class="muted">
+                <li>Requirements & UX flows</li>
+                <li>Laravel backend & Blade templates</li>
+                <li>PayConex integration & testing</li>
+                <li>Deployment & documentation</li>
+            </ul>
+            <h2 style="margin-top:12px">Stack</h2>
+            <p class="muted">Laravel, PHP, Blade, Tailwind, MySQL, Bluefin PayConex HPP, GitLab</p>
+        </aside>
+    </section>
+
+    <!-- GALLERY -->
+    <section style="margin-top:22px">
+        <div class="gallery">
+            <figure class="shot g-6">
+                <img src="../../assets/img/projects/event-registration/screen-1.jpg" alt="Public registration form">
+            </figure>
+            <figure class="shot g-6">
+                <img src="../../assets/img/projects/event-registration/screen-2.jpg" alt="Admin registrant list">
+            </figure>
+            <figure class="shot g-12">
+                <img src="../../assets/img/projects/event-registration/screen-3.jpg" alt="Email template preview">
+            </figure>
+        </div>
+    </section>
+
+    <!-- NAV -->
+    <section class="pager">
+        <a class="btn secondary" href="../events-calendar-ux/">‹ Previous</a>
+        <a class="btn" href="../../projects.html">Back to Projects</a>
+        <a class="btn secondary" href="../bulletin-bot/">Next ›</a>
+    </section>
+
+    <footer>© <span id="year"></span> Gilson Lacerda</footer>
+</div>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    (function(){
+        const header = document.querySelector('header');
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('site-nav');
+        if(!header || !btn || !nav) return;
+
+        function toggle(open){
+            header.classList.toggle('nav-open', open);
+            btn.setAttribute('aria-expanded', String(open));
+            btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+
+        btn.addEventListener('click', ()=>{
+            const isOpen = header.classList.contains('nav-open');
+            toggle(!isOpen);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e)=>{
+            if(!header.classList.contains('nav-open')) return;
+            if(header.contains(e.target)) return;
+            toggle(false);
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e)=>{
+            if(e.key === 'Escape') toggle(false);
+        });
+    })();
+
+    // Spotlight (same vibe as home)
+    window.addEventListener('pointermove', e=>{
+        const x=(e.clientX/window.innerWidth)*100, y=(e.clientY/window.innerHeight)*100;
+        document.documentElement.style.setProperty('--mx', x+'%');
+        document.documentElement.style.setProperty('--my', y+'%');
+    }, {passive:true});
+</script>
+</body>
+</html>

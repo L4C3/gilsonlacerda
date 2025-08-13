@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects – Gilson Lacerda</title>
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="bg-aurora">
+<div class="wrap">
+    <header>
+        <div class="brand">
+            <a href="index.html" aria-label="Go home"><img src="https://github.com/L4C3/gilsonlacerda/blob/18a52a70bc0625d6c80c9108c3f302fdd530abd2/assets/Logo.svg" height="50" alt="GL logo"></a>
+            <div>
+                <strong>Gilson Lacerda</strong><br>
+                <span class="muted">Web Developer • Web Designer</span>
+            </div>
+        </div>
+
+        <!-- NEW: mobile toggle button -->
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+            <!-- simple hamburger icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <nav id="site-nav">
+            <a href="projects.html">Projects</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section>
+        <p class="kicker">Selected Work</p>
+        <h1>Projects</h1>
+        <p class="muted">Filter by category:</p>
+        <div id="filters" class="filters" role="tablist" aria-label="Project categories"></div>
+        <div id="grid" class="projects-grid" aria-live="polite"></div>
+    </section>
+
+    <footer>© <span id="year"></span> Gilson Lacerda </footer>
+</div>
+
+<!-- DATA FIRST: normal JS block, not JSON -->
+<script>
+    window.PROJECTS = [
+        {
+            id: "events-calendar-ux",
+            title: "Events Calendar UX",
+            subtitle: "Website • WordPress • a11y",
+            year: 2024,
+            tags: ["websites","wordpress","a11y"],
+            thumb: "img/featured-calendar.jpg",
+            excerpt: "Improved discoverability and scannability for church events with custom theming and accessibility tweaks.",
+            links: { live: "#", case: "#" }
+        },
+        {
+            id: "event-registration",
+            title: "Event Registration (KTF / CTA / WBS)",
+            subtitle: "App • Laravel • PayConex",
+            year: 2024,
+            tags: ["apps","laravel","payments"],
+            thumb: "img/featured-registration.jpg",
+            excerpt: "Dynamic pricing, hosted payment redirect, per-form confirmations, admin workflows and daily sync jobs.",
+            links: { repo: "#", case: "#" }
+        },
+        {
+            id: "bulletin-bot",
+            title: "Weekly Bulletin Auto-Publisher",
+            subtitle: "Automation • Python • WP REST",
+            year: 2023,
+            tags: ["apps","python","automation"],
+            thumb: "img/featured-bulletin.jpg",
+            excerpt: "Fetches the latest bulletin and publishes to WordPress with validation and retryable cron.",
+            links: { repo: "#" }
+        },
+        {
+            id: "vacation-planner",
+            title: "Vacation Planner (D308)",
+            subtitle: "App • Android (Java)",
+            year: 2022,
+            tags: ["apps","android","java"],
+            thumb: "img/featured-vacation.jpg",
+            excerpt: "Room DB, date validation, notifications, share intents, and clean UI components.",
+            links: { repo: "#" }
+        },
+        {
+            id: "facade-concepts",
+            title: "House Facade Concepts",
+            subtitle: "Architecture • Concept • 3D",
+            year: 2021,
+            tags: ["architecture","design"],
+            thumb: "img/arch-facade.jpg",
+            excerpt: "Georgian-inspired facades adapted for Oklahoma climate, with shade studies and material palettes.",
+            links: { case: "#" }
+        },
+        {
+            id: "pergola-greenhouse",
+            title: "Pergola + Greenhouse",
+            subtitle: "Architecture • DIY • Plans",
+            year: 2021,
+            tags: ["architecture","diy"],
+            thumb: "img/arch-pergola.jpg",
+            excerpt: "Design/build notes for a backyard pergola and modular greenhouse using standard lumber sizes.",
+            links: { case: "#" }
+        }
+    ];
+</script>
+
+<!-- PAGE LOGIC AFTER data -->
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function(){
+        const header = document.querySelector('header');
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('site-nav');
+        if(!header || !btn || !nav) return;
+
+        function toggle(open){
+            header.classList.toggle('nav-open', open);
+            btn.setAttribute('aria-expanded', String(open));
+            btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+
+        btn.addEventListener('click', ()=>{
+            const isOpen = header.classList.contains('nav-open');
+            toggle(!isOpen);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e)=>{
+            if(!header.classList.contains('nav-open')) return;
+            if(header.contains(e.target)) return;
+            toggle(false);
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e)=>{
+            if(e.key === 'Escape') toggle(false);
+        });
+    })();
+
+    // Spotlight like index
+    window.addEventListener('pointermove', e=>{
+        const x=(e.clientX/window.innerWidth)*100, y=(e.clientY/window.innerHeight)*100;
+        document.documentElement.style.setProperty('--mx', x+'%');
+        document.documentElement.style.setProperty('--my', y+'%');
+    }, {passive:true});
+
+    const el = (tag, attrs={}, ...children)=>{
+        const n=document.createElement(tag);
+        Object.entries(attrs).forEach(([k,v])=>{
+            if(k==='class') n.className=v; else if(k==='html') n.innerHTML=v; else n.setAttribute(k,v);
+        });
+        children.filter(Boolean).forEach(c=> n.append(c));
+        return n;
+    };
+
+    const grid = document.getElementById('grid');
+    const filtersEl = document.getElementById('filters');
+    const PROJECTS = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
+
+    // Build tag list
+    const allTags = Array.from(new Set(PROJECTS.flatMap(p => (p.tags||[]).map(t=>t.toLowerCase())))).sort();
+
+    // URL prefilter
+    const params = new URLSearchParams(location.search);
+    let currentTag = (params.get('tag') || 'all').toLowerCase();
+    if (currentTag !== 'all' && !allTags.includes(currentTag)) currentTag = 'all';
+
+    function makeFilter(label,value){
+        const b = el('button',{class:'filter-btn','data-filter':value,'aria-pressed':(currentTag===value),role:'tab'},label);
+        b.addEventListener('click',()=>{
+            currentTag = value;
+            [...filtersEl.querySelectorAll('.filter-btn')].forEach(x=>x.setAttribute('aria-pressed','false'));
+            b.setAttribute('aria-pressed','true');
+            applyFilter(currentTag);
+            history.replaceState({}, "", value==='all' ? "projects.html" : `?tag=${encodeURIComponent(value)}`);
+        });
+        return b;
+    }
+
+    filtersEl.append(makeFilter('All','all'));
+    allTags.forEach(t => filtersEl.append(makeFilter(t[0].toUpperCase()+t.slice(1), t)));
+
+    function renderCards(items){
+        grid.innerHTML='';
+        if(!items.length){
+            grid.innerHTML = '<div class="muted">No projects for this filter yet.</div>';
+            return;
+        }
+        items.forEach(p=>{
+            const link = p.links?.case || p.links?.live || '#';
+            const card = el('article',{class:'card project','data-tags':(p.tags||[]).join(' ')},
+                el('a',{href:link,class:'thumb','aria-label':p.title},
+                    el('img',{src:p.thumb||p.cover||'',alt:p.title,loading:'lazy'})
+                ),
+                el('div',{class:'tags'},...(p.tags||[]).map(t=>el('span',{class:'tag'},t))),
+                el('h3',{},p.title),
+                el('small',{}, [p.subtitle||'', p.year ? ` • ${p.year}` : ''].join('')),
+                el('p',{class:'muted'}, p.excerpt || ''),
+                el('p',{},
+                    p.links?.live ? el('a',{href:p.links.live,target:'_blank',rel:'noreferrer'},"Live") : '',
+                    (p.links?.live && (p.links?.case||p.links?.repo)) ? document.createTextNode(' · ') : '',
+                    p.links?.case ? el('a',{href:p.links.case},"Case study") : '',
+                    (p.links?.repo && (p.links?.case||p.links?.live)) ? document.createTextNode(' · ') : '',
+                    p.links?.repo ? el('a',{href:p.links.repo,target:'_blank',rel:'noreferrer'},"Repo") : ''
+                )
+            );
+            grid.append(card);
+        });
+    }
+
+    function applyFilter(tag){
+        const items = tag==='all'
+            ? PROJECTS
+            : PROJECTS.filter(p => (p.tags||[]).map(x=>x.toLowerCase()).includes(tag));
+        renderCards(items);
+    }
+
+    applyFilter(currentTag);
+</script>
+</body>
+</html>
