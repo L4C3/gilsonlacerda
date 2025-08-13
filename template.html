@@ -12,14 +12,26 @@
 <div class="wrap">
     <header>
         <div class="brand">
-            <a href="../../index.html" aria-label="Go home"><img src="../../Logo.svg" height="50" alt="GL logo"></a>
-            <div><strong>Gilson Lacerda</strong><br><span class="muted">Web Developer • Web Designer</span></div>
+            <a href="index.html" aria-label="Go home"><img src="Logo.svg" height="50" alt="GL logo"></a>
+            <div>
+                <strong>Gilson Lacerda</strong><br>
+                <span class="muted">Web Developer • Web Designer</span>
+            </div>
         </div>
-        <nav>
-            <a href="../../projects.html">Projects</a>
-            <a href="../../index.html#experience">Experience</a>
-            <a href="../../index.html#skills">Skills</a>
-            <a href="../../index.html#contact">Contact</a>
+
+        <!-- NEW: mobile toggle button -->
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+            <!-- simple hamburger icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <nav id="site-nav">
+            <a href="projects.html">Projects</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="index.html#contact">Contact</a>
         </nav>
     </header>
 
