@@ -257,8 +257,10 @@ body.bg-aurora::after{
 .shot{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0a1324 }
 .shot img{ width:100%; height:100%; object-fit:cover; display:block }
 
-.pager{ display:flex; justify-content:space-between; gap:12px; margin-top:24px }
-.pager a{ flex:1 } .pager .btn{ width:100%; justify-content:center }
+.pager { display:flex; justify-content:left; margin-top:24px; }
+@media (max-width:640px){
+    .pager .btn { width:100%; }
+}
 
 /* === Accessibility / motion === */
 @media (prefers-reduced-motion: reduce){
