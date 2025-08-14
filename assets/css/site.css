@@ -306,3 +306,206 @@ body.bg-aurora::after{
 @media (max-width:700px){
     .lb-prev, .lb-next{ width:40px; height:40px; font-size:24px; }
 }
+
+.grid[style*="--cols"] {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+}
+@media (max-width: 800px) {
+    .grid[style*="--cols"] { grid-template-columns: 1fr; }
+}
+
+#lightbox.open img {
+    max-height: none;
+    width: auto;
+}
+/* === Tall screenshot support in Lightbox (additions) === */
+
+/* Let the overlay itself scroll for very tall images */
+#lightbox.open{
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
+    align-items: flex-start;           /* start at top so users see the header of a tall page */
+    padding: 24px 0;                   /* breathing room above/below */
+}
+
+/* Allow tall images to exceed the viewport height and be scrollable */
+#lightbox.open img{
+    max-height: none;                  /* override the 92vh cap */
+    height: auto;
+    max-width: min(96vw, 1400px);      /* keep a sensible max width */
+    width: auto;
+    margin: 0 auto;                    /* center the image on scroll */
+}
+
+/* Optional: a helper class for small “tall screenshot” thumbnails.
+   If you add class="ba-thumb" to the <img> in your Before card,
+   you won’t need inline styles. Safe no-op elsewhere. */
+.ba-thumb{
+    display: block;
+    max-height: 160px;
+    width: auto;
+    margin-inline: auto;
+}
+
+
+/* === Comparison (cmp) — self-contained === */
+.cmp{ --cmp-h:520px; --cmp-bg:#0b1220; --cmp-card:#0f172a; --cmp-bd:var(--border);
+    --cmp-radius:16px; --cmp-z:90%; --cmp-gap:16px; position:relative; }
+.cmp-head{ display:flex; align-items:end; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.cmp-head h2{ margin:0; }
+.cmp-actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.cmp-toggle{ display:inline-flex; align-items:center; gap:6px; color:var(--muted); font-size:14px; }
+.cmp-zoom{ display:inline-flex; align-items:center; gap:6px; background:var(--chip);
+    border:1px solid var(--cmp-bd); padding:6px 8px; border-radius:999px; }
+.cmp-zoom-btn{ background:transparent; border:1px solid var(--cmp-bd); border-radius:8px; width:30px; height:30px; color:#cbd5e1; cursor:pointer; }
+.cmp-zoom-range{ width:120px; accent-color:#38bdf8; }
+.cmp-full{ background:#0891b2; border:1px solid #0ea5e9; color:#03131a; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer; }
+
+.cmp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--cmp-gap); }
+@media (max-width:900px){ .cmp-grid{ grid-template-columns:1fr; } }
+
+.cmp-pane{ background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border:1px solid var(--cmp-bd); border-radius:var(--cmp-radius); overflow:hidden; }
+.cmp-caption{ text-align:center; color:var(--muted); padding:10px 12px 6px; }
+.cmp-caption .cmp-sub{ opacity:.85; font-size:.95em; margin-left:6px; }
+.cmp-chrome{ display:flex; align-items:center; gap:8px; padding:10px 14px; background:#0a1324; border-top:1px solid #0b1528; border-bottom:1px solid #0b1528; }
+.cmp-chrome span{ width:10px; height:10px; border-radius:999px; background:#ef4444; display:inline-block }
+.cmp-chrome span:nth-child(2){ background:#f59e0b }
+.cmp-chrome span:nth-child(3){ background:#22c55e }
+.cmp-chrome em{ color:#94a3b8; font-style:normal; margin-left:6px; font-size:12px; }
+
+.cmp-viewport{ height:var(--cmp-h); overflow:auto; background:#0a1324; border-top:1px solid var(--cmp-bd); }
+.cmp-viewport img{ width:var(--cmp-z); height:auto; display:block; margin:0 auto; image-rendering:-webkit-optimize-contrast; }
+
+.cmp-notes{ margin-top:10px; }
+.cmp-notes ul{ margin:0; padding:0 0 0 18px; color:var(--muted); }
+
+/* Fullscreen mode */
+.cmp.is-full{
+    position:fixed; inset:12px; z-index:9990; background:radial-gradient(1200px 700px at 40% 15%, rgba(56,189,248,.08), transparent 60%), rgba(0,0,0,.55);
+    backdrop-filter:saturate(120%) blur(2px); padding:16px; border-radius:18px;
+}
+.cmp.is-full .cmp-viewport{ --cmp-h: calc(100vh - 160px); }
+.cmp.is-full .cmp-full{ background:#0f172a; color:#e2e8f0; border-color:#334155; }
+.cmp.is-full .cmp-head{ position:sticky; top:0; padding-top:6px; z-index:2; background:transparent; }
+
+/* Friendly scrollbars (optional) */
+.cmp-viewport::-webkit-scrollbar{ width:10px }
+.cmp-viewport::-webkit-scrollbar-thumb{ background:#1f2937; border-radius:10px }
+.cmp-viewport{ scrollbar-color:#1f2937 transparent; scrollbar-width:thin }
+
+/* Reduce motion safe */
+@media (prefers-reduced-motion:reduce){
+    .cmp{ scroll-behavior:auto; }
+}
+
+/* === Lightbox: scoped tall-screenshot mode === */
+/* Default: center everything (restores original behavior) */
+#lightbox.open { display:flex; align-items:center; }
+
+/* Scrolly mode: applied ONLY when JS adds .lb--scrolly */
+#lightbox.lb--scrolly.open{
+    align-items:flex-start;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+    padding:24px 0;
+}
+#lightbox.lb--scrolly.open img{
+    max-height:none;           /* allow tall images */
+    height:auto;
+    width:auto;
+    max-width:min(96vw, 1400px);
+    margin:0 auto;
+}
+
+/* Keep controls visible even when the overlay scrolls */
+#lightbox.lb--scrolly .lb-close,
+#lightbox.lb--scrolly .lb-prev,
+#lightbox.lb--scrolly .lb-next{
+    position:fixed;
+}
+#lightbox.lb--scrolly .lb-close{ top:16px; right:16px; }
+#lightbox.lb--scrolly .lb-prev { left:16px; top:50%; transform:translateY(-50%); }
+#lightbox.lb--scrolly .lb-next { right:16px; top:50%; transform:translateY(-50%); }
+
+/* Optional: thumbnail helper so you can drop inline styles */
+.ba-thumb{ display:block; max-height:160px; width:auto; margin-inline:auto; }
+
+
+/* === cmp preview vs read =============================== */
+
+/* Use fit-all preview inside the card (no cropping) */
+.cmp .cmp-thumb{
+    position:relative;
+    display:block;
+    height: var(--cmp-h);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:#0a1324;
+}
+.cmp .cmp-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:contain;     /* <-- shows the entire page inside the card */
+    display:block;
+    image-rendering:-webkit-optimize-contrast;
+}
+/* Soft helper text */
+.cmp .cmp-hint{
+    position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+    background:rgba(3,13,24,.6); padding:4px 8px; border-radius:8px;
+    border:1px solid rgba(148,163,184,.25); color:#cbd5e1; font-size:12px;
+    pointer-events:none;
+    opacity:.85;
+}
+
+/* When "Read mode" is ON, hide preview, show scrollable viewport */
+.cmp.is-read .cmp-thumb{ display:none; }
+.cmp.is-read .cmp-viewport[hidden]{ display:block; } /* respect our toggle without removing [hidden] elsewhere */
+
+/* In read mode we use the zoom variable like before */
+.cmp.is-read .cmp-viewport img{ width: var(--cmp-z); height:auto; display:block; margin:0 auto; }
+
+/* Disable zoom/sync controls when not in read mode (clean UX) */
+.cmp:not(.is-read) .cmp-zoom,
+.cmp:not(.is-read) #cmp-sync{
+    opacity:.5; pointer-events:none; filter:grayscale(.2);
+}
+
+.cmp-mode{ background:transparent; border-color:#334155; color:#cbd5e1 }
+
+/* Make sure the global .thumb aspect ratio doesn't win inside cmp */
+.cmp .thumb{ aspect-ratio:auto; }
+
+/* === cmp: unify Read + Fullscreen buttons ===================== */
+.cmp-actions .cmp-mode,
+.cmp-actions .cmp-full{
+    display:inline-flex; align-items:center; gap:6px;
+    background:#0891b2; border:1px solid #0ea5e9; color:#03131a;
+    padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer;
+}
+.cmp-actions .cmp-mode:focus-visible,
+.cmp-actions .cmp-full:focus-visible{
+    outline:2px solid #38bdf8; outline-offset:2px;
+}
+
+/* Active states */
+.cmp.is-read .cmp-actions .cmp-mode,
+.cmp.is-full .cmp-actions .cmp-full{
+    background:#0f172a; color:#e2e8f0; border-color:#334155;
+}
+
+/* === cmp: fullscreen close button ============================= */
+.cmp-exit{
+    display:none; position:fixed; right:16px; top:16px; z-index:10000;
+    width:44px; height:44px; border-radius:12px;
+    background:var(--chip); color:#e2e8f0; border:1px solid var(--border);
+    font-size:28px; line-height:1; place-items:center; cursor:pointer;
+}
+.cmp-exit:focus-visible{ outline:2px solid #38bdf8; outline-offset:2px; }
+.cmp.is-full .cmp-exit{ display:grid; }
+@media (max-width:700px){
+    .cmp-exit{ width:40px; height:40px; font-size:24px; }
+}
