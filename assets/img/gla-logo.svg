@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2611.23 2231.39">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#ngl);
+      }
+
+      .cls-2 {
+        fill: url(#ngl-2);
+        fill-rule: evenodd;
+      }
+    </style>
+    <linearGradient id="ngl" x1="1642.53" y1="1589.07" x2="1409.22" y2="1454.37" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d4af37"/>
+      <stop offset="0" stop-color="#d4af38"/>
+      <stop offset=".09" stop-color="#e0c35d"/>
+      <stop offset=".18" stop-color="#ead37b"/>
+      <stop offset=".26" stop-color="#f1de90"/>
+      <stop offset=".35" stop-color="#f5e49c"/>
+      <stop offset=".43" stop-color="#f7e7a1"/>
+      <stop offset="1" stop-color="#d4af37"/>
+    </linearGradient>
+    <linearGradient id="ngl-2" data-name="ngl" x1="2220.51" y1="1904.97" x2="853.45" y2="1115.7" xlink:href="#ngl"/>
+  </defs>
+  <polygon class="cls-1" points="1642.53 1589.08 1614.08 1539.79 1592.9 1503.11 1561.13 1448.08 1486.99 1319.67 1412.85 1448.08 1381.08 1503.11 1331.44 1589.08 1512.61 1589.08 1642.53 1589.08"/>
+  <path class="cls-2" d="M1681.49,1447.33l133.87,231.87,133.87,231.87h267.74l-133.87-231.87-133.87-231.87-133.87-231.87-95.62-165.63-38.25-66.25-57.37-99.37-133.87-231.87-133.87,231.87-57.37,99.37-76.51,132.5-57.37,99.37-215.71,373.62h267.75l139.2-241.11,76.5-132.5,57.37-99.37,57.37,99.37,133.87,231.87ZM1388.72,652.34l44.48-77.03-120.53-254.99-57.82,100.15-133.87,231.87-191.24,331.24-38.25,66.25-95.62,165.63-133.87,231.87-133.87,231.87-133.87,231.87h1453.46l-133.87-231.87h-917.97l133.87-231.87,133.87-231.87,133.87-231.87,57.37-99.37,133.87-231.87Z"/>
+</svg>

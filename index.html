@@ -22,7 +22,7 @@
 <div class="wrap">
     <header>
         <div class="brand">
-            <a href="index.html" aria-label="Go home"><img src="/assets/img/logo.svg" height="50" alt="GL logo"></a>
+            <a href="index.html" aria-label="Go home"><img src="assets/img/gla-logo.svg" height="50" alt="GL logo"></a>
             <div>
                 <strong>Gilson Lacerda</strong><br>
                 <span class="muted">Web Developer • Web Designer</span>
@@ -55,8 +55,8 @@
                 <a class="btn secondary" href="#contact">Contact</a>
             </div>
         </div>
-        <div class="avatar reveal">
-            <img src="assets/img/GilsonLacerdapic.jpg" alt="Gilson Lacerda" />
+        <div class="avatar">
+            <img src="assets/img/gilsonlacerda.webp" alt="Gilson Lacerda" />
         </div>
     </section>
 
@@ -184,20 +184,67 @@
     }, {threshold: 0.15});
     revealEls.forEach(el=> io.observe(el));
 
-    // Tiny 3D tilt on avatar
-    const avatar = document.querySelector('.avatar img');
-    if(avatar){
-        const wrap = document.querySelector('.avatar');
-        wrap.addEventListener('pointermove', (e)=>{
-            const r = wrap.getBoundingClientRect();
-            const px = (e.clientX - r.left)/r.width - .5;
-            const py = (e.clientY - r.top)/r.height - .5;
-            avatar.style.transform = `perspective(900px) rotateY(${px*10}deg) rotateX(${ -py*10 }deg)`;
-        });
-        wrap.addEventListener('pointerleave', ()=>{ avatar.style.transform = 'none'; });
-    }
+    // // Tiny 3D tilt on avatar
+    // const avatar = document.querySelector('.avatar img');
+    // if(avatar){
+    //     const wrap = document.querySelector('.avatar');
+    //     wrap.addEventListener('pointermove', (e)=>{
+    //         const r = wrap.getBoundingClientRect();
+    //         const px = (e.clientX - r.left)/r.width - .5;
+    //         const py = (e.clientY - r.top)/r.height - .5;
+    //         avatar.style.transform = `perspective(900px) rotateY(${px*10}deg) rotateX(${ -py*10 }deg)`;
+    //     });
+    //     wrap.addEventListener('pointerleave', ()=>{ avatar.style.transform = 'none'; });
+    // }
+    // === Parallax/Tilt on mouse move ===
+    (() => {
+        const avatar = document.querySelector('.avatar');
+        if (!avatar) return;
+        const img = avatar.querySelector('img');
 
-        // --- data (inline FEATURED) ---
+        let raf = 0;
+        function setTilt(e){
+            const r = avatar.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width;   // 0..1
+            const y = (e.clientY - r.top)  / r.height;  // 0..1
+            const ROT = 16;  // max degrees
+            const MOVE = 10; // max px translate
+
+            // rotateY uses x; rotateX uses y (invert for natural feel)
+            const rx = (x - 0.5) * ROT;     // rotateY
+            const ry = -(y - 0.5) * ROT;    // rotateX
+            const tx = (x - 0.5) * MOVE;
+            const ty = (y - 0.5) * MOVE;
+
+            avatar.style.setProperty('--rx', `${rx}deg`);
+            avatar.style.setProperty('--ry', `${ry}deg`);
+            avatar.style.setProperty('--tx', `${tx}px`);
+            avatar.style.setProperty('--ty', `${ty}px`);
+        }
+
+        function resetTilt(){
+            avatar.style.setProperty('--rx', '0deg');
+            avatar.style.setProperty('--ry', '0deg');
+            avatar.style.setProperty('--tx', '0px');
+            avatar.style.setProperty('--ty', '0px');
+        }
+
+        function onMove(e){
+            if (raf) return; // throttle with rAF
+            raf = requestAnimationFrame(() => {
+                setTilt(e);
+                raf = 0;
+            });
+        }
+
+        avatar.addEventListener('mousemove', onMove);
+        avatar.addEventListener('mouseleave', () => {
+            resetTilt();
+        });
+    })();
+
+
+    // --- data (inline FEATURED) ---
         window.FEATURED = [
             {
                 id: "rhema-rbc",
