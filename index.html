@@ -184,18 +184,18 @@
     }, {threshold: 0.15});
     revealEls.forEach(el=> io.observe(el));
 
-    // // Tiny 3D tilt on avatar
-    // const avatar = document.querySelector('.avatar img');
-    // if(avatar){
-    //     const wrap = document.querySelector('.avatar');
-    //     wrap.addEventListener('pointermove', (e)=>{
-    //         const r = wrap.getBoundingClientRect();
-    //         const px = (e.clientX - r.left)/r.width - .5;
-    //         const py = (e.clientY - r.top)/r.height - .5;
-    //         avatar.style.transform = `perspective(900px) rotateY(${px*10}deg) rotateX(${ -py*10 }deg)`;
-    //     });
-    //     wrap.addEventListener('pointerleave', ()=>{ avatar.style.transform = 'none'; });
-    // }
+    // Tiny 3D tilt on avatar
+    const avatar = document.querySelector('.avatar img');
+    if(avatar){
+        const wrap = document.querySelector('.avatar');
+        wrap.addEventListener('pointermove', (e)=>{
+            const r = wrap.getBoundingClientRect();
+            const px = (e.clientX - r.left)/r.width - .5;
+            const py = (e.clientY - r.top)/r.height - .5;
+            avatar.style.transform = `perspective(900px) rotateY(${px*10}deg) rotateX(${ -py*10 }deg)`;
+        });
+        wrap.addEventListener('pointerleave', ()=>{ avatar.style.transform = 'none'; });
+    }
     // === Parallax/Tilt on mouse move ===
     (() => {
         const avatar = document.querySelector('.avatar');
@@ -222,12 +222,12 @@
             avatar.style.setProperty('--ty', `${ty}px`);
         }
 
-        function resetTilt(){
-            avatar.style.setProperty('--rx', '0deg');
-            avatar.style.setProperty('--ry', '0deg');
-            avatar.style.setProperty('--tx', '0px');
-            avatar.style.setProperty('--ty', '0px');
-        }
+        // function resetTilt(){
+        //     avatar.style.setProperty('--rx', '0deg');
+        //     avatar.style.setProperty('--ry', '0deg');
+        //     avatar.style.setProperty('--tx', '0px');
+        //     avatar.style.setProperty('--ty', '0px');
+        // }
 
         function onMove(e){
             if (raf) return; // throttle with rAF
@@ -246,6 +246,20 @@
 
     // --- data (inline FEATURED) ---
         window.FEATURED = [
+            {
+                id: "taniti-ux",
+                title: "Taniti Island – UX Website",
+                subtitle: "Website • UX Case Study • Prototype",
+                year: 2025,
+                tags: ["websites","ux","ui","design","prototype","adobexd"],
+                thumb: "assets/img/projects/ux/taniti.png",
+                excerpt: "A tourism website concept for Taniti Island that guides families from ‘Where do we start?’ to confident trip planning with clear IA, strong CTAs, and a high-fidelity prototype.",
+                links: {
+                    case: "taniti.html",
+                    repo: "",
+                    live: "https://vfdyvtqu.elementor.cloud/"
+                }
+            },
             {
                 id: "rhema-rbc",
                 title: "Rhema Bible Church – Website Redesign",
