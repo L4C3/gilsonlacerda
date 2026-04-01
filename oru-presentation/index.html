@@ -1,0 +1,718 @@
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORU Interactive Presentation | Gilson Lacerda</title>
+  <meta name="description" content="A modern interactive presentation for ORU International Student Onboarding by Gilson Lacerda." />
+  <style>
+    :root {
+      --bg: #04112b;
+      --panel: rgba(255,255,255,.07);
+      --panel-2: rgba(255,255,255,.05);
+      --line: rgba(255,255,255,.12);
+      --text: #f8fafc;
+      --muted: rgba(248,250,252,.72);
+      --accent: #f4d35e;
+      --accent-2: #ffe89a;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 28px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        radial-gradient(circle at 20% 15%, rgba(244,211,94,.18), transparent 18%),
+        radial-gradient(circle at 85% 40%, rgba(255,215,140,.16), transparent 18%),
+        linear-gradient(180deg, #03102a 0%, #06183b 100%);
+      background-size: 64px 64px, 64px 64px, auto, auto, auto;
+      overflow-x: hidden;
+    }
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      z-index: 100;
+      background: rgba(255,255,255,.06);
+    }
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f4d35e, #ffe89a, #fff);
+    }
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(244,211,94,.55), rgba(244,211,94,.12) 40%, transparent 70%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+    .sidebar {
+      position: fixed;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      width: 250px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(4,17,43,.52);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+    .sidebar h4 {
+      margin: 6px 8px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 18px;
+      transition: .25s ease;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      color: white;
+      background: rgba(255,255,255,.06);
+    }
+    .dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      color: #09132e;
+      background: linear-gradient(135deg, #ffe89a, #f4d35e);
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+    .hero, .section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .wrap {
+      width: min(1240px, calc(100vw - 100px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content {
+      max-width: 900px;
+      padding: 80px 0;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: rgba(248,250,252,.78);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+    }
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: .92;
+      margin: 20px 0 0;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+    h2 {
+      font-size: clamp(2.3rem, 5vw, 5rem);
+      line-height: .95;
+      margin: 0;
+      letter-spacing: -.04em;
+      font-weight: 900;
+    }
+    .accent { color: var(--accent-2); }
+    .lead {
+      margin-top: 22px;
+      max-width: 780px;
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .cta-row {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .btn-primary { background: white; color: #07132d; }
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: white;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .hero-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 48px;
+    }
+    .mini-card, .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .mini-card { padding: 22px; }
+    .mini-card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: .97rem;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 46px;
+      align-items: center;
+      padding: 88px 0;
+    }
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent-2);
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      margin-top: 14px;
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+      color: rgba(255,232,154,.95);
+    }
+    .desc {
+      margin-top: 18px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.95;
+      max-width: 780px;
+    }
+    .bullets {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+    .bullet {
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: rgba(255,255,255,.9);
+      line-height: 1.5;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .bullet:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(244,211,94,.35);
+    }
+    .media { position: relative; }
+    .glow-frame {
+      position: absolute;
+      inset: -16px;
+      border-radius: 36px;
+      background: radial-gradient(circle at 30% 10%, rgba(244,211,94,.28), transparent 40%);
+      filter: blur(18px);
+      pointer-events: none;
+    }
+    .card {
+      padding: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      padding: 6px 8px 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .frame-button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: white;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .frame-button:hover { background: rgba(255,255,255,.1); }
+    .slide-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 22px;
+    }
+    .quote {
+      margin-top: 28px;
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-size: clamp(1.12rem, 2vw, 1.65rem);
+      line-height: 1.75;
+    }
+    .section.reveal .copy,
+    .section.reveal .media {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .section.reveal.visible .copy,
+    .section.reveal.visible .media {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section.reveal.visible .media { transition-delay: .08s; }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 46px;
+      color: rgba(255,255,255,.58);
+      text-align: center;
+      font-size: .95rem;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(2,8,23,.86);
+      backdrop-filter: blur(10px);
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      width: min(1180px, 100%);
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: rgba(4,17,43,.92);
+      padding: 16px;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .modal img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 22px;
+      background: #020817;
+    }
+    .close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.34);
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .modal-meta { padding: 16px 8px 6px; }
+    .modal-meta small {
+      display: block;
+      color: rgba(255,232,154,.8);
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .modal-meta strong { font-size: 1.5rem; }
+
+    @media (max-width: 1220px) {
+      .sidebar { display: none; }
+      .wrap { width: min(1120px, calc(100vw - 48px)); }
+    }
+    @media (max-width: 920px) {
+      .hero-cards, .section-grid, .bullets { grid-template-columns: 1fr; }
+      .hero, .section { min-height: auto; }
+      .wrap { width: min(100vw - 32px, 900px); }
+      .section-grid { padding: 72px 0; }
+      .cta-row { flex-direction: column; align-items: flex-start; }
+      .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress"><div id="progressBar"></div></div>
+
+  <aside class="sidebar">
+    <h4>Navigate</h4>
+    <a href="#intro"><span class="dot">1</span><span>International Student Onboarding</span></a>
+    <a href="#gilson"><span class="dot">2</span><span>I’m Gilson Lacerda</span></a>
+    <a href="#oru"><span class="dot">3</span><span>Why ORU?</span></a>
+    <a href="#isr"><span class="dot">4</span><span>Why International Student Relations</span></a>
+    <a href="#bring"><span class="dot">5</span><span>What I Bring</span></a>
+    <a href="#ai"><span class="dot">6</span><span>Scaling with AI</span></a>
+    <a href="#fit"><span class="dot">7</span><span>Why I’m the Right Fit</span></a>
+  </aside>
+
+  <section class="hero" id="top">
+    <div class="orb" style="left:-120px;top:20px;width:520px;height:520px;"></div>
+    <div class="orb" style="right:-140px;bottom:-30px;width:560px;height:560px;"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="pill">✦ Interactive Presentation Concept</div>
+        <h1>Reimagining your <span class="accent">ORU presentation</span> as a super modern web experience.</h1>
+        <p class="lead">Built from your slide screenshots, this concept turns your presentation into an immersive storytelling page with premium visuals, motion, image previews, and a cleaner digital-first structure.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#intro">Explore presentation</a>
+          <a class="btn btn-secondary" href="#fit">Jump to closing</a>
+        </div>
+        <div class="hero-cards">
+          <div class="mini-card">
+            <h3>Modern UI</h3>
+            <p>Glassmorphism panels, ambient lighting, and cinematic layering create a much more elevated first impression.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Interactive</h3>
+            <p>Each presentation image can be expanded, and the whole experience is designed to feel immersive and premium.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Presentation-ready</h3>
+            <p>You can use this as a concept for a portfolio page, interview presentation site, or personal showcase landing page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="intro">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Presentation Overview</div>
+          <h2>International Student Onboarding</h2>
+          <div class="subtitle">Structure, Care, and Purpose</div>
+          <div class="desc">A cinematic landing section that introduces the presentation as a premium digital experience rather than a traditional slide deck.</div>
+          <div class="bullets">
+            <div class="bullet">• Immersive first impression</div>
+            <div class="bullet">• Premium visual language</div>
+            <div class="bullet">• Clear narrative flow</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 01</span>
+              <button class="frame-button" data-image="images/slide-01.png" data-title="International Student Onboarding" data-eyebrow="Presentation Overview">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-01.png" alt="International Student Onboarding">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="gilson">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">About Me</div>
+          <h2>I’m Gilson Lacerda</h2>
+          <div class="subtitle">Systems thinker with global perspective</div>
+          <div class="desc">Your background is reframed with cleaner hierarchy, stronger typography, and more breathing room for a confident personal introduction.</div>
+          <div class="bullets">
+            <div class="bullet">• Software Engineering</div>
+            <div class="bullet">• Leadership background</div>
+            <div class="bullet">• Multilingual communication</div>
+            <div class="bullet">• Faith-centered perspective</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 02</span>
+              <button class="frame-button" data-image="images/slide-02.png" data-title="I’m Gilson Lacerda" data-eyebrow="About Me">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-02.png" alt="I’m Gilson Lacerda">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="oru">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Mission Alignment</div>
+          <h2>Why ORU?</h2>
+          <div class="subtitle">Mission, excellence, and global impact</div>
+          <div class="desc">This section gives your reasons stronger weight by combining an editorial layout with elegant motion and image focus.</div>
+          <div class="bullets">
+            <div class="bullet">• Mission-driven service</div>
+            <div class="bullet">• Excellence</div>
+            <div class="bullet">• Global impact</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 03</span>
+              <button class="frame-button" data-image="images/slide-03.png" data-title="Why ORU?" data-eyebrow="Mission Alignment">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-03.png" alt="Why ORU?">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="isr">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Calling & Fit</div>
+          <h2>Why International Student Relations</h2>
+          <div class="subtitle">Communication, structure, and care</div>
+          <div class="desc">The page highlights the heart of the role with polished interaction, warm ambient visuals, and a more memorable reading experience.</div>
+          <div class="bullets">
+            <div class="bullet">• Communication</div>
+            <div class="bullet">• Structured processes</div>
+            <div class="bullet">• Care for transition and support</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 04</span>
+              <button class="frame-button" data-image="images/slide-04.png" data-title="Why International Student Relations" data-eyebrow="Calling & Fit">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-04.png" alt="Why International Student Relations">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="bring">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Strengths</div>
+          <h2>What I Bring</h2>
+          <div class="subtitle">Scalable thinking and lived experience</div>
+          <div class="desc">Your strengths become easier to scan through visual grouping and modern content cards, while still preserving seriousness and professionalism.</div>
+          <div class="bullets">
+            <div class="bullet">• Systems mindset</div>
+            <div class="bullet">• International perspective</div>
+            <div class="bullet">• Leadership experience</div>
+            <div class="bullet">• Faith foundation</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 05</span>
+              <button class="frame-button" data-image="images/slide-05.png" data-title="What I Bring" data-eyebrow="Strengths">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-05.png" alt="What I Bring">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="ai">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Vision</div>
+          <h2>Scaling with AI</h2>
+          <div class="subtitle">Using smart systems to increase human care</div>
+          <div class="desc">A future-facing section with a modern innovation feel, built to communicate strategy and scalable support in a more compelling way.</div>
+          <div class="bullets">
+            <div class="bullet">• Intelligent support</div>
+            <div class="bullet">• Process optimization</div>
+            <div class="bullet">• Data visibility</div>
+            <div class="bullet">• More human-centered time</div>
+          </div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 06</span>
+              <button class="frame-button" data-image="images/slide-06.png" data-title="Scaling with AI" data-eyebrow="Vision">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-06.png" alt="Scaling with AI">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="fit">
+    <div class="orb" style="left:-80px;top:60px;width:360px;height:360px;"></div>
+    <div class="orb" style="right:-60px;top:32%;width:420px;height:420px;"></div>
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="copy">
+          <div class="eyebrow">Closing Statement</div>
+          <h2>Why I’m the Right Fit</h2>
+          <div class="subtitle">Skill, conviction, and service</div>
+          <div class="desc">The final section lands with a strong visual close, combining conviction, professionalism, and a premium web-style presentation finish.</div>
+          <div class="quote">“I’m confident I can serve ORU and its students with the skills, global perspective, and spiritual integrity that God has been developing throughout my life.”</div>
+        </div>
+        <div class="media">
+          <div class="glow-frame"></div>
+          <div class="card">
+            <div class="card-top">
+              <span>Slide 07</span>
+              <button class="frame-button" data-image="images/slide-07.png" data-title="Why I’m the Right Fit" data-eyebrow="Closing Statement">Expand view</button>
+            </div>
+            <img class="slide-img" src="images/slide-07.png" alt="Why I’m the Right Fit">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="footer">Designed as a dynamic webpage concept for your ORU International Student Onboarding presentation.</div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <button class="close" id="closeModal">×</button>
+      <img id="modalImg" src="" alt="">
+      <div class="modal-meta">
+        <small id="modalEyebrow"></small>
+        <strong id="modalTitle"></strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    const sections = Array.from(document.querySelectorAll('.reveal'));
+    const links = Array.from(document.querySelectorAll('.sidebar a'));
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalEyebrow = document.getElementById('modalEyebrow');
+    const closeModal = document.getElementById('closeModal');
+
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (scrollTop / max) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const id = entry.target.id;
+          links.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.28 });
+
+    sections.forEach(section => observer.observe(section));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    document.querySelectorAll('.frame-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.classList.add('open');
+        modalImg.src = btn.dataset.image;
+        modalTitle.textContent = btn.dataset.title;
+        modalEyebrow.textContent = btn.dataset.eyebrow;
+      });
+    });
+
+    function hideModal() {
+      modal.classList.remove('open');
+      modalImg.src = '';
+    }
+
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) hideModal();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideModal();
+    });
+  </script>
+</body>
+</html>
+'''
+path = "/mnt/data/oru_github_ready_index.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+print(path)
