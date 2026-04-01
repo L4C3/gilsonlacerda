@@ -1,0 +1,310 @@
+import React, { useMemo, useState } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { ChevronRight, Globe2, Sparkles, BrainCircuit, UserRound, X, ArrowUpRight } from "lucide-react";
+
+const slides = [
+  {
+    id: "intro",
+    eyebrow: "Presentation Overview",
+    title: "International Student Onboarding",
+    subtitle: "Structure, Care, and Purpose",
+    description:
+      "A modern visual experience built around your original presentation, redesigned as an immersive storytelling webpage.",
+    accent: "from-amber-300/50 via-yellow-400/20 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAA/BLADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDxyiiiv3E8wKKKKACiiigAooooA...TRUNCATED...",
+  },
+  {
+    id: "gilson",
+    eyebrow: "About Me",
+    title: "I’m Gilson Lacerda",
+    subtitle: "Systems thinker with global perspective",
+    description:
+      "A blend of software engineering, theology, leadership, and multicultural communication—presented through a more polished digital format.",
+    accent: "from-sky-400/30 via-cyan-300/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    bullets: ["Software Engineer", "Global leadership background", "Portuguese / Spanish communication", "Faith-centered perspective"],
+  },
+  {
+    id: "oru",
+    eyebrow: "Mission Alignment",
+    title: "Why ORU?",
+    subtitle: "Mission, excellence, and global impact",
+    description:
+      "This section reframes the original slide as a bold split-layout with strong visual hierarchy and motion-driven emphasis.",
+    accent: "from-emerald-300/30 via-lime-200/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    bullets: ["Mission-driven service", "Pursuit of excellence", "Global Kingdom impact"],
+  },
+  {
+    id: "isr",
+    eyebrow: "Calling & Fit",
+    title: "Why International Student Relations",
+    subtitle: "Communication, structure, and care",
+    description:
+      "The experience uses layered depth, animated highlights, and cleaner spacing so each idea feels intentional and memorable.",
+    accent: "from-violet-300/30 via-fuchsia-200/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    bullets: ["Clear communication", "Structured processes", "Care during transition"],
+  },
+  {
+    id: "bring",
+    eyebrow: "Strengths",
+    title: "What I Bring",
+    subtitle: "Scalable thinking and lived experience",
+    description:
+      "A card-based presentation style makes your strengths easier to scan while preserving the seriousness of the message.",
+    accent: "from-amber-200/30 via-orange-200/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    bullets: ["Systems mindset", "International perspective", "Leadership experience", "Faith foundation"],
+  },
+  {
+    id: "ai",
+    eyebrow: "Vision",
+    title: "Scaling with AI",
+    subtitle: "Smart systems that increase human care",
+    description:
+      "This section becomes a modern innovation statement with spotlight animations and progressive reveal interactions.",
+    accent: "from-cyan-300/30 via-indigo-300/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    bullets: ["Intelligent support", "Process optimization", "Data visibility", "More time for meaningful student interaction"],
+  },
+  {
+    id: "fit",
+    eyebrow: "Closing Statement",
+    title: "Why I’m the Right Fit",
+    subtitle: "Skill, conviction, and service",
+    description:
+      "The final moment is designed to feel cinematic and confident, landing your message with stronger emotional impact than a static slide.",
+    accent: "from-yellow-300/30 via-amber-200/10 to-transparent",
+    image:
+      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...TRUNCATED...",
+    quote:
+      "I’m confident I can serve ORU and its students with the skills, global perspective, and spiritual integrity that God has been developing throughout my life.",
+  },
+];
+
+function GradientOrb({ className = "" }) {
+  return (
+    <div
+      className={`pointer-events-none absolute rounded-full blur-3xl bg-gradient-to-br from-yellow-300/35 via-amber-300/20 to-transparent ${className}`}
+    />
+  );
+}
+
+function Section({ slide, index, onPreview }) {
+  return (
+    <section id={slide.id} className="relative min-h-screen snap-start overflow-hidden border-b border-white/10">
+      <GradientOrb className="-left-20 top-10 h-72 w-72 md:h-96 md:w-96" />
+      <GradientOrb className="right-0 top-1/3 h-72 w-72 md:h-[28rem] md:w-[28rem]" />
+
+      <div className={`absolute inset-0 bg-gradient-to-br ${slide.accent}`} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_35%)]" />
+
+      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-6 py-20 md:grid-cols-[1.05fr_.95fr] md:px-10 lg:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="max-w-3xl"
+        >
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white/75 backdrop-blur">
+            <Sparkles className="h-3.5 w-3.5" /> {slide.eyebrow}
+          </div>
+          <h2 className="text-4xl font-black leading-[0.95] text-white md:text-6xl lg:text-7xl">
+            {slide.title}
+          </h2>
+          <p className="mt-4 text-lg text-yellow-200/90 md:text-2xl">{slide.subtitle}</p>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">{slide.description}</p>
+
+          {slide.bullets && (
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {slide.bullets.map((item) => (
+                <div
+                  key={item}
+                  className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white/85 backdrop-blur transition hover:border-yellow-300/40 hover:bg-white/10"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-full bg-yellow-300/15 p-2 text-yellow-200">
+                      <ChevronRight className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm md:text-base">{item}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {slide.quote && (
+            <blockquote className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 text-lg leading-8 text-white/85 backdrop-blur md:text-2xl">
+              “{slide.quote}”
+            </blockquote>
+          )}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96, rotateX: 10 }}
+          whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative"
+        >
+          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-yellow-300/30 via-white/5 to-transparent blur-2xl" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-slate-950/60 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl">
+            <div className="mb-3 flex items-center justify-between px-2 pt-1 text-xs text-white/45">
+              <span>Slide {String(index + 1).padStart(2, "0")}</span>
+              <button
+                onClick={() => onPreview(slide)}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-white/70 transition hover:bg-white/10 hover:text-white"
+              >
+                Expand <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="aspect-[16/9] w-full rounded-[1.4rem] object-cover"
+            />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+export default function ORUInteractivePresentation() {
+  const [activePreview, setActivePreview] = useState(null);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 22, restDelta: 0.001 });
+
+  const navItems = useMemo(
+    () => slides.map((s) => ({ id: s.id, label: s.title.replace("Why I’m the ", "").replace("I’m ", "") })),
+    []
+  );
+
+  return (
+    <div className="min-h-screen bg-[#04112b] text-white selection:bg-yellow-300 selection:text-slate-950">
+      <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 z-50 h-1 origin-left bg-gradient-to-r from-yellow-300 via-amber-300 to-white" />
+
+      <div className="fixed inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-20" />
+
+      <aside className="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:block">
+        <div className="rounded-3xl border border-white/10 bg-slate-950/40 p-3 backdrop-blur-xl">
+          <div className="mb-3 flex items-center gap-2 px-2 text-sm text-white/60">
+            <Globe2 className="h-4 w-4 text-yellow-200" /> Navigate
+          </div>
+          <nav className="space-y-2">
+            {navItems.map((item, i) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className="group flex items-center gap-3 rounded-2xl px-3 py-2 text-sm text-white/65 transition hover:bg-white/5 hover:text-white"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs text-yellow-200">
+                  {i + 1}
+                </span>
+                <span className="max-w-[12rem] leading-tight">{item.label}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </aside>
+
+      <header className="relative min-h-screen snap-start overflow-hidden">
+        <GradientOrb className="left-[-6rem] top-10 h-80 w-80 md:h-[32rem] md:w-[32rem]" />
+        <GradientOrb className="bottom-0 right-[-8rem] h-80 w-80 md:h-[34rem] md:w-[34rem]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,206,74,0.12),transparent_30%)]" />
+
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-24 md:px-10 lg:px-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-4xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70 backdrop-blur">
+              <BrainCircuit className="h-3.5 w-3.5 text-yellow-200" /> Interactive Presentation Concept
+            </div>
+            <h1 className="text-5xl font-black leading-[0.92] md:text-7xl lg:text-[6.2rem]">
+              Reimagining your <span className="text-yellow-200">ORU presentation</span> as a modern web experience.
+            </h1>
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-white/75 md:text-xl">
+              Built from your slide screenshots, this page turns your presentation into an immersive digital story with cinematic sections, interactive previews, and a clean premium aesthetic.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.7 }}
+            className="mt-10 flex flex-wrap gap-4"
+          >
+            <a href="#intro" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:scale-[1.02]">
+              Explore presentation
+            </a>
+            <a href="#fit" className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+              Jump to closing
+            </a>
+          </motion.div>
+
+          <div className="mt-16 grid gap-4 md:grid-cols-3">
+            {[
+              ["Modern UI", "Glassmorphism cards, ambient lighting, and cinematic transitions."],
+              ["Interactive", "Lightbox previews, scroll navigation, and responsive storytelling."],
+              ["Presentation-ready", "A polished concept you can adapt into a portfolio or interview page."],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+                <div className="text-lg font-semibold text-white">{title}</div>
+                <p className="mt-2 text-sm leading-7 text-white/65">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <main className="snap-y snap-mandatory">
+        {slides.map((slide, index) => (
+          <Section key={slide.id} slide={slide} index={index} onPreview={setActivePreview} />
+        ))}
+      </main>
+
+      <footer className="border-t border-white/10 px-6 py-10 text-center text-sm text-white/50 md:px-10 lg:px-16">
+        Designed as a dynamic, modern showcase for your ORU International Student Onboarding presentation.
+      </footer>
+
+      <AnimatePresence>
+        {activePreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/85 p-6 backdrop-blur"
+            onClick={() => setActivePreview(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/90 p-4 shadow-2xl"
+            >
+              <button
+                onClick={() => setActivePreview(null)}
+                className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-black/30 p-2 text-white/80 transition hover:bg-black/50 hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <img src={activePreview.image} alt={activePreview.title} className="max-h-[80vh] w-full rounded-[1.5rem] object-contain" />
+              <div className="px-2 pb-2 pt-5">
+                <div className="text-sm uppercase tracking-[0.25em] text-yellow-200/75">{activePreview.eyebrow}</div>
+                <div className="mt-2 text-2xl font-bold text-white">{activePreview.title}</div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
