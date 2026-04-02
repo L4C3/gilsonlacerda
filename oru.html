@@ -6,627 +6,814 @@
     <title>ORU Interactive Globe Presentation | Gilson Lacerda</title>
     <meta name="description" content="Interactive 3D globe presentation for ORU International Student Relations — by Gilson Lacerda.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    <style>    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-        --gold:   #f4d35e;
-        --gold2:  #ffe89a;
-        --text:   #f8fafc;
-        --muted:  rgba(248,250,252,.72);
-        --dim:    rgba(248,250,252,.4);
-        --border: rgba(255,255,255,.11);
-        --glass:  rgba(4, 12, 36, 0.60);
-    }
+        :root {
+            --gold:   #f4d35e;
+            --gold2:  #ffe89a;
+            --text:   #f8fafc;
+            --muted:  rgba(248,250,252,.72);
+            --dim:    rgba(248,250,252,.4);
+            --border: rgba(255,255,255,.11);
+            --glass:  rgba(4, 12, 36, 0.60);
+        }
 
-    html, body {
-        width: 100%; height: 100%;
-        overflow: hidden;
-        font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-        color: var(--text);
-        background: #03112e;
-    }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            color: var(--text);
+            background: #03112e;
+        }
 
-    /* ══ BACKGROUND ════════════════════════════════ */
-    #galaxy {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        background:
-                radial-gradient(ellipse 70% 80% at 50% 44%,
-                #0c2050 0%,
-                #071630 30%,
-                #040e22 60%,
-                #020a1a 100%
-                );
-    }
-    #galaxy::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse 100% 100% at 50% 50%,
-        transparent 40%,
-        rgba(1,5,14,.55) 100%
-        );
-    }
+        #galaxy {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                    radial-gradient(ellipse 70% 80% at 50% 44%,
+                    #0c2050 0%,
+                    #071630 30%,
+                    #040e22 60%,
+                    #020a1a 100%);
+        }
 
-    /* ══ PROGRESS BAR ══════════════════════════════ */
-    #progress {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        height: 2px;
-        background: rgba(255,255,255,.05);
-        z-index: 200;
-    }
-    #pb {
-        height: 100%;
-        background: linear-gradient(90deg, var(--gold), var(--gold2), #fff);
-        transition: width .6s cubic-bezier(.4,0,.2,1);
-        width: 14.28%;
-    }
+        #galaxy::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 100% 100% at 50% 50%,
+            transparent 40%,
+            rgba(1,5,14,.55) 100%);
+        }
 
-    /* ══ TOP HEADER ════════════════════════════════ */
-    #top-header {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 28px;
-        gap: 12px;
-        pointer-events: none;
-    }
-    .header-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 7px 18px;
-        border: 1px solid var(--border);
-        background: rgba(6,16,44,.6);
-        border-radius: 999px;
-        font-size: 10px;
-        letter-spacing: .28em;
-        text-transform: uppercase;
-        color: var(--muted);
-        backdrop-filter: blur(16px);
-    }
-    .header-badge svg { color: var(--gold); }
-    #page-title {
-        font-size: clamp(1.6rem, 3vw, 2.8rem);
-        font-weight: 900;
-        letter-spacing: -.02em;
-        text-align: center;
-        line-height: 1;
-    }
-    #page-title span { color: var(--gold); }
+        /* ══ GLOBE SCENE ═════════════════════════════ */
+        #globe-scene {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(88vh, 88vw);
+            height: min(88vh, 88vw);
+        }
 
-    /* ══ GLOBE + ORBIT (fixed center) ═════════════ */
-    #globe-scene {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width:  min(88vh, 88vw);
-        height: min(88vh, 88vw);
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #globe-scene::before {
-        content: '';
-        position: absolute;
-        inset: -8%;
-        border-radius: 50%;
-        background: radial-gradient(circle,
-        rgba(15, 45, 110, .45) 0%,
-        rgba(8, 25, 65, .25)  45%,
-        transparent 70%
-        );
-        pointer-events: none;
-    }
+        #globe-scene::before {
+            content: '';
+            position: absolute;
+            inset: -8%;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+            rgba(15, 45, 110, .45) 0%,
+            rgba(8, 25, 65, .25) 45%,
+            transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    /* ══ GLOBE LOGO OVERLAY ════════════════════════ */
-    #globe-logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 5;
-        pointer-events: none;
-        padding: 12px 20px;
-        background: rgba(255, 255, 255, 0.92);
-        border-radius: 12px;
-        box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
-    }
-    #globe-logo img {
-        display: block;
-        width: clamp(140px, 20vw, 200px);
-        height: auto;
-    }
+        #globe-wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 82%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: visible;
+            animation: globe-float 6s ease-in-out infinite;
+            z-index: 10;
+        }
 
-    /* globe sphere */
-    #globe-wrap {
-        position: relative;
-        width: 82%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        overflow: visible;
-        animation: globe-float 6s ease-in-out infinite;
-    }
-    @keyframes globe-float {
-        0%,100% { transform: translateY(0px); }
-        50%      { transform: translateY(-14px); }
-    }
-    #globe-clip {
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,.08);
-        box-shadow: 0 0 0 1px rgba(100,160,255,.12);
-    }
-    #globe-canvas { width: 100% !important; height: 100% !important; display: block; }
-    .globe-sheen {
-        position: absolute; inset: 0;
-        border-radius: 50%;
-        background:
-                radial-gradient(circle at 32% 25%, rgba(255,255,255,.22), transparent 16%),
-                radial-gradient(circle at 68% 75%, rgba(20,60,160,.12), transparent 22%);
-        mix-blend-mode: screen;
-        pointer-events: none;
-    }
-    #globe-atm {
-        position: absolute;
-        inset: -4.5%;
-        border-radius: 50%;
-        background: transparent;
-        box-shadow:
-                0 0 0 4px  rgba(60, 120, 255, .10),
-                0 0 20px 8px rgba(40, 90, 220, .14),
-                0 0 50px 18px rgba(20, 60, 180, .10),
-                0 0 90px 32px rgba(10, 40, 130, .07);
-        pointer-events: none;
-    }
+        @keyframes globe-float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50%       { transform: translate(-50%, -50%) translateY(-14px); }
+        }
 
-    /* ══ SLIDE CARD (compact, clickable) ══════════ */
-    #slide-stage {
-        position: fixed;
-        bottom: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: min(92%, 720px);
-        z-index: 30;
-        pointer-events: none;
-    }
-    #slide-panel {
-        pointer-events: all;
-        background: var(--glass);
-        backdrop-filter: blur(28px) saturate(1.5);
-        -webkit-backdrop-filter: blur(28px) saturate(1.5);
-        border: 1px solid rgba(255,255,255,.12);
-        border-top: 1px solid rgba(255,255,255,.18);
-        border-radius: 22px;
-        padding: 22px 26px 18px;
-        box-shadow:
-                0 12px 50px rgba(0,0,0,.55),
-                0 2px 0 rgba(255,255,255,.04) inset;
-        cursor: pointer;
-        transition: border-color .2s, box-shadow .2s;
-    }
-    #slide-panel:hover {
-        border-color: rgba(244,211,94,.28);
-        box-shadow:
-                0 16px 60px rgba(0,0,0,.6),
-                0 0 0 1px rgba(244,211,94,.12),
-                0 2px 0 rgba(255,255,255,.04) inset;
-    }
+        #globe-clip {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 0 0 1px rgba(100,160,255,.12);
+        }
 
-    @keyframes enterRight {
-        from { transform: translateX(72px); opacity: 0; filter: blur(3px); }
-        to   { transform: translateX(0);    opacity: 1; filter: blur(0);   }
-    }
-    @keyframes exitLeft {
-        from { transform: translateX(0);     opacity: 1; filter: blur(0);   }
-        to   { transform: translateX(-72px); opacity: 0; filter: blur(3px); }
-    }
-    .panel-enter { animation: enterRight .48s cubic-bezier(.22,1,.36,1) both; }
-    .panel-exit  { animation: exitLeft   .32s cubic-bezier(.4,0,1,1)    both; }
+        #globe-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
 
-    /* compact card layout */
-    .card-top {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 10px;
-    }
-    .s-eyebrow {
-        font-size: 10px;
-        letter-spacing: .28em;
-        text-transform: uppercase;
-        color: rgba(244,211,94,.85);
-        margin-bottom: 6px;
-    }
-    .s-title {
-        font-size: clamp(1.2rem, 2.2vw, 1.75rem);
-        font-weight: 900;
-        line-height: 1.05;
-        letter-spacing: -.02em;
-    }
-    .s-subtitle {
-        font-size: clamp(.8rem, 1.1vw, .95rem);
-        color: rgba(244,211,94,.75);
-        margin-top: 4px;
-        line-height: 1.4;
-    }
-    .card-tap-hint {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,.05);
-        border-radius: 999px;
-        font-size: 11px;
-        color: var(--dim);
-        white-space: nowrap;
-    }
-    .card-tap-hint svg { width: 11px; height: 11px; }
-    .card-points {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 10px;
-    }
-    .point-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 5px 11px;
-        background: rgba(244,211,94,.08);
-        border: 1px solid rgba(244,211,94,.18);
-        border-radius: 999px;
-        font-size: 11px;
-        color: rgba(255,255,255,.78);
-    }
-    .point-chip svg { width: 10px; height: 10px; color: var(--gold); flex-shrink: 0; }
+        .globe-sheen {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background:
+                    radial-gradient(circle at 24% 20%, rgba(255,255,255,.07), transparent 22%),
+                    radial-gradient(circle at 68% 75%, rgba(20,60,160,.08), transparent 25%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
 
-    /* ══ BOTTOM NAV ════════════════════════════════ */
-    #bottom-nav {
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        height: 72px;
-        z-index: 40;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        background: linear-gradient(to top, rgba(2,8,22,.85) 0%, transparent 100%);
-        backdrop-filter: blur(4px);
-    }
-    .nav-arrow {
-        width: 40px; height: 40px;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        background: rgba(6,16,44,.7);
-        color: var(--text);
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer;
-        transition: background .2s, border-color .2s, transform .15s;
-        backdrop-filter: blur(10px);
-    }
-    .nav-arrow:hover:not(:disabled) {
-        background: rgba(244,211,94,.15);
-        border-color: rgba(244,211,94,.4);
-        transform: scale(1.08);
-    }
-    .nav-arrow:disabled { opacity: .28; cursor: not-allowed; }
-    .nav-arrow svg { width: 18px; height: 18px; }
-    #nav-dots { display: flex; align-items: center; gap: 9px; }
-    .nav-dot {
-        width: 7px; height: 7px;
-        border-radius: 50%;
-        background: rgba(255,255,255,.25);
-        border: 1px solid transparent;
-        cursor: pointer;
-        transition: all .3s;
-    }
-    .nav-dot.active {
-        background: var(--gold);
-        width: 22px;
-        border-radius: 999px;
-        box-shadow: 0 0 10px rgba(244,211,94,.5);
-    }
-    .nav-dot:hover:not(.active) { background: rgba(255,255,255,.5); }
-    #nav-labels { display: none; gap: 8px; }
-    @media (min-width: 900px) { #nav-labels { display: flex; } }
-    .nav-label {
-        padding: 6px 14px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        border: 1px solid var(--border);
-        background: rgba(6,16,44,.6);
-        color: rgba(255,255,255,.6);
-        backdrop-filter: blur(10px);
-        transition: all .2s;
-    }
-    .nav-label.active {
-        background: rgba(244,211,94,.15);
-        border-color: rgba(244,211,94,.4);
-        color: var(--gold);
-    }
-    .nav-label:hover:not(.active) { background: rgba(255,255,255,.08); color: #fff; }
+        /* Gold atmosphere glow */
+        #globe-atm {
+            position: absolute;
+            inset: -4.5%;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow:
+                    0 0 0 4px rgba(255, 210, 60, 0.1),
+                    0 0 20px 8px rgba(214, 166, 58, 0.14),
+                    0 0 50px 18px rgba(180, 124, 20, 0.1),
+                    0 0 90px 32px rgba(130, 110, 10, 0.07);
+            pointer-events: none;
+        }
 
-    /* ══ DETAIL OVERLAY (full scrollable page) ═════ */
-    #detail-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 300;
-        background: rgba(2, 8, 20, 0.96);
-        backdrop-filter: blur(24px);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    #detail-overlay.open { display: block; }
+        /* Logo with gold + blue glow */
+        #globe-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            pointer-events: none;
+        }
 
-    .detail-close-bar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        display: flex;
-        justify-content: flex-end;
-        padding: 16px 20px;
-        background: linear-gradient(
-                rgba(2,8,20,.98) 0%,
-                rgba(2,8,20,.8) 70%,
-                transparent 100%
-        );
-    }
-    .detail-close-btn {
-        width: 40px; height: 40px;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,.08);
-        color: rgba(255,255,255,.75);
-        cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        transition: background .2s, color .2s;
-        flex-shrink: 0;
-    }
-    .detail-close-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
-    .detail-close-btn svg { width: 16px; height: 16px; }
+        #globe-logo img {
+            display: block;
+            width: clamp(220px, 30vw, 400px);
+            height: auto;
+            filter:
+                    drop-shadow(0 0 12px rgba(255, 205, 80, 0.6))
+                    drop-shadow(0 0 28px rgba(80, 140, 255, 0.4))
+                    drop-shadow(0 10px 28px rgba(0,0,0,.35));
+        }
 
-    .detail-inner {
-        max-width: 760px;
-        margin: 0 auto;
-        padding: 0 24px 80px;
-    }
+        /* ══ ORBIT NAV ═══════════════════════════════ */
+        #orbit-nav {
+            position: absolute;
+            inset: -10%;
+            z-index: 30;
+            pointer-events: none;
+        }
 
-    .detail-img-wrap {
-        width: 100%;
-        border-radius: 20px;
-        overflow: hidden;
-        margin-bottom: 36px;
-        background: rgba(255,255,255,.03);
-        border: 1px solid var(--border);
-    }
-    .detail-img-wrap img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-    .detail-img-placeholder {
-        width: 100%;
-        aspect-ratio: 16/9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--dim);
-    }
-    .detail-img-placeholder svg { width: 36px; height: 36px; opacity: .3; }
+        #orbit-ring {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
 
-    .d-eyebrow {
-        font-size: 10px;
-        letter-spacing: .3em;
-        text-transform: uppercase;
-        color: rgba(244,211,94,.8);
-        margin-bottom: 10px;
-    }
-    .d-title {
-        font-size: clamp(2rem, 4vw, 3.2rem);
-        font-weight: 900;
-        letter-spacing: -.025em;
-        line-height: 1;
-        margin-bottom: 14px;
-    }
-    .d-subtitle {
-        font-size: clamp(.95rem, 1.5vw, 1.2rem);
-        color: rgba(244,211,94,.82);
-        line-height: 1.5;
-        margin-bottom: 24px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid var(--border);
-    }
-    .d-body {
-        font-size: clamp(.9rem, 1.3vw, 1.05rem);
-        line-height: 1.85;
-        color: var(--muted);
-        margin-bottom: 28px;
-    }
-    .d-points {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 32px;
-    }
-    .d-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        padding: 9px 16px;
-        background: rgba(244,211,94,.1);
-        border: 1px solid rgba(244,211,94,.22);
-        border-radius: 999px;
-        font-size: 13px;
-        color: rgba(255,255,255,.85);
-    }
-    .d-chip svg { width: 12px; height: 12px; color: var(--gold); flex-shrink: 0; }
-    .d-quote {
-        font-style: italic;
-        font-size: clamp(1rem, 1.4vw, 1.15rem);
-        line-height: 1.8;
-        color: rgba(255,255,255,.88);
-        border-left: 3px solid var(--gold);
-        padding: 4px 0 4px 20px;
-        margin-top: 8px;
-    }
-    .detail-nav-row {
-        display: flex;
-        gap: 12px;
-        margin-top: 48px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border);
-    }
-    .d-nav-btn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 20px;
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,.05);
-        border-radius: 14px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--muted);
-        cursor: pointer;
-        transition: background .2s, color .2s, border-color .2s;
-    }
-    .d-nav-btn:hover:not(:disabled) {
-        background: rgba(244,211,94,.12);
-        border-color: rgba(244,211,94,.3);
-        color: var(--gold);
-    }
-    .d-nav-btn:disabled { opacity: .25; cursor: not-allowed; }
-    .d-nav-btn svg { width: 16px; height: 16px; }
+        #orbit-belt {
+            position: absolute;
+            left: 8%;
+            right: 8%;
+            top: 50%;
+            height: 34%;
+            transform: translateY(-50%);
+            border: 1px solid rgba(80, 130, 255, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: .45;
+            filter: blur(.2px);
+        }
+
+        #orbit-planets {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .orbit-planet {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin-left: -32px;
+            margin-top: -32px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,.14);
+            background:
+                    radial-gradient(circle at 32% 28%,
+                    rgba(255,255,255,.18) 0%,
+                    rgba(30,60,140,.14) 24%,
+                    rgba(5,16,46,.94) 72%);
+            box-shadow:
+                    0 10px 26px rgba(0,0,0,.35),
+                    inset 0 1px 4px rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,.84);
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            text-align: center;
+            line-height: 1.05;
+            cursor: pointer;
+            pointer-events: auto;
+            transition:
+                    border-color .22s ease,
+                    box-shadow .22s ease,
+                    opacity .22s ease,
+                    background .22s ease;
+            padding: 8px;
+        }
+
+        .orbit-planet:hover {
+            border-color: rgba(244,211,94,.42);
+            box-shadow:
+                    0 14px 30px rgba(0,0,0,.42),
+                    0 0 18px rgba(244,211,94,.12),
+                    inset 0 1px 4px rgba(255,255,255,.12);
+        }
+
+        .orbit-planet.active {
+            border-color: rgba(244,211,94,.75);
+            color: var(--gold);
+            background:
+                    radial-gradient(circle at 32% 28%,
+                    rgba(255,232,154,.34) 0%,
+                    rgba(244,211,94,.14) 26%,
+                    rgba(12,20,52,.96) 74%);
+            box-shadow:
+                    0 14px 32px rgba(0,0,0,.48),
+                    0 0 22px rgba(244,211,94,.18),
+                    inset 0 1px 4px rgba(255,255,255,.14);
+        }
+
+        .orbit-planet span {
+            display: block;
+            max-width: 48px;
+        }
+
+        /* Arrows positioned at bottom of orbit */
+        .orbit-arrow {
+            position: absolute;
+            top: 85%;
+            width: 44px;
+            height: 44px;
+            margin-top: -22px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(6,16,44,.62);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            z-index: 40;
+            transition: all .2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .orbit-arrow:hover:not(:disabled) {
+            background: rgba(244,211,94,.15);
+            border-color: rgba(244,211,94,.34);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .orbit-arrow:disabled {
+            opacity: .25;
+            cursor: not-allowed;
+        }
+
+        #orbit-prev { left: 8%; }
+        #orbit-next { right: 8%; }
+
+        .orbit-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ══ TITLE BANNER ════════════════════════════ */
+        #title-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px 22px;
+            background: linear-gradient(
+                    to top,
+                    rgba(2, 8, 24, 0.92) 0%,
+                    rgba(3, 12, 36, 0.78) 60%,
+                    transparent 100%
+            );
+            backdrop-filter: blur(2px);
+            pointer-events: none;
+        }
+
+        .banner-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .banner-title {
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            font-weight: 900;
+            letter-spacing: -.02em;
+            line-height: 1.05;
+            color: #fff;
+        }
+
+        .banner-subtitle {
+            font-size: clamp(.8rem, 1.1vw, 1rem);
+            color: rgba(248,250,252,.55);
+            font-weight: 400;
+            letter-spacing: .01em;
+        }
+
+        .banner-byline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .banner-by {
+            font-size: clamp(.75rem, 1vw, .9rem);
+            color: rgba(248,250,252,.45);
+            font-weight: 400;
+        }
+
+        .banner-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.4rem, 2.4vw, 2rem);
+            color: var(--gold);
+            line-height: 1;
+            filter: drop-shadow(0 2px 8px rgba(244,211,94,.25));
+        }
+
+        /* ══ DETAIL OVERLAY ══════════════════════════ */
+        #detail-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(2, 8, 20, 0.97);
+            backdrop-filter: blur(24px);
+            opacity: 0;
+            transition: opacity .28s ease;
+            flex-direction: column;
+        }
+
+        #detail-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* ── Top bar ── */
+        .detail-close-bar {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-slide-label {
+            font-size: 11px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: rgba(244,211,94,.7);
+        }
+
+        .detail-close-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.07);
+            color: rgba(255,255,255,.7);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, color .2s;
+        }
+
+        .detail-close-btn:hover { background: rgba(255,255,255,.15); color: #fff; }
+        .detail-close-btn svg { width: 15px; height: 15px; }
+
+        /* ── Content area (scrollable) ── */
+        .detail-scroll {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* ── Text + chips section ── */
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 0;
+            padding: 36px 40px 28px;
+            border-bottom: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .detail-text { padding-right: 40px; }
+
+        .d-eyebrow {
+            font-size: 10px;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(244,211,94,.8);
+            margin-bottom: 8px;
+        }
+
+        .d-title {
+            font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -.025em;
+            line-height: 1.05;
+            margin-bottom: 8px;
+        }
+
+        .d-subtitle {
+            font-size: clamp(.9rem, 1.3vw, 1.1rem);
+            color: rgba(244,211,94,.78);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .d-body {
+            font-size: clamp(.85rem, 1.1vw, .98rem);
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .d-quote {
+            font-style: italic;
+            font-size: clamp(.9rem, 1.2vw, 1.05rem);
+            line-height: 1.8;
+            color: rgba(255,255,255,.85);
+            border-left: 3px solid var(--gold);
+            padding: 4px 0 4px 18px;
+            margin-top: 18px;
+        }
+
+        /* ── Right chips column ── */
+        .detail-chips {
+            border-left: 1px solid var(--border);
+            padding-left: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chips-label {
+            font-size: 10px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: rgba(244,211,94,.6);
+            margin-bottom: 4px;
+        }
+
+        .d-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(244,211,94,.07);
+            border: 1px solid rgba(244,211,94,.16);
+            border-radius: 10px;
+            font-size: 12px;
+            color: rgba(255,255,255,.82);
+            transition: background .2s, border-color .2s;
+        }
+
+        .d-chip:hover { background: rgba(244,211,94,.13); border-color: rgba(244,211,94,.3); }
+        .d-chip svg { width: 10px; height: 10px; color: var(--gold); flex-shrink: 0; }
+
+        /* ── Filmstrip carousel ── */
+        .detail-gallery {
+            padding: 28px 0 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px 16px;
+        }
+
+        .gallery-label {
+            font-size: 10px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: rgba(244,211,94,.6);
+        }
+
+        .gallery-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .car-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.06);
+            color: rgba(255,255,255,.7);
+            font-size: 18px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s, border-color .2s, color .2s;
+        }
+
+        .car-btn:hover:not(:disabled) {
+            background: rgba(244,211,94,.15);
+            border-color: rgba(244,211,94,.35);
+            color: var(--gold);
+        }
+
+        .car-btn:disabled { opacity: .25; cursor: not-allowed; }
+
+        /* Viewport — shows partial slides on edges */
+        .car-viewport {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 0 40px;
+            scrollbar-width: none;
+        }
+
+        .car-viewport::-webkit-scrollbar { display: none; }
+
+        .car-slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: clamp(220px, 28vw, 340px);
+            aspect-ratio: 16/10;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.04);
+            cursor: zoom-in;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .car-slide:hover {
+            border-color: rgba(244,211,94,.3);
+            transform: translateY(-2px);
+        }
+
+        .car-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .car-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: rgba(255,255,255,.18);
+            font-size: 12px;
+        }
+
+        .car-placeholder svg { width: 28px; height: 28px; }
+
+        /* Dots */
+        .car-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding-top: 16px;
+        }
+
+        .car-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,.22);
+            cursor: pointer;
+            padding: 0;
+            transition: background .2s, transform .2s;
+        }
+
+        .car-dot[aria-current="true"] { background: var(--gold); transform: scale(1.35); }
+
+        /* ── Slide nav row ── */
+        .detail-nav-row {
+            display: flex;
+            gap: 12px;
+            padding: 20px 40px 32px;
+            border-top: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .d-nav-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.05);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s;
+        }
+
+        .d-nav-btn:hover:not(:disabled) {
+            background: rgba(244,211,94,.12);
+            border-color: rgba(244,211,94,.3);
+            color: var(--gold);
+        }
+
+        .d-nav-btn:disabled { opacity: .25; cursor: not-allowed; }
+        .d-nav-btn svg { width: 15px; height: 15px; }
+
+        /* ══ PROGRESS BAR ════════════════════════════ */
+        #progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            z-index: 50;
+            background: rgba(255,255,255,.07);
+        }
+
+        #progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, rgba(244,211,94,.5), var(--gold));
+            transition: width .5s cubic-bezier(.22,1,.36,1);
+            box-shadow: 0 0 8px rgba(244,211,94,.4);
+        }
+
+        @media (max-width: 900px) {
+            #orbit-nav { inset: -12%; }
+            .orbit-planet { width: 48px; height: 48px; margin-left: -24px; margin-top: -24px; font-size: 8px; }
+            #title-banner { padding: 14px 20px 18px; }
+            .detail-content { grid-template-columns: 1fr; padding: 24px 20px 20px; }
+            .detail-text { padding-right: 0; margin-bottom: 20px; }
+            .detail-chips { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 20px; }
+            .car-viewport { padding: 0 20px; }
+            .gallery-header, .detail-nav-row { padding-left: 20px; padding-right: 20px; }
+            .detail-close-bar { padding: 14px 20px; }
+        }
     </style>
 </head>
 
 <body>
-
-<!-- BACKGROUND -->
 <div id="galaxy"></div>
 
-<!-- PROGRESS -->
-<div id="progress"><div id="pb"></div></div>
-
-<!--&lt;!&ndash; TOP HEADER &ndash;&gt;-->
-<!--<header id="top-header">-->
-<!--    <div class="header-badge">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"-->
-<!--             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
-<!--            <circle cx="12" cy="12" r="10"/>-->
-<!--            <line x1="2" y1="12" x2="22" y2="12"/>-->
-<!--            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>-->
-<!--        </svg>International Student Onboarding:  </div>-->
-<!--    <div id="page-title">Let the <span>globe lead</span> the presentation.</div>-->
-<!--</header>-->
-
-<!-- GLOBE SCENE -->
 <div id="globe-scene">
-    <div id="globe-logo">
-        <img src="assets/img/oru-logo.webp" alt="Oral Roberts University">
-    </div>  <div id="globe-wrap">
-    <div id="globe-atm"></div>
-    <div id="globe-clip">
-        <canvas id="globe-canvas" width="800" height="800"></canvas>
-        <div class="globe-sheen"></div>
-    </div>  </div></div>
 
-<!-- SLIDE CARD (compact, click to expand) -->
-<div id="slide-stage">
-    <div id="slide-panel" onclick="openDetail()">
-        <div class="card-top">
-            <div>        <div class="s-eyebrow" id="s-eyebrow"></div>
-                <div class="s-title"   id="s-title"></div>
-                <div class="s-subtitle" id="s-subtitle"></div>
-            </div>      <div class="card-tap-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>        Expand
+    <div id="globe-wrap">
+        <div id="globe-atm"></div>
+        <div id="globe-clip">
+            <canvas id="globe-canvas" width="800" height="800"></canvas>
+            <div class="globe-sheen"></div>
         </div>
-        </div>    <div class="card-points" id="s-points"></div>
-    </div></div>
+    </div>
 
-<!-- BOTTOM NAV -->
-<nav id="bottom-nav">
-    <button class="nav-arrow" id="btn-prev" onclick="navigate(-1)" disabled>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5"/><path d="m12 5-7 7 7 7"/>
-        </svg>  </button>  <div id="nav-dots"></div>
-    <div id="nav-labels"></div>
-    <button class="nav-arrow" id="btn-next" onclick="navigate(1)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-        </svg>  </button></nav>
+    <div id="globe-logo">
+        <img src="assets/img/Oral-Roberts-University-Logo-Tan-udpated.webp" alt="Oral Roberts University">
+    </div>
 
-<!-- DETAIL OVERLAY (full scrollable page) -->
-<div id="detail-overlay" onclick="if(event.target===this)closeDetail()">
+    <div id="orbit-nav">
+        <div id="orbit-ring">
+            <div id="orbit-belt"></div>
+        </div>
+
+        <button class="orbit-arrow" id="orbit-prev" onclick="navigate(-1)" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"/><path d="m12 5-7 7 7 7"/>
+            </svg>
+        </button>
+
+        <div id="orbit-planets"></div>
+
+        <button class="orbit-arrow" id="orbit-next" onclick="navigate(1)" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+
+</div>
+
+<div id="title-banner">
+    <div class="banner-left">
+        <div class="banner-title">International Student Onboarding:</div>
+        <div class="banner-subtitle">Structure, Care, and Purpose</div>
+    </div>
+    <div class="banner-byline">
+        <span class="banner-by">By:</span>
+        <span class="banner-name">Gilson Lacerda</span>
+    </div>
+</div>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<div id="detail-overlay">
+
+    <!-- Top bar -->
     <div class="detail-close-bar">
+        <span class="detail-slide-label" id="d-slide-label"></span>
         <button class="detail-close-btn" onclick="closeDetail()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-            </svg>    </button>  </div>  <div class="detail-inner">
-    <div class="detail-img-wrap" id="d-img-wrap"></div>
-    <div class="d-eyebrow" id="d-eyebrow"></div>
-    <h2 class="d-title"    id="d-title"></h2>
-    <div class="d-subtitle" id="d-subtitle"></div>
-    <p class="d-body"      id="d-body"></p>
-    <div class="d-points"  id="d-points"></div>
-    <blockquote class="d-quote" id="d-quote" style="display:none"></blockquote>
-    <div class="detail-nav-row">
-        <button class="d-nav-btn" id="d-prev" onclick="detailNavigate(-1)">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5"/><path d="m12 5-7 7 7 7"/>
-            </svg>        Previous
+            </svg>
         </button>
-        <button class="d-nav-btn" id="d-next" onclick="detailNavigate(1)">
-            Next
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-            </svg>      </button>    </div>  </div></div>
+    </div>
 
-<!-- THREE.JS -->
+    <!-- Scrollable body -->
+    <div class="detail-scroll">
+
+        <!-- Title + body text (left) + chips (right) -->
+        <div class="detail-content">
+            <div class="detail-text">
+                <div class="d-eyebrow" id="d-eyebrow"></div>
+                <h2 class="d-title" id="d-title"></h2>
+                <div class="d-subtitle" id="d-subtitle"></div>
+                <p class="d-body" id="d-body"></p>
+                <blockquote class="d-quote" id="d-quote" style="display:none"></blockquote>
+            </div>
+            <div class="detail-chips">
+                <div class="chips-label">Key Points</div>
+                <div id="d-points"></div>
+            </div>
+        </div>
+
+        <!-- Filmstrip gallery -->
+        <div class="detail-gallery" id="detail-gallery">
+            <div class="gallery-header">
+                <span class="gallery-label">Photos</span>
+                <div class="gallery-controls">
+                    <button class="car-btn car-prev" id="car-prev" aria-label="Previous">&#8249;</button>
+                    <button class="car-btn car-next" id="car-next" aria-label="Next">&#8250;</button>
+                </div>
+            </div>
+            <div class="car-viewport" id="car-viewport" tabindex="0" aria-live="polite"></div>
+            <div class="car-dots" id="car-dots" role="tablist" aria-label="Gallery slides"></div>
+        </div>
+
+        <!-- Prev / Next slide nav -->
+        <div class="detail-nav-row">
+            <button class="d-nav-btn" id="d-prev" onclick="detailNavigate(-1)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"/><path d="m12 5-7 7 7 7"/>
+                </svg>
+                Previous
+            </button>
+            <button class="d-nav-btn" id="d-next" onclick="detailNavigate(1)">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-    /* ═══════════════════════════════════════════════════
-       SLIDES DATA   Angles spread from top (-65°) to bottom (65°)   on the vertical orbit ellipse══════════════════════════════════════════════════ */
     const SLIDES = [
-        {
-            id: 'intro', label: 'Intro',
-            eyebrow: 'Presentation Overview',
-            title: 'International Student Onboarding',
-            subtitle: 'Structure, Care, and Purpose',
-            body: 'A cinematic introduction built around a high-impact globe visual. The orbit becomes the navigation system — the presentation feels like a guided journey, not a static slide deck. Every transition, every interaction is designed to create a sense of wonder and clarity from the very first moment.',
-            points: ['Immersive first impression', 'Premium visual language', 'Clear narrative flow'],
-            image: 'assets/img/slides/slide-1.jpg',
-            angle: -65, globeX: -0.08,
-        },
         {
             id: 'gilson', label: 'About',
             eyebrow: 'About Me',
@@ -634,8 +821,8 @@
             subtitle: 'Systems thinker with global perspective',
             body: "My background spans software engineering, multilingual communication, and faith-centered leadership. I've lived the international student experience firsthand — arriving in a new country, navigating cultural transitions, and finding community within a faith-based institution. That combination of technical and human skills is purpose-built for serving international students at ORU.",
             points: ['Software Engineering', 'Leadership background', 'Multilingual communication', 'Faith-centered perspective'],
-            image: 'assets/img/slides/slide-2.jpg',
-            angle: -43, globeX: -0.05,
+            images: [], // add your photos here, e.g. ['assets/img/photos/me-1.jpg']
+            globeX: -0.05,
         },
         {
             id: 'oru', label: 'Why ORU',
@@ -644,8 +831,8 @@
             subtitle: 'Mission, excellence, and global impact',
             body: "ORU sits at the intersection of academic rigor and spiritual formation. That combination is exactly what drew me here — not just a job, but a calling that aligns with my deepest convictions. The university's commitment to developing the whole person — spirit, mind, and body — reflects the values I carry into every system I build and every person I serve.",
             points: ['Mission-driven service', 'Academic excellence', 'Global impact', 'Whole-person development'],
-            image: 'assets/img/slides/slide-3.jpg',
-            angle: -22, globeX: -0.02,
+            images: [],
+            globeX: -0.02,
         },
         {
             id: 'isr', label: 'Role Fit',
@@ -654,8 +841,8 @@
             subtitle: 'Communication, structure, and care',
             body: "Every system I build exists to serve people. ISR is where systems thinking meets human care — and that intersection is where I thrive. International students face a unique set of challenges: visa compliance, cultural adjustment, academic expectations, and finding belonging. I understand those challenges intimately, and I want to be the person who builds the systems that make those transitions smoother.",
             points: ['Communication across cultures', 'Structured processes', 'Care for transition', 'Support systems design'],
-            image: 'assets/img/slides/slide-4.jpg',
-            angle: 0, globeX: 0.01,
+            images: [],
+            globeX: 0.01,
         },
         {
             id: 'bring', label: 'Strengths',
@@ -664,8 +851,8 @@
             subtitle: 'Scalable thinking and lived experience',
             body: "I bring a rare combination of technical capability and human sensitivity, shaped by years of international experience and systems design. I know how to build workflows that scale without losing the personal touch. I know how to communicate across language barriers without losing nuance. And I know what it feels like to be on the other side of the desk — which is perhaps the most important qualification of all.",
             points: ['Systems mindset', 'International perspective', 'Leadership experience', 'Faith foundation', 'Technical fluency'],
-            image: 'assets/img/slides/slide-5.jpg',
-            angle: 22, globeX: 0.04,
+            images: [],
+            globeX: 0.04,
         },
         {
             id: 'ai', label: 'Vision',
@@ -674,8 +861,8 @@
             subtitle: 'Using smart systems to increase human care',
             body: "AI is a tool that, when used intentionally, creates more space for genuine human connection — not less. My vision is to build intelligent support systems that automate the routine, surface the important, and free advisors to focus on what matters most: the student in front of them. Data visibility, proactive alerts, and smart workflows can transform how an ISR office operates — without losing its heart.",
             points: ['Intelligent support tools', 'Process optimization', 'Data visibility', 'More human-centered time', 'Proactive student care'],
-            image: 'assets/img/slides/slide-6.jpg',
-            angle: 43, globeX: 0.07,
+            images: [],
+            globeX: 0.07,
         },
         {
             id: 'fit', label: 'Closing',
@@ -685,37 +872,37 @@
             body: "The work of International Student Relations is not just administrative — it is pastoral, strategic, and deeply human. I bring the technical skills to build better systems, the global perspective to understand diverse students, and the spiritual conviction to serve with integrity. I am confident this is not just the right job for me — it is the right season, the right mission, and the right place.",
             quote: "I'm confident I can serve ORU and its students with the skills, global perspective, and spiritual integrity that God has been developing throughout my life.",
             points: ['Technical capability', 'Global perspective', 'Spiritual integrity', 'Servant leadership'],
-            image: 'assets/img/slides/slide-7.jpg',
-            angle: 65, globeX: 0.10,
+            images: [],
+            globeX: 0.10,
         },
     ];
 
-    /* ═══════════════════════════════════════════════════
-       THREE.JS GLOBE══════════════════════════════════════════════════ */
     let globeMesh, cloudMesh, targetTiltX = 0;
+    let activeIndex = 0;
+    let timer = null;
 
     function initGlobe() {
         const canvas = document.getElementById('globe-canvas');
-        const sz     = canvas.offsetWidth || 600;
+        const sz = canvas.offsetWidth || 600;
 
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(sz, sz);
         renderer.setClearColor(0x000000, 0);
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.1;
+        renderer.toneMappingExposure = 1.0;
 
-        const scene  = new THREE.Scene();
+        const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
         camera.position.z = 2.55;
 
-        scene.add(new THREE.AmbientLight(0x0d1830, 0.4));
+        scene.add(new THREE.AmbientLight(0x0d1830, 0.42));
 
-        const sun = new THREE.DirectionalLight(0xfff6e8, 2.0);
-        sun.position.set(3.5, 1.8, 3.5);
+        const sun = new THREE.DirectionalLight(0xfff6e8, 1.45);
+        sun.position.set(3, 4, 3);
         scene.add(sun);
 
-        const fill = new THREE.DirectionalLight(0x1a3a6a, 0.18);
+        const fill = new THREE.DirectionalLight(0x1a3a6a, 0.16);
         fill.position.set(-4, -1, -3);
         scene.add(fill);
 
@@ -728,48 +915,142 @@
         globeMesh = new THREE.Mesh(
             new THREE.SphereGeometry(1, 80, 80),
             new THREE.MeshPhongMaterial({
-                map:         earthTex,
-                normalMap:   normalTex,
+                map: earthTex,
+                normalMap: normalTex,
                 specularMap: specTex,
-                specular:    new THREE.Color(0x4488cc),
-                shininess:   45,
+                specular: new THREE.Color(0x3b78b1),
+                shininess: 28
             })
         );
-        globeMesh.rotation.y = -0.48;
+        globeMesh.rotation.y = -1;
         scene.add(globeMesh);
 
         scene.add(new THREE.Mesh(
             new THREE.SphereGeometry(1.06, 64, 64),
             new THREE.MeshPhongMaterial({
-                color: 0x1a4a99, emissive: new THREE.Color(0x0a2060),
-                transparent: true, opacity: 0.18,
-                side: THREE.BackSide, depthWrite: false,
+                color: 0x1a4a99,
+                emissive: new THREE.Color(0x0a2060),
+                transparent: true,
+                opacity: 0.15,
+                side: THREE.BackSide,
+                depthWrite: false
             })
         ));
+
         scene.add(new THREE.Mesh(
             new THREE.SphereGeometry(1.15, 64, 64),
             new THREE.MeshPhongMaterial({
-                color: 0x0d2a66, emissive: new THREE.Color(0x061540),
-                transparent: true, opacity: 0.08,
-                side: THREE.BackSide, depthWrite: false,
+                color: 0x0d2a66,
+                emissive: new THREE.Color(0x061540),
+                transparent: true,
+                opacity: 0.07,
+                side: THREE.BackSide,
+                depthWrite: false
             })
         ));
 
         cloudMesh = new THREE.Mesh(
             new THREE.SphereGeometry(1.015, 64, 64),
             new THREE.MeshPhongMaterial({
-                map: cloudTex, transparent: true, opacity: 0.42, depthWrite: false,
+                map: cloudTex,
+                transparent: true,
+                opacity: 0.35,
+                depthWrite: false
             })
         );
-        cloudMesh.rotation.y = -0.48;
+        cloudMesh.rotation.y = -0.88;
         scene.add(cloudMesh);
+
+        // Drag interaction
+        let isDragging = false;
+        let prevMouseX = 0, prevMouseY = 0;
+        let velocityX = 0, velocityY = 0;
+        let autoRotY = globeMesh.rotation.y;
+
+        const globeWrap = document.getElementById('globe-wrap');
+        globeWrap.style.cursor = 'grab';
+
+        globeWrap.addEventListener('mousedown', e => {
+            isDragging = true;
+            prevMouseX = e.clientX;
+            prevMouseY = e.clientY;
+            velocityX = 0;
+            velocityY = 0;
+            globeWrap.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            const dx = e.clientX - prevMouseX;
+            const dy = e.clientY - prevMouseY;
+            velocityX = dx * 0.008;
+            velocityY = dy * 0.008;
+            globeMesh.rotation.y += velocityX;
+            globeMesh.rotation.x += velocityY;
+            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
+            cloudMesh.rotation.y = globeMesh.rotation.y;
+            cloudMesh.rotation.x = globeMesh.rotation.x;
+            prevMouseX = e.clientX;
+            prevMouseY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            globeWrap.style.cursor = 'grab';
+            autoRotY = globeMesh.rotation.y;
+        });
+
+        globeWrap.addEventListener('touchstart', e => {
+            isDragging = true;
+            prevMouseX = e.touches[0].clientX;
+            prevMouseY = e.touches[0].clientY;
+            velocityX = 0;
+            velocityY = 0;
+            e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchmove', e => {
+            if (!isDragging) return;
+            const dx = e.touches[0].clientX - prevMouseX;
+            const dy = e.touches[0].clientY - prevMouseY;
+            velocityX = dx * 0.008;
+            velocityY = dy * 0.008;
+            globeMesh.rotation.y += velocityX;
+            globeMesh.rotation.x += velocityY;
+            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
+            cloudMesh.rotation.y = globeMesh.rotation.y;
+            cloudMesh.rotation.x = globeMesh.rotation.x;
+            prevMouseX = e.touches[0].clientX;
+            prevMouseY = e.touches[0].clientY;
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            autoRotY = globeMesh.rotation.y;
+        });
 
         (function tick() {
             requestAnimationFrame(tick);
-            globeMesh.rotation.y  += 0.0007;
-            cloudMesh.rotation.y  += 0.0009;
-            globeMesh.rotation.x  += (targetTiltX - globeMesh.rotation.x) * 0.045;
-            cloudMesh.rotation.x   = globeMesh.rotation.x;
+            if (!isDragging) {
+                if (Math.abs(velocityX) > 0.0001 || Math.abs(velocityY) > 0.0001) {
+                    globeMesh.rotation.y += velocityX;
+                    globeMesh.rotation.x += velocityY;
+                    globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
+                    velocityX *= 0.92;
+                    velocityY *= 0.92;
+                    autoRotY = globeMesh.rotation.y;
+                } else {
+                    velocityX = 0;
+                    velocityY = 0;
+                    autoRotY += 0.0007;
+                    globeMesh.rotation.y += (autoRotY - globeMesh.rotation.y) * 0.04;
+                    globeMesh.rotation.x += (targetTiltX - globeMesh.rotation.x) * 0.045;
+                }
+                cloudMesh.rotation.y = globeMesh.rotation.y;
+                cloudMesh.rotation.x = globeMesh.rotation.x;
+            }
             renderer.render(scene, camera);
         })();
 
@@ -779,116 +1060,204 @@
         }).observe(canvas);
     }
 
-    /* ═══════════════════════════════════════════════════
-       ORBIT DOTS — vertical ellipse positioning   angle is the parametric angle on the ellipse:   -65° = near top, 0° = right equator, 65° = near bottom══════════════════════════════════════════════════ */
-    /* ═══════════════════════════════════════════════════
-       BOTTOM NAV══════════════════════════════════════════════════ */
-    function buildBottomNav() {
-        const dots   = document.getElementById('nav-dots');
-        const labels = document.getElementById('nav-labels');
-        dots.innerHTML = labels.innerHTML = '';
-        SLIDES.forEach((s, i) => {
-            const d = document.createElement('div');
-            d.className   = 'nav-dot' + (i === 0 ? ' active' : '');
-            d.dataset.idx = i;
-            d.onclick     = () => jumpTo(i);
-            dots.appendChild(d);
+    let orbitAngle = Math.PI / 2;
 
-            const l = document.createElement('button');
-            l.className   = 'nav-label' + (i === 0 ? ' active' : '');
-            l.dataset.idx = i;
-            l.textContent = s.label;
-            l.onclick     = () => jumpTo(i);
-            labels.appendChild(l);
+    function buildOrbitNav() {
+        const wrap = document.getElementById('orbit-planets');
+        wrap.innerHTML = '';
+        SLIDES.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'orbit-planet';
+            btn.dataset.idx = i;
+            btn.innerHTML = `<span>${s.label}</span>`;
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                activeIndex = i;
+                updateOrbitPlanets();
+                openDetail(i);
+                resetTimer();
+            };
+            wrap.appendChild(btn);
+        });
+        updateOrbitPlanets();
+    }
+
+    function updateOrbitPlanets() {
+        const planets = [...document.querySelectorAll('.orbit-planet')];
+        const a = 42, b = 15;
+        const spread = (Math.PI * 2) / planets.length;
+
+        planets.forEach((planet, i) => {
+            const angle = orbitAngle + i * spread;
+            const x = 50 + Math.cos(angle) * a;
+            const y = 50 + Math.sin(angle) * b;
+            const depth = Math.sin(angle);
+            const isFront = depth > 0;
+            const scale = isFront ? 0.96 + depth * 0.16 : 0.78 + (depth + 1) * 0.06;
+
+            planet.style.left      = `${x}%`;
+            planet.style.top       = `${y}%`;
+            planet.style.transform = `scale(${scale})`;
+            planet.style.opacity   = isFront ? 1 : 0.16;
+            planet.style.zIndex    = isFront ? '35' : '5';
+
+            planet.classList.toggle('front', isFront);
+            planet.classList.toggle('back', !isFront);
+            planet.classList.toggle('active', i === activeIndex);
+        });
+
+        document.getElementById('orbit-prev').disabled = activeIndex === 0;
+        document.getElementById('orbit-next').disabled = activeIndex === SLIDES.length - 1;
+
+        // Update progress bar
+        const pct = SLIDES.length <= 1 ? 100 : (activeIndex / (SLIDES.length - 1)) * 100;
+        document.getElementById('progress-fill').style.width = pct + '%';
+    }
+
+    function animateOrbit() {
+        orbitAngle -= 0.0022;
+        updateOrbitPlanets();
+        requestAnimationFrame(animateOrbit);
+    }
+
+    // ── Filmstrip carousel ──────────────────────────
+    let carActiveIdx = 0;
+
+    function buildCarousel(images) {
+        const viewport = document.getElementById('car-viewport');
+        const dotsWrap = document.getElementById('car-dots');
+        const gallery  = document.getElementById('detail-gallery');
+        viewport.innerHTML = '';
+        dotsWrap.innerHTML = '';
+        carActiveIdx = 0;
+
+        if (!images || images.length === 0) {
+            // Show placeholder single slide
+            const ph = document.createElement('div');
+            ph.className = 'car-slide';
+            ph.innerHTML = `<div class="car-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2"/>
+                    <circle cx="9" cy="9" r="2"/>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+                Add images to this slide
+            </div>`;
+            viewport.appendChild(ph);
+            document.getElementById('car-prev').disabled = true;
+            document.getElementById('car-next').disabled = true;
+            return;
+        }
+
+        images.forEach((src, i) => {
+            const slide = document.createElement('div');
+            slide.className = 'car-slide';
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Photo ${i + 1}`;
+            img.loading = 'lazy';
+            img.onerror = () => {
+                slide.innerHTML = `<div class="car-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect width="18" height="18" x="3" y="3" rx="2"/>
+                    </svg>
+                </div>`;
+            };
+            slide.appendChild(img);
+            viewport.appendChild(slide);
+
+            const dot = document.createElement('button');
+            dot.className = 'car-dot';
+            dot.type = 'button';
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', `Go to photo ${i + 1}`);
+            dot.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+            dot.addEventListener('click', () => carGoTo(i));
+            dotsWrap.appendChild(dot);
+        });
+
+        updateCarUI();
+
+        // Sync dots on native scroll
+        let scrollTick = false;
+        viewport.addEventListener('scroll', () => {
+            if (scrollTick) return;
+            scrollTick = true;
+            requestAnimationFrame(() => {
+                const slideW = viewport.querySelector('.car-slide')?.offsetWidth || 1;
+                const gap = 16;
+                const idx = Math.round(viewport.scrollLeft / (slideW + gap));
+                if (idx !== carActiveIdx) { carActiveIdx = idx; updateCarUI(); }
+                scrollTick = false;
+            });
+        });
+
+        // Keyboard nav on viewport
+        viewport.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') carGoTo(carActiveIdx + 1);
+            if (e.key === 'ArrowLeft')  carGoTo(carActiveIdx - 1);
         });
     }
 
-    /* ═══════════════════════════════════════════════════
-       RENDER SLIDE (compact card)══════════════════════════════════════════════════ */
-    let animating = false;
-
-    function renderSlide(idx) {
-        const s     = SLIDES[idx];
-        const panel = document.getElementById('slide-panel');
-
-        document.getElementById('pb').style.width = ((idx + 1) / SLIDES.length * 100) + '%';
-
-        document.querySelectorAll('.nav-dot').forEach((d, i)   => d.classList.toggle('active', i === idx));
-        document.querySelectorAll('.nav-label').forEach((l, i) => l.classList.toggle('active', i === idx));
-        document.getElementById('btn-prev').disabled = idx === 0;
-        document.getElementById('btn-next').disabled = idx === SLIDES.length - 1;
-
-        targetTiltX = s.globeX;
-
-        if (animating) { fillCard(s); return; }
-        animating = true;
-
-        panel.classList.remove('panel-enter');
-        panel.classList.add('panel-exit');
-        setTimeout(() => {
-            fillCard(s);
-            panel.classList.remove('panel-exit');
-            panel.classList.add('panel-enter');
-            setTimeout(() => { panel.classList.remove('panel-enter'); animating = false; }, 500);
-        }, 300);
+    function updateCarUI() {
+        const dots = [...document.querySelectorAll('.car-dot')];
+        const total = dots.length;
+        dots.forEach((d, i) => d.setAttribute('aria-current', i === carActiveIdx ? 'true' : 'false'));
+        document.getElementById('car-prev').disabled = carActiveIdx === 0;
+        document.getElementById('car-next').disabled = carActiveIdx >= total - 1;
     }
 
-    function fillCard(s) {
-        document.getElementById('s-eyebrow').textContent  = s.eyebrow;
-        document.getElementById('s-title').textContent    = s.title;
-        document.getElementById('s-subtitle').textContent = s.subtitle;
-
-        const pts = document.getElementById('s-points');
-        pts.innerHTML = s.points
-            ? s.points.slice(0, 4).map(p => `
-        <span class="point-chip">          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">            <path d="m9 18 6-6-6-6"/>          </svg>${p}
-        </span>`).join('')
-            : '';
+    function carGoTo(i) {
+        const viewport = document.getElementById('car-viewport');
+        const slides = [...viewport.querySelectorAll('.car-slide')];
+        const total = slides.length;
+        carActiveIdx = Math.max(0, Math.min(i, total - 1));
+        const slideW = slides[0]?.offsetWidth || 0;
+        const gap = 16;
+        viewport.scrollTo({ left: carActiveIdx * (slideW + gap), behavior: 'smooth' });
+        updateCarUI();
     }
 
-    /* ═══════════════════════════════════════════════════
-       DETAIL OVERLAY — full scrollable view══════════════════════════════════════════════════ */
-    function openDetail() {
+    document.getElementById('car-prev').addEventListener('click', () => carGoTo(carActiveIdx - 1));
+    document.getElementById('car-next').addEventListener('click', () => carGoTo(carActiveIdx + 1));
+
+    // ── openDetail ──────────────────────────────────
+    function openDetail(idx) {
+        if (idx !== undefined) activeIndex = idx;
         const s = SLIDES[activeIndex];
         const overlay = document.getElementById('detail-overlay');
 
-        /* populate */
-        document.getElementById('d-eyebrow').textContent  = s.eyebrow;
-        document.getElementById('d-title').textContent    = s.title;
+        document.getElementById('d-slide-label').textContent = s.eyebrow;
+        document.getElementById('d-eyebrow').textContent = s.eyebrow;
+        document.getElementById('d-title').textContent = s.title;
         document.getElementById('d-subtitle').textContent = s.subtitle;
-        document.getElementById('d-body').textContent     = s.body;
+        document.getElementById('d-body').textContent = s.body;
 
-        /* points */
+        targetTiltX = s.globeX;
+
         const pts = document.getElementById('d-points');
         pts.innerHTML = s.points
             ? s.points.map(p => `
-        <span class="d-chip">          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">            <path d="m9 18 6-6-6-6"/>          </svg>${p}
-        </span>`).join('')
+                <div class="d-chip">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>${p}
+                </div>`).join('')
             : '';
 
-        /* quote */
         const q = document.getElementById('d-quote');
         if (s.quote) { q.style.display = 'block'; q.textContent = `"${s.quote}"`; }
-        else          { q.style.display = 'none'; }
+        else { q.style.display = 'none'; }
 
-        /* image */
-        const imgWrap = document.getElementById('d-img-wrap');
-        if (s.image) {
-            const img = new Image();
-            img.alt = s.title;
-            img.onload  = () => { imgWrap.innerHTML = ''; imgWrap.appendChild(img); imgWrap.style.display = ''; };
-            img.onerror = () => { imgWrap.style.display = 'none'; };
-            imgWrap.style.display = '';
-            img.src = s.image;
-        } else {
-            imgWrap.style.display = 'none';
-        }
+        buildCarousel(s.images || []);
 
-        /* nav buttons */
         document.getElementById('d-prev').disabled = activeIndex === 0;
         document.getElementById('d-next').disabled = activeIndex === SLIDES.length - 1;
 
-        overlay.scrollTop = 0;
+        // Reset scroll to top
+        document.querySelector('.detail-scroll').scrollTop = 0;
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -901,64 +1270,48 @@
     function detailNavigate(dir) {
         const next = Math.max(0, Math.min(SLIDES.length - 1, activeIndex + dir));
         if (next !== activeIndex) {
-            jumpTo(next);
+            activeIndex = next;
+            updateOrbitPlanets();
             openDetail();
         }
     }
 
-    /* ═══════════════════════════════════════════════════
-       NAVIGATION══════════════════════════════════════════════════ */
-    let activeIndex = 0;
-    let timer       = null;
-
-    function jumpTo(i) {
-        activeIndex = i;
-        renderSlide(i);
-        resetTimer();
-    }
-
     function navigate(dir) {
         const next = Math.max(0, Math.min(SLIDES.length - 1, activeIndex + dir));
-        if (next !== activeIndex) jumpTo(next);
+        if (next !== activeIndex) {
+            activeIndex = next;
+            updateOrbitPlanets();
+            resetTimer();
+        }
     }
 
     function resetTimer() {
         clearInterval(timer);
         timer = setInterval(() => {
             activeIndex = (activeIndex + 1) % SLIDES.length;
-            renderSlide(activeIndex);
+            updateOrbitPlanets();
         }, 7000);
     }
 
-    /* ═══════════════════════════════════════════════════
-       KEYBOARD══════════════════════════════════════════════════ */
     document.addEventListener('keydown', e => {
         const detailOpen = document.getElementById('detail-overlay').classList.contains('open');
         if (e.key === 'Escape') { if (detailOpen) closeDetail(); return; }
-        if (detailOpen) return; /* don't change slides while detail is open */
+        if (detailOpen) {
+            if (e.key === 'ArrowLeft')  carGoTo(carActiveIdx - 1);
+            if (e.key === 'ArrowRight') carGoTo(carActiveIdx + 1);
+            return;
+        }
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
         if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
         if (e.key === 'Enter' || e.key === ' ') openDetail();
     });
 
-    /* ═══════════════════════════════════════════════════
-       INIT══════════════════════════════════════════════════ */
     window.addEventListener('DOMContentLoaded', () => {
-        buildBottomNav();
+        buildOrbitNav();
         initGlobe();
-
-        const s     = SLIDES[0];
-        const panel = document.getElementById('slide-panel');
-        fillCard(s);
-        panel.classList.add('panel-enter');
-        setTimeout(() => panel.classList.remove('panel-enter'), 500);
-
-        document.getElementById('btn-prev').disabled = true;
-        document.getElementById('pb').style.width    = (1 / SLIDES.length * 100) + '%';
-        targetTiltX = s.globeX;
+        animateOrbit();
         resetTimer();
     });
 </script>
-
 </body>
 </html>
