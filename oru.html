@@ -370,26 +370,55 @@
             opacity: 1;
         }
 
-        /* ── Top bar ── */
+        /* ── Top bar: slide menu centered, close on right ── */
         .detail-close-bar {
             flex-shrink: 0;
-            display: flex;
+            display: grid;
+            grid-template-columns: 40px 1fr 40px;
             align-items: center;
-            justify-content: space-between;
-            padding: 16px 40px;
+            padding: 14px 20px;
             border-bottom: 1px solid var(--border);
+            gap: 12px;
         }
 
-        .detail-slide-label {
+        .detail-slide-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .slide-menu-btn {
+            padding: 5px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.05);
+            color: rgba(255,255,255,.5);
             font-size: 11px;
-            letter-spacing: .28em;
+            font-weight: 700;
             text-transform: uppercase;
-            color: rgba(244,211,94,.7);
+            letter-spacing: .08em;
+            cursor: pointer;
+            transition: background .2s, border-color .2s, color .2s;
+            white-space: nowrap;
+        }
+
+        .slide-menu-btn:hover {
+            background: rgba(244,211,94,.1);
+            border-color: rgba(244,211,94,.3);
+            color: rgba(255,255,255,.85);
+        }
+
+        .slide-menu-btn.active {
+            background: rgba(244,211,94,.15);
+            border-color: rgba(244,211,94,.6);
+            color: var(--gold);
         }
 
         .detail-close-btn {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 1px solid var(--border);
             background: rgba(255,255,255,.07);
@@ -399,12 +428,13 @@
             align-items: center;
             justify-content: center;
             transition: background .2s, color .2s;
+            justify-self: end;
         }
 
         .detail-close-btn:hover { background: rgba(255,255,255,.15); color: #fff; }
-        .detail-close-btn svg { width: 15px; height: 15px; }
+        .detail-close-btn svg { width: 14px; height: 14px; }
 
-        /* ── Content area (scrollable) ── */
+        /* ── Scrollable body ── */
         .detail-scroll {
             flex: 1;
             overflow-y: auto;
@@ -414,24 +444,16 @@
         /* ── Text + chips section ── */
         .detail-content {
             display: grid;
-            grid-template-columns: 1fr 220px;
+            grid-template-columns: 1fr 240px;
             gap: 0;
-            padding: 36px 40px 28px;
+            padding: 32px 40px 24px;
             border-bottom: 1px solid var(--border);
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             width: 100%;
         }
 
         .detail-text { padding-right: 40px; }
-
-        .d-eyebrow {
-            font-size: 10px;
-            letter-spacing: .3em;
-            text-transform: uppercase;
-            color: rgba(244,211,94,.8);
-            margin-bottom: 8px;
-        }
 
         .d-title {
             font-size: clamp(1.8rem, 3.2vw, 2.8rem);
@@ -464,13 +486,13 @@
             margin-top: 18px;
         }
 
-        /* ── Right chips column ── */
+        /* ── Right chips column — expandable accordion items ── */
         .detail-chips {
             border-left: 1px solid var(--border);
-            padding-left: 32px;
+            padding-left: 28px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .chips-label {
@@ -478,29 +500,61 @@
             letter-spacing: .28em;
             text-transform: uppercase;
             color: rgba(244,211,94,.6);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
+        /* Each chip is now an accordion item */
         .d-chip {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: rgba(244,211,94,.07);
             border: 1px solid rgba(244,211,94,.16);
             border-radius: 10px;
-            font-size: 12px;
-            color: rgba(255,255,255,.82);
-            transition: background .2s, border-color .2s;
+            background: rgba(244,211,94,.07);
+            overflow: hidden;
+            transition: border-color .2s;
         }
 
-        .d-chip:hover { background: rgba(244,211,94,.13); border-color: rgba(244,211,94,.3); }
-        .d-chip svg { width: 10px; height: 10px; color: var(--gold); flex-shrink: 0; }
+        .d-chip:hover { border-color: rgba(244,211,94,.3); }
 
-        /* ── Filmstrip carousel ── */
+        .d-chip-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,.82);
+            user-select: none;
+        }
+
+        .d-chip-header svg.chevron {
+            width: 10px;
+            height: 10px;
+            color: var(--gold);
+            flex-shrink: 0;
+            transition: transform .22s ease;
+        }
+
+        .d-chip.open .d-chip-header svg.chevron { transform: rotate(90deg); }
+
+        .d-chip-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease, padding .3s ease;
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--muted);
+            padding: 0 12px;
+        }
+
+        .d-chip.open .d-chip-body {
+            max-height: 300px;
+            padding: 0 12px 12px;
+        }
+
+        /* ── Gallery ── */
         .detail-gallery {
-            padding: 28px 0 20px;
-            max-width: 900px;
+            padding: 24px 0 16px;
+            max-width: 960px;
             margin: 0 auto;
             width: 100%;
         }
@@ -509,7 +563,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 40px 16px;
+            padding: 0 40px 14px;
         }
 
         .gallery-label {
@@ -519,11 +573,7 @@
             color: rgba(244,211,94,.6);
         }
 
-        .gallery-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .gallery-controls { display: flex; align-items: center; gap: 8px; }
 
         .car-btn {
             width: 34px;
@@ -549,24 +599,36 @@
 
         .car-btn:disabled { opacity: .25; cursor: not-allowed; }
 
-        /* Viewport — shows partial slides on edges */
+        /* Filmstrip viewport */
         .car-viewport {
             display: flex;
             gap: 16px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            padding: 0 40px;
+            padding: 0 40px 4px;
             scrollbar-width: none;
         }
 
         .car-viewport::-webkit-scrollbar { display: none; }
 
+        /* Single image: large, natural aspect ratio */
+        .car-viewport.single .car-slide {
+            width: min(560px, 80vw);
+            aspect-ratio: unset;
+            max-height: 380px;
+        }
+
+        .car-viewport.single .car-slide img {
+            object-fit: contain;
+            background: rgba(0,0,0,.3);
+        }
+
         .car-slide {
             scroll-snap-align: start;
             flex-shrink: 0;
-            width: clamp(220px, 28vw, 340px);
-            aspect-ratio: 16/10;
+            width: clamp(200px, 26vw, 320px);
+            aspect-ratio: 4/3;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border);
@@ -575,10 +637,7 @@
             transition: border-color .2s, transform .2s;
         }
 
-        .car-slide:hover {
-            border-color: rgba(244,211,94,.3);
-            transform: translateY(-2px);
-        }
+        .car-slide:hover { border-color: rgba(244,211,94,.3); transform: translateY(-2px); }
 
         .car-slide img {
             width: 100%;
@@ -597,16 +656,16 @@
             gap: 8px;
             color: rgba(255,255,255,.18);
             font-size: 12px;
+            min-height: 160px;
         }
 
         .car-placeholder svg { width: 28px; height: 28px; }
 
-        /* Dots */
         .car-dots {
             display: flex;
             justify-content: center;
             gap: 6px;
-            padding-top: 16px;
+            padding-top: 14px;
         }
 
         .car-dot {
@@ -622,13 +681,78 @@
 
         .car-dot[aria-current="true"] { background: var(--gold); transform: scale(1.35); }
 
+        /* Lightbox */
+        #d-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(0,0,0,.92);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        #d-lightbox.open { display: flex; }
+
+        #d-lightbox img {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            object-fit: contain;
+            cursor: default;
+            box-shadow: 0 24px 80px rgba(0,0,0,.6);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.2);
+            background: rgba(255,255,255,.08);
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .lb-close:hover { background: rgba(255,255,255,.18); }
+
+        .lb-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.2);
+            background: rgba(255,255,255,.08);
+            color: #fff;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .lb-arrow:hover { background: rgba(244,211,94,.2); }
+        .lb-arrow.prev { left: 20px; }
+        .lb-arrow.next { right: 20px; }
+
         /* ── Slide nav row ── */
         .detail-nav-row {
             display: flex;
             gap: 12px;
             padding: 20px 40px 32px;
             border-top: 1px solid var(--border);
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             width: 100%;
         }
@@ -705,7 +829,7 @@
     </div>
 
     <div id="globe-logo">
-        <img src="assets/img/oru-logo.webp" alt="Oral Roberts University">
+        <img src="assets/img/projects/oru/Oral-Roberts-University-Logo-Tan-udpated.webp" alt="Oral Roberts University">
     </div>
 
     <div id="orbit-nav">
@@ -747,9 +871,10 @@
 
 <div id="detail-overlay">
 
-    <!-- Top bar -->
+    <!-- Top bar: centered slide menu, close on right -->
     <div class="detail-close-bar">
-        <span class="detail-slide-label" id="d-slide-label"></span>
+        <span></span>
+        <div class="detail-slide-menu" id="detail-slide-menu"></div>
         <button class="detail-close-btn" onclick="closeDetail()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -761,10 +886,9 @@
     <!-- Scrollable body -->
     <div class="detail-scroll">
 
-        <!-- Title + body text (left) + chips (right) -->
+        <!-- Title + text (left) + expandable chips (right) -->
         <div class="detail-content">
             <div class="detail-text">
-                <div class="d-eyebrow" id="d-eyebrow"></div>
                 <h2 class="d-title" id="d-title"></h2>
                 <div class="d-subtitle" id="d-subtitle"></div>
                 <p class="d-body" id="d-body"></p>
@@ -776,13 +900,13 @@
             </div>
         </div>
 
-        <!-- Filmstrip gallery -->
+        <!-- Filmstrip / single-image gallery -->
         <div class="detail-gallery" id="detail-gallery">
             <div class="gallery-header">
                 <span class="gallery-label">Photos</span>
                 <div class="gallery-controls">
-                    <button class="car-btn car-prev" id="car-prev" aria-label="Previous">&#8249;</button>
-                    <button class="car-btn car-next" id="car-next" aria-label="Next">&#8250;</button>
+                    <button class="car-btn" id="car-prev" aria-label="Previous">&#8249;</button>
+                    <button class="car-btn" id="car-next" aria-label="Next">&#8250;</button>
                 </div>
             </div>
             <div class="car-viewport" id="car-viewport" tabindex="0" aria-live="polite"></div>
@@ -810,6 +934,14 @@
     </div>
 </div>
 
+<!-- Lightbox -->
+<div id="d-lightbox">
+    <button class="lb-close" id="lb-close">&#x2715;</button>
+    <button class="lb-arrow prev" id="lb-prev">&#8249;</button>
+    <img id="lb-img" src="" alt="Lightbox image">
+    <button class="lb-arrow next" id="lb-next">&#8250;</button>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
@@ -821,7 +953,7 @@
             subtitle: 'Systems thinker with global perspective',
             body: "My background spans software engineering, multilingual communication, and faith-centered leadership. I've lived the international student experience firsthand — arriving in a new country, navigating cultural transitions, and finding community within a faith-based institution. That combination of technical and human skills is purpose-built for serving international students at ORU.",
             points: ['Software Engineering', 'Leadership background', 'Multilingual communication', 'Faith-centered perspective'],
-            images: [], // add your photos here, e.g. ['assets/img/photos/me-1.jpg']
+            images: ['assets/img/projects/oru/family.jpg', 'assets/img/projects/oru/students.png', 'assets/img/projects/oru/professor.png'],
             globeX: -0.05,
         },
         {
@@ -831,7 +963,7 @@
             subtitle: 'Mission, excellence, and global impact',
             body: "ORU sits at the intersection of academic rigor and spiritual formation. That combination is exactly what drew me here — not just a job, but a calling that aligns with my deepest convictions. The university's commitment to developing the whole person — spirit, mind, and body — reflects the values I carry into every system I build and every person I serve.",
             points: ['Mission-driven service', 'Academic excellence', 'Global impact', 'Whole-person development'],
-            images: [],
+            images: ['assets/img/projects/oru/orucampus.jpg'],
             globeX: -0.02,
         },
         {
@@ -841,7 +973,7 @@
             subtitle: 'Communication, structure, and care',
             body: "Every system I build exists to serve people. ISR is where systems thinking meets human care — and that intersection is where I thrive. International students face a unique set of challenges: visa compliance, cultural adjustment, academic expectations, and finding belonging. I understand those challenges intimately, and I want to be the person who builds the systems that make those transitions smoother.",
             points: ['Communication across cultures', 'Structured processes', 'Care for transition', 'Support systems design'],
-            images: [],
+            images: ['assets/img/projects/oru/process.jpg', 'assets/img/projects/oru/process2.jpg'],
             globeX: 0.01,
         },
         {
@@ -851,7 +983,7 @@
             subtitle: 'Scalable thinking and lived experience',
             body: "I bring a rare combination of technical capability and human sensitivity, shaped by years of international experience and systems design. I know how to build workflows that scale without losing the personal touch. I know how to communicate across language barriers without losing nuance. And I know what it feels like to be on the other side of the desk — which is perhaps the most important qualification of all.",
             points: ['Systems mindset', 'International perspective', 'Leadership experience', 'Faith foundation', 'Technical fluency'],
-            images: [],
+            images: ['assets/img/projects/oru/system.png', 'assets/img/projects/oru/products.png', 'assets/img/projects/oru/events.png'],
             globeX: 0.04,
         },
         {
@@ -861,7 +993,7 @@
             subtitle: 'Using smart systems to increase human care',
             body: "AI is a tool that, when used intentionally, creates more space for genuine human connection — not less. My vision is to build intelligent support systems that automate the routine, surface the important, and free advisors to focus on what matters most: the student in front of them. Data visibility, proactive alerts, and smart workflows can transform how an ISR office operates — without losing its heart.",
             points: ['Intelligent support tools', 'Process optimization', 'Data visibility', 'More human-centered time', 'Proactive student care'],
-            images: [],
+            images: ['assets/img/projects/oru/irs.png'],
             globeX: 0.07,
         },
         {
@@ -872,7 +1004,7 @@
             body: "The work of International Student Relations is not just administrative — it is pastoral, strategic, and deeply human. I bring the technical skills to build better systems, the global perspective to understand diverse students, and the spiritual conviction to serve with integrity. I am confident this is not just the right job for me — it is the right season, the right mission, and the right place.",
             quote: "I'm confident I can serve ORU and its students with the skills, global perspective, and spiritual integrity that God has been developing throughout my life.",
             points: ['Technical capability', 'Global perspective', 'Spiritual integrity', 'Servant leadership'],
-            images: [],
+            images: ['assets/img/projects/oru/gil.jpg'],
             globeX: 0.10,
         },
     ];
@@ -1120,22 +1252,105 @@
         requestAnimationFrame(animateOrbit);
     }
 
-    // ── Filmstrip carousel ──────────────────────────
+    // ── Build centered slide menu in top bar ────────
+    function buildSlideMenu() {
+        const menu = document.getElementById('detail-slide-menu');
+        menu.innerHTML = '';
+        SLIDES.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'slide-menu-btn';
+            btn.textContent = s.label;
+            btn.onclick = () => { activeIndex = i; updateOrbitPlanets(); openDetail(); };
+            menu.appendChild(btn);
+        });
+    }
+
+    function updateSlideMenu() {
+        [...document.querySelectorAll('.slide-menu-btn')].forEach((btn, i) => {
+            btn.classList.toggle('active', i === activeIndex);
+        });
+    }
+
+    // ── Accordion chips ─────────────────────────────
+    function buildChips(points) {
+        const pts = document.getElementById('d-points');
+        if (!points || points.length === 0) { pts.innerHTML = ''; return; }
+
+        // points can be strings OR {label, detail} objects
+        pts.innerHTML = points.map((p, i) => {
+            const label  = typeof p === 'string' ? p : p.label;
+            const detail = typeof p === 'string' ? null : p.detail;
+            const hasDetail = !!detail;
+            return `
+            <div class="d-chip" id="chip-${i}">
+                <div class="d-chip-header" onclick="toggleChip(${i})">
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                    ${label}
+                </div>
+                ${hasDetail ? `<div class="d-chip-body">${detail}</div>` : ''}
+            </div>`;
+        }).join('');
+    }
+
+    function toggleChip(i) {
+        const chip = document.getElementById(`chip-${i}`);
+        if (!chip) return;
+        const body = chip.querySelector('.d-chip-body');
+        if (!body) return;
+        chip.classList.toggle('open');
+    }
+
+    // ── Lightbox ─────────────────────────────────────
+    let lbImages = [], lbIdx = 0;
+
+    function openLightbox(images, idx) {
+        lbImages = images;
+        lbIdx = idx;
+        document.getElementById('lb-img').src = lbImages[lbIdx];
+        document.getElementById('d-lightbox').classList.add('open');
+        document.getElementById('lb-prev').style.opacity = lbIdx === 0 ? '.3' : '1';
+        document.getElementById('lb-next').style.opacity = lbIdx === lbImages.length - 1 ? '.3' : '1';
+    }
+
+    function closeLightbox() {
+        document.getElementById('d-lightbox').classList.remove('open');
+        document.getElementById('lb-img').src = '';
+    }
+
+    function lbGo(dir) {
+        const next = lbIdx + dir;
+        if (next < 0 || next >= lbImages.length) return;
+        lbIdx = next;
+        document.getElementById('lb-img').src = lbImages[lbIdx];
+        document.getElementById('lb-prev').style.opacity = lbIdx === 0 ? '.3' : '1';
+        document.getElementById('lb-next').style.opacity = lbIdx === lbImages.length - 1 ? '.3' : '1';
+    }
+
+    document.getElementById('lb-close').onclick = closeLightbox;
+    document.getElementById('lb-prev').onclick  = () => lbGo(-1);
+    document.getElementById('lb-next').onclick  = () => lbGo(1);
+    document.getElementById('d-lightbox').addEventListener('click', e => {
+        if (e.target === document.getElementById('d-lightbox')) closeLightbox();
+    });
+
+    // ── Filmstrip carousel ───────────────────────────
     let carActiveIdx = 0;
 
     function buildCarousel(images) {
         const viewport = document.getElementById('car-viewport');
         const dotsWrap = document.getElementById('car-dots');
-        const gallery  = document.getElementById('detail-gallery');
         viewport.innerHTML = '';
         dotsWrap.innerHTML = '';
         carActiveIdx = 0;
 
+        // Single image: add .single class for larger display
+        viewport.classList.toggle('single', images && images.length === 1);
+
         if (!images || images.length === 0) {
-            // Show placeholder single slide
-            const ph = document.createElement('div');
-            ph.className = 'car-slide';
-            ph.innerHTML = `<div class="car-placeholder">
+            viewport.innerHTML = `<div class="car-slide"><div class="car-placeholder">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="18" height="18" x="3" y="3" rx="2"/>
@@ -1143,8 +1358,7 @@
                     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
                 </svg>
                 Add images to this slide
-            </div>`;
-            viewport.appendChild(ph);
+            </div></div>`;
             document.getElementById('car-prev').disabled = true;
             document.getElementById('car-next').disabled = true;
             return;
@@ -1153,6 +1367,7 @@
         images.forEach((src, i) => {
             const slide = document.createElement('div');
             slide.className = 'car-slide';
+            slide.style.cursor = 'zoom-in';
             const img = document.createElement('img');
             img.src = src;
             img.alt = `Photo ${i + 1}`;
@@ -1165,6 +1380,8 @@
                 </div>`;
             };
             slide.appendChild(img);
+            // Click to open lightbox
+            slide.addEventListener('click', () => openLightbox(images, i));
             viewport.appendChild(slide);
 
             const dot = document.createElement('button');
@@ -1179,86 +1396,61 @@
 
         updateCarUI();
 
-        // Sync dots on native scroll
         let scrollTick = false;
         viewport.addEventListener('scroll', () => {
             if (scrollTick) return;
             scrollTick = true;
             requestAnimationFrame(() => {
                 const slideW = viewport.querySelector('.car-slide')?.offsetWidth || 1;
-                const gap = 16;
-                const idx = Math.round(viewport.scrollLeft / (slideW + gap));
+                const idx = Math.round(viewport.scrollLeft / (slideW + 16));
                 if (idx !== carActiveIdx) { carActiveIdx = idx; updateCarUI(); }
                 scrollTick = false;
             });
-        });
-
-        // Keyboard nav on viewport
-        viewport.addEventListener('keydown', e => {
-            if (e.key === 'ArrowRight') carGoTo(carActiveIdx + 1);
-            if (e.key === 'ArrowLeft')  carGoTo(carActiveIdx - 1);
         });
     }
 
     function updateCarUI() {
         const dots = [...document.querySelectorAll('.car-dot')];
-        const total = dots.length;
         dots.forEach((d, i) => d.setAttribute('aria-current', i === carActiveIdx ? 'true' : 'false'));
         document.getElementById('car-prev').disabled = carActiveIdx === 0;
-        document.getElementById('car-next').disabled = carActiveIdx >= total - 1;
+        document.getElementById('car-next').disabled = carActiveIdx >= dots.length - 1;
     }
 
     function carGoTo(i) {
         const viewport = document.getElementById('car-viewport');
         const slides = [...viewport.querySelectorAll('.car-slide')];
-        const total = slides.length;
-        carActiveIdx = Math.max(0, Math.min(i, total - 1));
-        const slideW = slides[0]?.offsetWidth || 0;
-        const gap = 16;
-        viewport.scrollTo({ left: carActiveIdx * (slideW + gap), behavior: 'smooth' });
+        carActiveIdx = Math.max(0, Math.min(i, slides.length - 1));
+        viewport.scrollTo({ left: carActiveIdx * ((slides[0]?.offsetWidth || 0) + 16), behavior: 'smooth' });
         updateCarUI();
     }
 
     document.getElementById('car-prev').addEventListener('click', () => carGoTo(carActiveIdx - 1));
     document.getElementById('car-next').addEventListener('click', () => carGoTo(carActiveIdx + 1));
 
-    // ── openDetail ──────────────────────────────────
+    // ── openDetail ───────────────────────────────────
     function openDetail(idx) {
         if (idx !== undefined) activeIndex = idx;
         const s = SLIDES[activeIndex];
-        const overlay = document.getElementById('detail-overlay');
 
-        document.getElementById('d-slide-label').textContent = s.eyebrow;
-        document.getElementById('d-eyebrow').textContent = s.eyebrow;
         document.getElementById('d-title').textContent = s.title;
         document.getElementById('d-subtitle').textContent = s.subtitle;
         document.getElementById('d-body').textContent = s.body;
 
         targetTiltX = s.globeX;
 
-        const pts = document.getElementById('d-points');
-        pts.innerHTML = s.points
-            ? s.points.map(p => `
-                <div class="d-chip">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m9 18 6-6-6-6"/>
-                    </svg>${p}
-                </div>`).join('')
-            : '';
-
         const q = document.getElementById('d-quote');
         if (s.quote) { q.style.display = 'block'; q.textContent = `"${s.quote}"`; }
         else { q.style.display = 'none'; }
 
+        buildChips(s.points || []);
         buildCarousel(s.images || []);
+        updateSlideMenu();
 
         document.getElementById('d-prev').disabled = activeIndex === 0;
         document.getElementById('d-next').disabled = activeIndex === SLIDES.length - 1;
 
-        // Reset scroll to top
         document.querySelector('.detail-scroll').scrollTop = 0;
-        overlay.classList.add('open');
+        document.getElementById('detail-overlay').classList.add('open');
         document.body.style.overflow = 'hidden';
     }
 
@@ -1269,20 +1461,12 @@
 
     function detailNavigate(dir) {
         const next = Math.max(0, Math.min(SLIDES.length - 1, activeIndex + dir));
-        if (next !== activeIndex) {
-            activeIndex = next;
-            updateOrbitPlanets();
-            openDetail();
-        }
+        if (next !== activeIndex) { activeIndex = next; updateOrbitPlanets(); openDetail(); }
     }
 
     function navigate(dir) {
         const next = Math.max(0, Math.min(SLIDES.length - 1, activeIndex + dir));
-        if (next !== activeIndex) {
-            activeIndex = next;
-            updateOrbitPlanets();
-            resetTimer();
-        }
+        if (next !== activeIndex) { activeIndex = next; updateOrbitPlanets(); resetTimer(); }
     }
 
     function resetTimer() {
@@ -1294,7 +1478,15 @@
     }
 
     document.addEventListener('keydown', e => {
+        const lbOpen     = document.getElementById('d-lightbox').classList.contains('open');
         const detailOpen = document.getElementById('detail-overlay').classList.contains('open');
+
+        if (lbOpen) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft')  lbGo(-1);
+            if (e.key === 'ArrowRight') lbGo(1);
+            return;
+        }
         if (e.key === 'Escape') { if (detailOpen) closeDetail(); return; }
         if (detailOpen) {
             if (e.key === 'ArrowLeft')  carGoTo(carActiveIdx - 1);
@@ -1308,6 +1500,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         buildOrbitNav();
+        buildSlideMenu();
         initGlobe();
         animateOrbit();
         resetTimer();
