@@ -36,10 +36,7 @@
             z-index: 0;
             background:
                     radial-gradient(ellipse 70% 80% at 50% 44%,
-                    #0c2050 0%,
-                    #071630 30%,
-                    #040e22 60%,
-                    #020a1a 100%);
+                    #0c2050 0%, #071630 30%, #040e22 60%, #020a1a 100%);
         }
 
         #galaxy::after {
@@ -47,15 +44,13 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(ellipse 100% 100% at 50% 50%,
-            transparent 40%,
-            rgba(1,5,14,.55) 100%);
+            transparent 40%, rgba(1,5,14,.55) 100%);
         }
 
-        /* ══ GLOBE SCENE ═════════════════════════════ */
+        /* ══ GLOBE SCENE ══════════════════════════════ */
         #globe-scene {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             width: min(88vh, 88vw);
             height: min(88vh, 88vw);
@@ -67,17 +62,14 @@
             inset: -8%;
             border-radius: 50%;
             background: radial-gradient(circle,
-            rgba(15, 45, 110, .45) 0%,
-            rgba(8, 25, 65, .25) 45%,
-            transparent 70%);
+            rgba(15,45,110,.45) 0%, rgba(8,25,65,.25) 45%, transparent 70%);
             pointer-events: none;
             z-index: 1;
         }
 
         #globe-wrap {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             width: 82%;
             aspect-ratio: 1;
@@ -101,11 +93,7 @@
             box-shadow: 0 0 0 1px rgba(100,160,255,.12);
         }
 
-        #globe-canvas {
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
-        }
+        #globe-canvas { width: 100% !important; height: 100% !important; display: block; }
 
         .globe-sheen {
             position: absolute;
@@ -118,25 +106,22 @@
             pointer-events: none;
         }
 
-        /* Gold atmosphere glow */
         #globe-atm {
             position: absolute;
             inset: -4.5%;
             border-radius: 50%;
             background: transparent;
             box-shadow:
-                    0 0 0 4px rgba(255, 210, 60, 0.1),
-                    0 0 20px 8px rgba(214, 166, 58, 0.14),
-                    0 0 50px 18px rgba(180, 124, 20, 0.1),
-                    0 0 90px 32px rgba(130, 110, 10, 0.07);
+                    0 0 0 4px rgba(255,210,60,.10),
+                    0 0 20px 8px rgba(214,166,58,.14),
+                    0 0 50px 18px rgba(180,124,20,.10),
+                    0 0 90px 32px rgba(130,110,10,.07);
             pointer-events: none;
         }
 
-        /* Logo with gold + blue glow */
         #globe-logo {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             z-index: 20;
             pointer-events: none;
@@ -147,12 +132,12 @@
             width: clamp(220px, 30vw, 400px);
             height: auto;
             filter:
-                    drop-shadow(0 0 12px rgba(255, 205, 80, 0.6))
-                    drop-shadow(0 0 28px rgba(80, 140, 255, 0.4))
+                    drop-shadow(0 0 12px rgba(255,205,80,.6))
+                    drop-shadow(0 0 28px rgba(80,140,255,.4))
                     drop-shadow(0 10px 28px rgba(0,0,0,.35));
         }
 
-        /* ══ ORBIT NAV ═══════════════════════════════ */
+        /* ══ ORBIT NAV ════════════════════════════════ */
         #orbit-nav {
             position: absolute;
             inset: -10%;
@@ -160,111 +145,69 @@
             pointer-events: none;
         }
 
-        #orbit-ring {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-        }
+        #orbit-ring { position: absolute; inset: 0; pointer-events: none; }
 
         #orbit-belt {
             position: absolute;
-            left: 8%;
-            right: 8%;
-            top: 50%;
+            left: 8%; right: 8%; top: 50%;
             height: 34%;
             transform: translateY(-50%);
-            border: 1px solid rgba(80, 130, 255, 0.08);
+            border: 1px solid rgba(80,130,255,.08);
             border-radius: 50%;
             pointer-events: none;
             opacity: .45;
             filter: blur(.2px);
         }
 
-        #orbit-planets {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-        }
+        #orbit-planets { position: absolute; inset: 0; pointer-events: none; }
 
         .orbit-planet {
             position: absolute;
-            width: 64px;
-            height: 64px;
-            margin-left: -32px;
-            margin-top: -32px;
+            width: 64px; height: 64px;
+            margin-left: -32px; margin-top: -32px;
             border-radius: 50%;
             border: 2px solid rgba(255,255,255,.14);
-            background:
-                    radial-gradient(circle at 32% 28%,
-                    rgba(255,255,255,.18) 0%,
-                    rgba(30,60,140,.14) 24%,
-                    rgba(5,16,46,.94) 72%);
-            box-shadow:
-                    0 10px 26px rgba(0,0,0,.35),
-                    inset 0 1px 4px rgba(255,255,255,.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: radial-gradient(circle at 32% 28%,
+            rgba(255,255,255,.18) 0%, rgba(30,60,140,.14) 24%, rgba(5,16,46,.94) 72%);
+            box-shadow: 0 10px 26px rgba(0,0,0,.35), inset 0 1px 4px rgba(255,255,255,.08);
+            display: flex; align-items: center; justify-content: center;
             color: rgba(255,255,255,.84);
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            text-align: center;
-            line-height: 1.05;
-            cursor: pointer;
-            pointer-events: auto;
-            transition:
-                    border-color .22s ease,
-                    box-shadow .22s ease,
-                    opacity .22s ease,
-                    background .22s ease;
+            font-size: 9px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: .08em;
+            text-align: center; line-height: 1.05;
+            cursor: pointer; pointer-events: auto;
+            transition: border-color .22s, box-shadow .22s, opacity .22s, background .22s;
             padding: 8px;
         }
 
         .orbit-planet:hover {
             border-color: rgba(244,211,94,.42);
-            box-shadow:
-                    0 14px 30px rgba(0,0,0,.42),
-                    0 0 18px rgba(244,211,94,.12),
-                    inset 0 1px 4px rgba(255,255,255,.12);
+            box-shadow: 0 14px 30px rgba(0,0,0,.42), 0 0 18px rgba(244,211,94,.12),
+            inset 0 1px 4px rgba(255,255,255,.12);
         }
 
         .orbit-planet.active {
             border-color: rgba(244,211,94,.75);
             color: var(--gold);
-            background:
-                    radial-gradient(circle at 32% 28%,
-                    rgba(255,232,154,.34) 0%,
-                    rgba(244,211,94,.14) 26%,
-                    rgba(12,20,52,.96) 74%);
-            box-shadow:
-                    0 14px 32px rgba(0,0,0,.48),
-                    0 0 22px rgba(244,211,94,.18),
-                    inset 0 1px 4px rgba(255,255,255,.14);
+            background: radial-gradient(circle at 32% 28%,
+            rgba(255,232,154,.34) 0%, rgba(244,211,94,.14) 26%, rgba(12,20,52,.96) 74%);
+            box-shadow: 0 14px 32px rgba(0,0,0,.48), 0 0 22px rgba(244,211,94,.18),
+            inset 0 1px 4px rgba(255,255,255,.14);
         }
 
-        .orbit-planet span {
-            display: block;
-            max-width: 48px;
-        }
+        .orbit-planet span { display: block; max-width: 48px; }
 
-        /* Arrows positioned at bottom of orbit */
         .orbit-arrow {
             position: absolute;
             top: 85%;
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             margin-top: -22px;
             border-radius: 50%;
             border: 1px solid var(--border);
             background: rgba(6,16,44,.62);
             color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            pointer-events: auto;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; pointer-events: auto;
             z-index: 40;
             transition: all .2s ease;
             backdrop-filter: blur(8px);
@@ -276,101 +219,66 @@
             transform: translateY(-50%) scale(1.08);
         }
 
-        .orbit-arrow:disabled {
-            opacity: .25;
-            cursor: not-allowed;
-        }
-
+        .orbit-arrow:disabled { opacity: .25; cursor: not-allowed; }
         #orbit-prev { left: 8%; }
         #orbit-next { right: 8%; }
+        .orbit-arrow svg { width: 18px; height: 18px; }
 
-        .orbit-arrow svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* ══ TITLE BANNER ════════════════════════════ */
+        /* ══ TITLE BANNER ═════════════════════════════ */
         #title-banner {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             z-index: 30;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 18px 40px 22px;
-            background: linear-gradient(
-                    to top,
-                    rgba(2, 8, 24, 0.92) 0%,
-                    rgba(3, 12, 36, 0.78) 60%,
-                    transparent 100%
-            );
+            background: linear-gradient(to top,
+            rgba(2,8,24,.92) 0%, rgba(3,12,36,.78) 60%, transparent 100%);
             backdrop-filter: blur(2px);
             pointer-events: none;
         }
 
-        .banner-left {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+        .banner-left { display: flex; flex-direction: column; gap: 4px; }
 
         .banner-title {
             font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-            font-weight: 900;
-            letter-spacing: -.02em;
-            line-height: 1.05;
-            color: #fff;
+            font-weight: 900; letter-spacing: -.02em; line-height: 1.05; color: #fff;
         }
 
         .banner-subtitle {
             font-size: clamp(.8rem, 1.1vw, 1rem);
-            color: rgba(248,250,252,.55);
-            font-weight: 400;
-            letter-spacing: .01em;
+            color: rgba(248,250,252,.55); font-weight: 400; letter-spacing: .01em;
         }
 
-        .banner-byline {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
+        .banner-byline { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
         .banner-by {
             font-size: clamp(.75rem, 1vw, .9rem);
-            color: rgba(248,250,252,.45);
-            font-weight: 400;
+            color: rgba(248,250,252,.45); font-weight: 400;
         }
 
         .banner-name {
             font-family: 'Great Vibes', cursive;
             font-size: clamp(1.4rem, 2.4vw, 2rem);
-            color: var(--gold);
-            line-height: 1;
+            color: var(--gold); line-height: 1;
             filter: drop-shadow(0 2px 8px rgba(244,211,94,.25));
         }
 
-        /* ══ DETAIL OVERLAY ══════════════════════════ */
+        /* ══ DETAIL OVERLAY ═══════════════════════════ */
         #detail-overlay {
             display: none;
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             z-index: 300;
-            background: rgba(2, 8, 20, 0.97);
+            background: rgba(2,8,20,.97);
             backdrop-filter: blur(24px);
             opacity: 0;
             transition: opacity .28s ease;
             flex-direction: column;
         }
 
-        #detail-overlay.open {
-            display: flex;
-            opacity: 1;
-        }
+        #detail-overlay.open { display: flex; opacity: 1; }
 
-        /* ── Top bar: slide menu centered, close on right ── */
         .detail-close-bar {
             flex-shrink: 0;
             display: grid;
@@ -382,11 +290,8 @@
         }
 
         .detail-slide-menu {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            flex-wrap: wrap;
+            display: flex; align-items: center; justify-content: center;
+            gap: 6px; flex-wrap: wrap;
         }
 
         .slide-menu-btn {
@@ -395,10 +300,8 @@
             border: 1px solid var(--border);
             background: rgba(255,255,255,.05);
             color: rgba(255,255,255,.5);
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .08em;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .08em;
             cursor: pointer;
             transition: background .2s, border-color .2s, color .2s;
             white-space: nowrap;
@@ -417,16 +320,13 @@
         }
 
         .detail-close-btn {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             border: 1px solid var(--border);
             background: rgba(255,255,255,.07);
             color: rgba(255,255,255,.7);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             transition: background .2s, color .2s;
             justify-self: end;
         }
@@ -434,17 +334,12 @@
         .detail-close-btn:hover { background: rgba(255,255,255,.15); color: #fff; }
         .detail-close-btn svg { width: 14px; height: 14px; }
 
-        /* ── Scrollable body ── */
-        .detail-scroll {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+        .detail-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; }
 
-        /* ── Text + chips section ── */
+        /* ── Text + points section ── */
         .detail-content {
             display: grid;
-            grid-template-columns: 1fr 240px;
+            grid-template-columns: 1fr 220px;
             gap: 0;
             padding: 32px 40px 24px;
             border-bottom: 1px solid var(--border);
@@ -457,136 +352,89 @@
 
         .d-title {
             font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-            font-weight: 900;
-            letter-spacing: -.025em;
-            line-height: 1.05;
+            font-weight: 900; letter-spacing: -.025em; line-height: 1.05;
             margin-bottom: 8px;
         }
 
         .d-subtitle {
             font-size: clamp(.9rem, 1.3vw, 1.1rem);
-            color: rgba(244,211,94,.78);
-            line-height: 1.5;
-            margin-bottom: 16px;
+            color: rgba(244,211,94,.78); line-height: 1.5; margin-bottom: 16px;
         }
 
         .d-body {
             font-size: clamp(.85rem, 1.1vw, .98rem);
-            line-height: 1.85;
-            color: var(--muted);
+            line-height: 1.85; color: var(--muted);
         }
 
         .d-quote {
             font-style: italic;
             font-size: clamp(.9rem, 1.2vw, 1.05rem);
-            line-height: 1.8;
-            color: rgba(255,255,255,.85);
+            line-height: 1.8; color: rgba(255,255,255,.85);
             border-left: 3px solid var(--gold);
-            padding: 4px 0 4px 18px;
-            margin-top: 18px;
+            padding: 4px 0 4px 18px; margin-top: 18px;
         }
 
-        /* ── Right chips column — expandable accordion items ── */
+        /* ── Right key points — plain list, NOT buttons ── */
         .detail-chips {
             border-left: 1px solid var(--border);
             padding-left: 28px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            display: flex; flex-direction: column; gap: 0;
         }
 
         .chips-label {
-            font-size: 10px;
-            letter-spacing: .28em;
-            text-transform: uppercase;
-            color: rgba(244,211,94,.6);
-            margin-bottom: 6px;
+            font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+            color: rgba(244,211,94,.6); margin-bottom: 14px;
         }
 
-        /* Each chip is now an accordion item */
-        .d-chip {
-            border: 1px solid rgba(244,211,94,.16);
-            border-radius: 10px;
-            background: rgba(244,211,94,.07);
-            overflow: hidden;
-            transition: border-color .2s;
-        }
-
-        .d-chip:hover { border-color: rgba(244,211,94,.3); }
-
-        .d-chip-header {
+        /* Plain list item — no border, no hover, no button look */
+        .d-point {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            color: rgba(255,255,255,.82);
-            user-select: none;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 0.5px solid rgba(255,255,255,.06);
+            font-size: 13px;
+            color: rgba(255,255,255,.78);
+            line-height: 1.4;
         }
 
-        .d-chip-header svg.chevron {
-            width: 10px;
-            height: 10px;
-            color: var(--gold);
+        .d-point:last-child { border-bottom: none; }
+
+        .d-point-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
             flex-shrink: 0;
-            transition: transform .22s ease;
-        }
-
-        .d-chip.open .d-chip-header svg.chevron { transform: rotate(90deg); }
-
-        .d-chip-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .3s ease, padding .3s ease;
-            font-size: 12px;
-            line-height: 1.7;
-            color: var(--muted);
-            padding: 0 12px;
-        }
-
-        .d-chip.open .d-chip-body {
-            max-height: 300px;
-            padding: 0 12px 12px;
+            margin-top: 5px;
+            opacity: .7;
         }
 
         /* ── Gallery ── */
         .detail-gallery {
             padding: 24px 0 16px;
-            max-width: 960px;
-            margin: 0 auto;
-            width: 100%;
+            max-width: 960px; margin: 0 auto; width: 100%;
         }
 
         .gallery-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 0 40px 14px;
         }
 
         .gallery-label {
-            font-size: 10px;
-            letter-spacing: .28em;
-            text-transform: uppercase;
+            font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
             color: rgba(244,211,94,.6);
         }
 
         .gallery-controls { display: flex; align-items: center; gap: 8px; }
 
         .car-btn {
-            width: 34px;
-            height: 34px;
+            width: 34px; height: 34px;
             border-radius: 50%;
             border: 1px solid var(--border);
             background: rgba(255,255,255,.06);
             color: rgba(255,255,255,.7);
-            font-size: 18px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 18px; line-height: 1;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: background .2s, border-color .2s, color .2s;
         }
@@ -599,10 +447,8 @@
 
         .car-btn:disabled { opacity: .25; cursor: not-allowed; }
 
-        /* Filmstrip viewport */
         .car-viewport {
-            display: flex;
-            gap: 16px;
+            display: flex; gap: 16px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
@@ -612,16 +458,13 @@
 
         .car-viewport::-webkit-scrollbar { display: none; }
 
-        /* Single image: large, natural aspect ratio */
         .car-viewport.single .car-slide {
             width: min(560px, 80vw);
-            aspect-ratio: unset;
-            max-height: 380px;
+            aspect-ratio: unset; max-height: 380px;
         }
 
         .car-viewport.single .car-slide img {
-            object-fit: contain;
-            background: rgba(0,0,0,.3);
+            object-fit: contain; background: rgba(0,0,0,.3);
         }
 
         .car-slide {
@@ -639,43 +482,28 @@
 
         .car-slide:hover { border-color: rgba(244,211,94,.3); transform: translateY(-2px); }
 
-        .car-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .car-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .car-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: rgba(255,255,255,.18);
-            font-size: 12px;
-            min-height: 160px;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 8px; color: rgba(255,255,255,.18);
+            font-size: 12px; min-height: 160px;
         }
 
         .car-placeholder svg { width: 28px; height: 28px; }
 
         .car-dots {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            padding-top: 14px;
+            display: flex; justify-content: center;
+            gap: 6px; padding-top: 14px;
         }
 
         .car-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            border: none;
+            width: 6px; height: 6px;
+            border-radius: 50%; border: none;
             background: rgba(255,255,255,.22);
-            cursor: pointer;
-            padding: 0;
+            cursor: pointer; padding: 0;
             transition: background .2s, transform .2s;
         }
 
@@ -684,62 +512,44 @@
         /* Lightbox */
         #d-lightbox {
             display: none;
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             z-index: 500;
             background: rgba(0,0,0,.92);
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
             cursor: zoom-out;
         }
 
         #d-lightbox.open { display: flex; }
 
         #d-lightbox img {
-            max-width: 92vw;
-            max-height: 90vh;
-            border-radius: 10px;
-            object-fit: contain;
+            max-width: 92vw; max-height: 90vh;
+            border-radius: 10px; object-fit: contain;
             cursor: default;
             box-shadow: 0 24px 80px rgba(0,0,0,.6);
         }
 
         .lb-close {
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            width: 38px;
-            height: 38px;
+            position: absolute; top: 20px; right: 24px;
+            width: 38px; height: 38px;
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,.2);
             background: rgba(255,255,255,.08);
-            color: #fff;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background .2s;
+            color: #fff; font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: background .2s;
         }
 
         .lb-close:hover { background: rgba(255,255,255,.18); }
 
         .lb-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 44px; height: 44px;
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,.2);
             background: rgba(255,255,255,.08);
-            color: #fff;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background .2s;
+            color: #fff; font-size: 22px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: background .2s;
         }
 
         .lb-arrow:hover { background: rgba(244,211,94,.2); }
@@ -748,29 +558,21 @@
 
         /* ── Slide nav row ── */
         .detail-nav-row {
-            display: flex;
-            gap: 12px;
+            display: flex; gap: 12px;
             padding: 20px 40px 32px;
             border-top: 1px solid var(--border);
-            max-width: 960px;
-            margin: 0 auto;
-            width: 100%;
+            max-width: 960px; margin: 0 auto; width: 100%;
         }
 
         .d-nav-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 20px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 12px 20px;
             border: 1px solid var(--border);
             background: rgba(255,255,255,.05);
             border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--muted);
-            cursor: pointer;
+            font-size: 13px; font-weight: 600;
+            color: var(--muted); cursor: pointer;
             transition: background .2s, color .2s, border-color .2s;
         }
 
@@ -783,14 +585,10 @@
         .d-nav-btn:disabled { opacity: .25; cursor: not-allowed; }
         .d-nav-btn svg { width: 15px; height: 15px; }
 
-        /* ══ PROGRESS BAR ════════════════════════════ */
+        /* ══ PROGRESS BAR ═════════════════════════════ */
         #progress-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            z-index: 50;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 3px; z-index: 50;
             background: rgba(255,255,255,.07);
         }
 
@@ -819,7 +617,6 @@
 <div id="galaxy"></div>
 
 <div id="globe-scene">
-
     <div id="globe-wrap">
         <div id="globe-atm"></div>
         <div id="globe-clip">
@@ -833,9 +630,7 @@
     </div>
 
     <div id="orbit-nav">
-        <div id="orbit-ring">
-            <div id="orbit-belt"></div>
-        </div>
+        <div id="orbit-ring"><div id="orbit-belt"></div></div>
 
         <button class="orbit-arrow" id="orbit-prev" onclick="navigate(-1)" aria-label="Previous slide">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -853,7 +648,6 @@
             </svg>
         </button>
     </div>
-
 </div>
 
 <div id="title-banner">
@@ -870,12 +664,10 @@
 <div id="progress-bar"><div id="progress-fill"></div></div>
 
 <div id="detail-overlay">
-
-    <!-- Top bar: centered slide menu, close on right -->
     <div class="detail-close-bar">
         <span></span>
         <div class="detail-slide-menu" id="detail-slide-menu"></div>
-        <button class="detail-close-btn" onclick="closeDetail()">
+        <button class="detail-close-btn" id="detail-close-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
@@ -883,10 +675,8 @@
         </button>
     </div>
 
-    <!-- Scrollable body -->
     <div class="detail-scroll">
 
-        <!-- Title + text (left) + expandable chips (right) -->
         <div class="detail-content">
             <div class="detail-text">
                 <h2 class="d-title" id="d-title"></h2>
@@ -900,7 +690,6 @@
             </div>
         </div>
 
-        <!-- Filmstrip / single-image gallery -->
         <div class="detail-gallery" id="detail-gallery">
             <div class="gallery-header">
                 <span class="gallery-label">Photos</span>
@@ -913,16 +702,15 @@
             <div class="car-dots" id="car-dots" role="tablist" aria-label="Gallery slides"></div>
         </div>
 
-        <!-- Prev / Next slide nav -->
         <div class="detail-nav-row">
-            <button class="d-nav-btn" id="d-prev" onclick="detailNavigate(-1)">
+            <button class="d-nav-btn" id="d-prev">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 12H5"/><path d="m12 5-7 7 7 7"/>
                 </svg>
                 Previous
             </button>
-            <button class="d-nav-btn" id="d-next" onclick="detailNavigate(1)">
+            <button class="d-nav-btn" id="d-next">
                 Next
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -934,7 +722,6 @@
     </div>
 </div>
 
-<!-- Lightbox -->
 <div id="d-lightbox">
     <button class="lb-close" id="lb-close">&#x2715;</button>
     <button class="lb-arrow prev" id="lb-prev">&#8249;</button>
@@ -948,60 +735,54 @@
     const SLIDES = [
         {
             id: 'gilson', label: 'About',
-            eyebrow: 'About Me',
             title: "I'm Gilson Lacerda",
             subtitle: 'Systems thinker with global perspective',
-            body: "I came from Brazil with a theology degree, raised leaders around the world as Alumni Director, and on the journey of always wanting to improve systems, I became a software engineer. I speak Portuguese, Spanish, and English.",
-            points: ['Software Engineering', 'Leadership background', 'Multilingual communication', 'Faith-centered perspective'],
+            body: "I'm from Brazil and hold degrees in theology and professional leadership. I have raised leaders around the world as an Alumni Director. My journey to continually improve systems led me to become a software engineer. I speak Portuguese, Spanish, and English.",
+            points: ['Alumni Director | Global leadership', 'Multilingual | Global perspective', 'Software Engineer | Systems thinker'],
             images: ['assets/img/projects/oru/family.jpg', 'assets/img/projects/oru/students.png', 'assets/img/projects/oru/professor.png', 'assets/img/projects/oru/KCBC.png'],
             globeX: -0.05,
         },
         {
             id: 'oru', label: 'Why ORU',
-            eyebrow: 'Mission Alignment',
             title: 'Why ORU?',
-            subtitle: 'Mission, excellence, and global impact',
-            body: "I grew up reading about Oral Roberts, built my life on faith and the whole-person principle. When I finally walked the campus, I felt the spirit of excellence, and in that moment, I knew: this is my place. These are the people I want to grow with, now I have a deep conviction that God wants me here.",
-            points: ['Mission-driven service', 'Academic excellence', 'Global impact', 'Whole-person development', "God's General"],
-            images: ['assets/img/projects/oru/book.png', 'assets/img/projects/oru/Jesus.jpeg ', 'assets/img/projects/oru/oruhands.jpg'],
+            subtitle: 'Mission, excellence & global impact',
+            body: "I grew up in Brazil reading about Oral Roberts, and I've built my life on faith and the whole-person principle. When I finally had the opportunity to walk the campus, I felt the spirit of excellence, and I knew: this is my place. I have a deep conviction that God wants me to join what He is doing at ORU.",
+            points: ['Spirit of excellence', 'Whole-person development', "God's calling"],
+            images: ['assets/img/projects/oru/book.png', 'assets/img/projects/oru/Jesus.jpeg', 'assets/img/projects/oru/oruhands.jpg'],
             globeX: -0.02,
         },
         {
-            id: 'isr', label: 'Role Fit',
-            eyebrow: 'Calling & Fit',
+            id: 'isr', label: 'Why ISR',
             title: 'Why International Student Relations',
-            subtitle: 'Communication, structure, and care',
-            body: "I went through the visa process myself. But even before that experience, God had already written the nations on my heart. ISR is the intersection of my calling, my story, and my skills. I was made for this work.",
-            points: ['Communication across cultures', 'Structured processes', 'Care for transition', 'Support systems design'],
+            subtitle: 'Passion, structure & care',
+            body: "Since I was a kid, God placed the nations on my heart. Coming to the United States, I navigated every visa process myself, no lawyer, no shortcuts, giving me a unique understanding of what international students face. ISR is where my calling, my story, and my skills come together. I was made for this work.",
+            points: ['Communication across cultures', 'Structured processes', 'Care for transition'],
             images: ['assets/img/projects/oru/process.jpg', 'assets/img/projects/oru/process2.jpg'],
             globeX: 0.01,
         },
         {
-            id: 'bring', label: 'Strengths',
-            eyebrow: 'Strengths',
+            id: 'bring', label: 'Skills',
             title: 'What I Bring',
-            subtitle: 'Scalable thinking and lived experience',
-            body: "As a foreign national who navigated immigration process firsthand, I understand international law from the inside. Add to that global leadership as Alumni Director of the largest Rhema alumni network in the world, a theology foundation, and a software engineering mindset, and you find me.",
-            points: ['Systems mindset', 'International perspective', 'Leadership experience', 'Faith foundation', 'Technical fluency'],
+            subtitle: 'Scalable thinking & lived experience',
+            body: "As a foreign national who has navigated the student immigration process firsthand, I understand both the technical and emotional aspects of being an international student. My perspective is further informed by my global leadership experience as Alumni Director of the largest Rhema alumni network in the world, my theology foundation, and my technology skills.",
+            points: ['International perspective', 'Leadership experience', 'Technical fluency'],
             images: ['assets/img/projects/oru/system.png', 'assets/img/projects/oru/products.png', 'assets/img/projects/oru/events.png'],
             globeX: 0.04,
         },
         {
             id: 'ai', label: 'Vision',
-            eyebrow: 'Vision',
             title: 'Scaling with AI',
             subtitle: 'Using smart systems to increase human care',
-            body: "My hope is to help build intelligent systems that surface at-risk students earlier, automate what is routine, and give advisors real-time visibility into every student's journey. The technology is ready. And I'm ready to serve.",
+            body: "I want to build intelligent systems that proactively identify at-risk students, automate routine tasks, and provide advisors real-time visibility into every student's journey. The technology is available, and I can develop it to serve ISR.",
             points: ['Intelligent support tools', 'Process optimization', 'Data visibility', 'More human-centered time', 'Proactive student care'],
             images: ['assets/img/projects/oru/irs.png'],
             globeX: 0.07,
         },
         {
-            id: 'fit', label: 'Closing',
-            eyebrow: 'Closing Statement',
-            title: "Why I'm the Right Fit",
-            subtitle: 'Skill, conviction, and service',
-            body: "I'm confident I can serve ORU and its students with the skills, global perspective, and spiritual integrity that God has been developing throughout my life.",
+            id: 'fit', label: 'Role Fit',
+            title: "I'm the Right Person for the Position",
+            subtitle: 'Skill, conviction & service',
+            body: "I will serve ISR, ORU, and its students with my comprehensive skills, transnational mindset, and spiritual integrity.",
             points: ['Technical capability', 'Global perspective', 'Spiritual integrity', 'Servant leadership'],
             images: ['assets/img/projects/oru/gil.jpg'],
             globeX: 0.10,
@@ -1046,11 +827,8 @@
         globeMesh = new THREE.Mesh(
             new THREE.SphereGeometry(1, 80, 80),
             new THREE.MeshPhongMaterial({
-                map: earthTex,
-                normalMap: normalTex,
-                specularMap: specTex,
-                specular: new THREE.Color(0x3b78b1),
-                shininess: 28
+                map: earthTex, normalMap: normalTex, specularMap: specTex,
+                specular: new THREE.Color(0x3b78b1), shininess: 28
             })
         );
         globeMesh.rotation.y = -1;
@@ -1059,42 +837,27 @@
         scene.add(new THREE.Mesh(
             new THREE.SphereGeometry(1.06, 64, 64),
             new THREE.MeshPhongMaterial({
-                color: 0x1a4a99,
-                emissive: new THREE.Color(0x0a2060),
-                transparent: true,
-                opacity: 0.15,
-                side: THREE.BackSide,
-                depthWrite: false
+                color: 0x1a4a99, emissive: new THREE.Color(0x0a2060),
+                transparent: true, opacity: 0.15, side: THREE.BackSide, depthWrite: false
             })
         ));
 
         scene.add(new THREE.Mesh(
             new THREE.SphereGeometry(1.15, 64, 64),
             new THREE.MeshPhongMaterial({
-                color: 0x0d2a66,
-                emissive: new THREE.Color(0x061540),
-                transparent: true,
-                opacity: 0.07,
-                side: THREE.BackSide,
-                depthWrite: false
+                color: 0x0d2a66, emissive: new THREE.Color(0x061540),
+                transparent: true, opacity: 0.07, side: THREE.BackSide, depthWrite: false
             })
         ));
 
         cloudMesh = new THREE.Mesh(
             new THREE.SphereGeometry(1.015, 64, 64),
-            new THREE.MeshPhongMaterial({
-                map: cloudTex,
-                transparent: true,
-                opacity: 0.35,
-                depthWrite: false
-            })
+            new THREE.MeshPhongMaterial({ map: cloudTex, transparent: true, opacity: 0.35, depthWrite: false })
         );
         cloudMesh.rotation.y = -0.88;
         scene.add(cloudMesh);
 
-        // Drag interaction
-        let isDragging = false;
-        let prevMouseX = 0, prevMouseY = 0;
+        let isDragging = false, prevMouseX = 0, prevMouseY = 0;
         let velocityX = 0, velocityY = 0;
         let autoRotY = globeMesh.rotation.y;
 
@@ -1102,79 +865,57 @@
         globeWrap.style.cursor = 'grab';
 
         globeWrap.addEventListener('mousedown', e => {
-            isDragging = true;
-            prevMouseX = e.clientX;
-            prevMouseY = e.clientY;
-            velocityX = 0;
-            velocityY = 0;
-            globeWrap.style.cursor = 'grabbing';
-            e.preventDefault();
+            isDragging = true; prevMouseX = e.clientX; prevMouseY = e.clientY;
+            velocityX = 0; velocityY = 0;
+            globeWrap.style.cursor = 'grabbing'; e.preventDefault();
         });
 
         window.addEventListener('mousemove', e => {
             if (!isDragging) return;
-            const dx = e.clientX - prevMouseX;
-            const dy = e.clientY - prevMouseY;
-            velocityX = dx * 0.008;
-            velocityY = dy * 0.008;
+            const dx = e.clientX - prevMouseX, dy = e.clientY - prevMouseY;
+            velocityX = dx * 0.008; velocityY = dy * 0.008;
             globeMesh.rotation.y += velocityX;
-            globeMesh.rotation.x += velocityY;
-            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
+            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x + velocityY));
             cloudMesh.rotation.y = globeMesh.rotation.y;
             cloudMesh.rotation.x = globeMesh.rotation.x;
-            prevMouseX = e.clientX;
-            prevMouseY = e.clientY;
+            prevMouseX = e.clientX; prevMouseY = e.clientY;
         });
 
         window.addEventListener('mouseup', () => {
             if (!isDragging) return;
-            isDragging = false;
-            globeWrap.style.cursor = 'grab';
+            isDragging = false; globeWrap.style.cursor = 'grab';
             autoRotY = globeMesh.rotation.y;
         });
 
         globeWrap.addEventListener('touchstart', e => {
             isDragging = true;
-            prevMouseX = e.touches[0].clientX;
-            prevMouseY = e.touches[0].clientY;
-            velocityX = 0;
-            velocityY = 0;
-            e.preventDefault();
+            prevMouseX = e.touches[0].clientX; prevMouseY = e.touches[0].clientY;
+            velocityX = 0; velocityY = 0; e.preventDefault();
         }, { passive: false });
 
         window.addEventListener('touchmove', e => {
             if (!isDragging) return;
-            const dx = e.touches[0].clientX - prevMouseX;
-            const dy = e.touches[0].clientY - prevMouseY;
-            velocityX = dx * 0.008;
-            velocityY = dy * 0.008;
+            const dx = e.touches[0].clientX - prevMouseX, dy = e.touches[0].clientY - prevMouseY;
+            velocityX = dx * 0.008; velocityY = dy * 0.008;
             globeMesh.rotation.y += velocityX;
-            globeMesh.rotation.x += velocityY;
-            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
+            globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x + velocityY));
             cloudMesh.rotation.y = globeMesh.rotation.y;
             cloudMesh.rotation.x = globeMesh.rotation.x;
-            prevMouseX = e.touches[0].clientX;
-            prevMouseY = e.touches[0].clientY;
+            prevMouseX = e.touches[0].clientX; prevMouseY = e.touches[0].clientY;
         }, { passive: false });
 
-        window.addEventListener('touchend', () => {
-            isDragging = false;
-            autoRotY = globeMesh.rotation.y;
-        });
+        window.addEventListener('touchend', () => { isDragging = false; autoRotY = globeMesh.rotation.y; });
 
         (function tick() {
             requestAnimationFrame(tick);
             if (!isDragging) {
                 if (Math.abs(velocityX) > 0.0001 || Math.abs(velocityY) > 0.0001) {
                     globeMesh.rotation.y += velocityX;
-                    globeMesh.rotation.x += velocityY;
-                    globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x));
-                    velocityX *= 0.92;
-                    velocityY *= 0.92;
+                    globeMesh.rotation.x = Math.max(-1.2, Math.min(1.2, globeMesh.rotation.x + velocityY));
+                    velocityX *= 0.92; velocityY *= 0.92;
                     autoRotY = globeMesh.rotation.y;
                 } else {
-                    velocityX = 0;
-                    velocityY = 0;
+                    velocityX = 0; velocityY = 0;
                     autoRotY += 0.0007;
                     globeMesh.rotation.y += (autoRotY - globeMesh.rotation.y) * 0.04;
                     globeMesh.rotation.x += (targetTiltX - globeMesh.rotation.x) * 0.045;
@@ -1240,7 +981,6 @@
         document.getElementById('orbit-prev').disabled = activeIndex === 0;
         document.getElementById('orbit-next').disabled = activeIndex === SLIDES.length - 1;
 
-        // Update progress bar
         const pct = SLIDES.length <= 1 ? 100 : (activeIndex / (SLIDES.length - 1)) * 100;
         document.getElementById('progress-fill').style.width = pct + '%';
     }
@@ -1251,7 +991,7 @@
         requestAnimationFrame(animateOrbit);
     }
 
-    // ── Build centered slide menu in top bar ────────
+    // ── Slide menu ──────────────────────────────────
     function buildSlideMenu() {
         const menu = document.getElementById('detail-slide-menu');
         menu.innerHTML = '';
@@ -1259,7 +999,11 @@
             const btn = document.createElement('button');
             btn.className = 'slide-menu-btn';
             btn.textContent = s.label;
-            btn.onclick = () => { activeIndex = i; updateOrbitPlanets(); openDetail(); };
+            btn.onclick = () => {
+                activeIndex = i;
+                updateOrbitPlanets();
+                renderDetail();  // ← just re-render content, don't call openDetail() which resets index
+            };
             menu.appendChild(btn);
         });
     }
@@ -1270,44 +1014,22 @@
         });
     }
 
-    // ── Accordion chips ─────────────────────────────
-    function buildChips(points) {
+    // ── Key points — plain list ──────────────────────
+    function buildPoints(points) {
         const pts = document.getElementById('d-points');
         if (!points || points.length === 0) { pts.innerHTML = ''; return; }
-
-        // points can be strings OR {label, detail} objects
-        pts.innerHTML = points.map((p, i) => {
-            const label  = typeof p === 'string' ? p : p.label;
-            const detail = typeof p === 'string' ? null : p.detail;
-            const hasDetail = !!detail;
-            return `
-            <div class="d-chip" id="chip-${i}">
-                <div class="d-chip-header" onclick="toggleChip(${i})">
-                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m9 18 6-6-6-6"/>
-                    </svg>
-                    ${label}
-                </div>
-                ${hasDetail ? `<div class="d-chip-body">${detail}</div>` : ''}
-            </div>`;
-        }).join('');
-    }
-
-    function toggleChip(i) {
-        const chip = document.getElementById(`chip-${i}`);
-        if (!chip) return;
-        const body = chip.querySelector('.d-chip-body');
-        if (!body) return;
-        chip.classList.toggle('open');
+        pts.innerHTML = points.map(p => `
+            <div class="d-point">
+                <div class="d-point-dot"></div>
+                <span>${typeof p === 'string' ? p : p.label}</span>
+            </div>`).join('');
     }
 
     // ── Lightbox ─────────────────────────────────────
     let lbImages = [], lbIdx = 0;
 
     function openLightbox(images, idx) {
-        lbImages = images;
-        lbIdx = idx;
+        lbImages = images; lbIdx = idx;
         document.getElementById('lb-img').src = lbImages[lbIdx];
         document.getElementById('d-lightbox').classList.add('open');
         document.getElementById('lb-prev').style.opacity = lbIdx === 0 ? '.3' : '1';
@@ -1341,11 +1063,9 @@
     function buildCarousel(images) {
         const viewport = document.getElementById('car-viewport');
         const dotsWrap = document.getElementById('car-dots');
-        viewport.innerHTML = '';
-        dotsWrap.innerHTML = '';
+        viewport.innerHTML = ''; dotsWrap.innerHTML = '';
         carActiveIdx = 0;
 
-        // Single image: add .single class for larger display
         viewport.classList.toggle('single', images && images.length === 1);
 
         if (!images || images.length === 0) {
@@ -1355,8 +1075,7 @@
                     <rect width="18" height="18" x="3" y="3" rx="2"/>
                     <circle cx="9" cy="9" r="2"/>
                     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
-                </svg>
-                Add images to this slide
+                </svg>Add images to this slide
             </div></div>`;
             document.getElementById('car-prev').disabled = true;
             document.getElementById('car-next').disabled = true;
@@ -1368,9 +1087,7 @@
             slide.className = 'car-slide';
             slide.style.cursor = 'zoom-in';
             const img = document.createElement('img');
-            img.src = src;
-            img.alt = `Photo ${i + 1}`;
-            img.loading = 'lazy';
+            img.src = src; img.alt = `Photo ${i + 1}`; img.loading = 'lazy';
             img.onerror = () => {
                 slide.innerHTML = `<div class="car-placeholder">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1379,13 +1096,11 @@
                 </div>`;
             };
             slide.appendChild(img);
-            // Click to open lightbox
             slide.addEventListener('click', () => openLightbox(images, i));
             viewport.appendChild(slide);
 
             const dot = document.createElement('button');
-            dot.className = 'car-dot';
-            dot.type = 'button';
+            dot.className = 'car-dot'; dot.type = 'button';
             dot.setAttribute('role', 'tab');
             dot.setAttribute('aria-label', `Go to photo ${i + 1}`);
             dot.setAttribute('aria-current', i === 0 ? 'true' : 'false');
@@ -1425,32 +1140,42 @@
 
     document.getElementById('car-prev').addEventListener('click', () => carGoTo(carActiveIdx - 1));
     document.getElementById('car-next').addEventListener('click', () => carGoTo(carActiveIdx + 1));
+    document.getElementById('d-prev').addEventListener('click', () => detailNavigate(-1));
+    document.getElementById('d-next').addEventListener('click', () => detailNavigate(1));
+    document.getElementById('detail-close-btn').addEventListener('click', closeDetail);
 
-    // ── openDetail ───────────────────────────────────
-    function openDetail(idx) {
-        if (idx !== undefined) activeIndex = idx;
+    // ── renderDetail: fill content for current activeIndex ──
+    // Separated from openDetail so the slide menu can switch
+    // slides without re-triggering the open animation or resetting state.
+    function renderDetail() {
         const s = SLIDES[activeIndex];
 
         document.getElementById('d-title').textContent = s.title;
         document.getElementById('d-subtitle').textContent = s.subtitle;
         document.getElementById('d-body').textContent = s.body;
-
         targetTiltX = s.globeX;
 
         const q = document.getElementById('d-quote');
         if (s.quote) { q.style.display = 'block'; q.textContent = `"${s.quote}"`; }
         else { q.style.display = 'none'; }
 
-        buildChips(s.points || []);
+        buildPoints(s.points || []);
         buildCarousel(s.images || []);
         updateSlideMenu();
 
+        // Fix nav buttons: use the CURRENT activeIndex at time of click
         document.getElementById('d-prev').disabled = activeIndex === 0;
         document.getElementById('d-next').disabled = activeIndex === SLIDES.length - 1;
 
         document.querySelector('.detail-scroll').scrollTop = 0;
+    }
+
+    // ── openDetail: open overlay then render ────────
+    function openDetail(idx) {
+        if (idx !== undefined) activeIndex = idx;
         document.getElementById('detail-overlay').classList.add('open');
         document.body.style.overflow = 'hidden';
+        renderDetail();
     }
 
     function closeDetail() {
@@ -1458,9 +1183,13 @@
         document.body.style.overflow = '';
     }
 
+    // Fix: capture activeIndex at call time, not inside a closure that reads stale state
     function detailNavigate(dir) {
-        const next = Math.max(0, Math.min(SLIDES.length - 1, activeIndex + dir));
-        if (next !== activeIndex) { activeIndex = next; updateOrbitPlanets(); openDetail(); }
+        const target = activeIndex + dir;
+        if (target < 0 || target >= SLIDES.length) return;
+        activeIndex = target;
+        updateOrbitPlanets();
+        renderDetail();
     }
 
     function navigate(dir) {
@@ -1488,8 +1217,8 @@
         }
         if (e.key === 'Escape') { if (detailOpen) closeDetail(); return; }
         if (detailOpen) {
-            if (e.key === 'ArrowLeft')  carGoTo(carActiveIdx - 1);
-            if (e.key === 'ArrowRight') carGoTo(carActiveIdx + 1);
+            if (e.key === 'ArrowLeft')  detailNavigate(-1);
+            if (e.key === 'ArrowRight') detailNavigate(1);
             return;
         }
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
