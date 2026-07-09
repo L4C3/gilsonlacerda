@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet the Team — Peacock Card (Four Column)</title>
+  <link rel="stylesheet" href="css/root-variables.css">
+  <link rel="stylesheet" href="css/four-column-styles.css">
+  <style>
+    /* Page-level shell only — not part of the component. Mirrors
+       the "full-width page template" the component is meant to
+       live inside, without depending on ORU's actual template. */
+    body {
+      margin: 0;
+      background: var(--color-white, #fff);
+      color: var(--brand-primary-blue, #041E41);
+    }
+    .page-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    .mb-4 { margin-bottom: 2rem; }
+    .mb-3 { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+  <main class="page-shell">
+    <section class="peacock-card-component scroll-reveal">
+      <h2 class="peacock-card-heading mb-4">Meet Our Team</h2>
+      <div class="peacock-card peacock-card--four-column" id="team-grid">
+        <!-- Cards are rendered by js/team-cards.js -->
+      </div>
+    </section>
+  </main>
+
+  <script src="js/team-cards.js"></script>
+</body>
+</html>

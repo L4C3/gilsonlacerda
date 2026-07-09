@@ -1,0 +1,215 @@
+/* ============================================================
+   peacock-card-component — four-column variant (team cards)
+   Sibling stylesheet to three-column-styles.css.
+   Reuses the same base component (.peacock-card / .item / .block)
+   and adds a --four-column modifier plus a few team-specific
+   sub-classes (.name, .role, .dept, .contact-list).
+   Fonts: same free Google Fonts as the three-column component.
+   ============================================================ */
+
+/* ---------- FONTS (same pairing as three-column) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=Bebas+Neue&display=swap');
+
+/* ---------- DESIGN TOKENS (fallback if root-variables.css isn't loaded) ---------- */
+:root {
+  --brand-accent-tan: #C39236;
+  --brand-primary-blue: #041E41;
+  --brand-primary-blue-40: #68788d;
+  --brand-accent-blue-60: #cadfee;
+  --font-bebas-neue: "Bebas Neue", sans-serif;
+  --font-body: "Roboto Slab", serif;
+}
+
+/* ---------- BASE (identical contract to three-column) ---------- */
+.peacock-card-component,
+.peacock-card-component * {
+  box-sizing: border-box;
+}
+
+.peacock-card-component {
+  font-family: var(--font-body);
+}
+
+/* ---------- SCROLL REVEAL (same entrance animation as three-column) ---------- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(48px) scale(0.98);
+  transition: opacity 1.4s, transform 1.4s;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- HEADING (identical to three-column) ---------- */
+.peacock-card-heading {
+  margin-bottom: 2rem;
+  text-decoration: underline solid var(--brand-accent-tan) 3px;
+  text-underline-offset: 0.3rem;
+}
+
+/* ---------- CARD GRID (same base rules as three-column) ---------- */
+.peacock-card {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+
+  & .item {
+    padding: 2rem;
+    border-left: 1px solid var(--brand-accent-tan);
+  }
+
+  & .item-hidden {
+    visibility: hidden;
+  }
+
+  & .title {
+    font-family: var(--font-bebas-neue), serif !important;
+    font-size: 1.7rem;
+  }
+}
+
+/* ---------- FOUR-COLUMN VARIANT ---------- */
+.peacock-card--four-column {
+  & .item {
+    flex: 0 1 100%;
+  }
+
+  /* Team-specific: circular headshot instead of the 350x250
+     landscape promo image three-column uses. A person's photo
+     reads as a portrait, not a marketing still, so the aspect
+     ratio and framing intentionally differ from the base image
+     rule while reusing the same spacing/token language. */
+  & .image {
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    border: 3px solid var(--brand-accent-tan);
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+  & .name {
+    font-family: var(--font-bebas-neue), serif !important;
+    font-size: 1.5rem;
+    color: var(--brand-primary-blue);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  & .role {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brand-primary-blue);
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+  }
+
+  & .dept {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--brand-primary-blue-40);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  & .contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 280px;
+    margin: 0 auto;
+
+    & li {
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    & a {
+      color: var(--brand-primary-blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--brand-accent-tan);
+      transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+
+    & a:hover,
+    & a:focus-visible {
+      color: var(--brand-accent-tan);
+      border-color: var(--brand-primary-blue);
+    }
+  }
+}
+
+/* Desktop: 4 across */
+@media (min-width: 992px) {
+  .peacock-card--four-column {
+    & .item {
+      flex: 0 1 25%;
+    }
+
+    & .item:nth-child(4n + 1) {
+      border-left: none;
+    }
+  }
+}
+
+/* Tablet: 2 across — four columns need more room than three did,
+   so this variant gets an intermediate step the three-column
+   component doesn't need. */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .peacock-card--four-column {
+    & .item {
+      flex: 0 1 50%;
+    }
+
+    & .item:nth-child(4n + 1) {
+      border-left: 1px solid var(--brand-accent-tan);
+    }
+
+    & .item:nth-child(2n + 1) {
+      border-left: none;
+    }
+  }
+}
+
+/* ---------- RESPONSIVE (stacked on mobile — identical pattern to three-column) ---------- */
+@media (max-width: 767.98px) {
+  .peacock-card--four-column {
+    display: block;
+
+    & .item {
+      width: 100%;
+      padding: 0 0 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: none;
+      border-bottom: 1px solid var(--brand-accent-tan);
+    }
+
+    & .item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    & .item-hidden {
+      display: none;
+    }
+  }
+}

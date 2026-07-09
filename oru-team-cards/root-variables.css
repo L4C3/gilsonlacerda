@@ -1,0 +1,43 @@
+:root {
+	--brand-primary-blue : #041E41;
+	--brand-accent-blue: #7BAFD4;
+	--brand-primary-tan: #C4B282; /* This tan is AAA WCAG with Primary Blue */
+	--brand-secondary-tan: #E9DFBB;  
+	--brand-accent-tan: #C39236;
+/* 	Tint */
+	--brand-primary-blue-10 : #10294a;
+	--brand-primary-blue-40 : #68788d;
+	--brand-primary-blue-80 : #cdd2d9;
+	/* Tint Accent Blue	 */
+	--brand-accent-blue-60 : #cadfee;
+	--brand-accent-blue-80 : #e5eff6;
+	
+	/* Tint Secondary Tan	 */
+	--brand-secondary-tan-40 : #f2ecd6;
+	--brand-secondary-tan-60 : #f6f2e4;
+	--brand-secondary-tan-80 : #fbf9f1;
+	/* Temp Color */
+	--brand-secondary-blue : #1B335F;
+	--brand-gold: #BA8A40;	
+	--brand-primary-tan-2: #E9DFBB; 
+	
+	--brand-light-blue: #7BAFD4; /* This was the old name and will be replaced after color names are finalized */
+	/* ADA Safe Colors With Primary Blue */
+	--brand-light-blue-2: #AACAE2;
+	/* 	base */
+	--color-white: #fff;
+	--color-black: #000;
+
+	/****** Fonts *****/
+	--font-montserrat : "Montserrat", sans-serif;
+	--font-bebas-neue: "Bebas Neue", sans-serif;
+	--font-museo-slab-300: "MuseoSlab-300", sans-serif;
+	--font-museo-slab-500: "MuseoSlab-500", sans-serif;
+	--font-helvetica: 'Helvetica', sans-serif;
+	--font-open-sans: 'Open Sans', sans-serif;
+	
+	
+	/* transition */
+	--default-transition: all 0.6s ease-in-out;
+	
+}
